@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Public hosted zone for alexfischman.dev
+
+Resources:
+  AlexDevZone:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: alexfischman.dev
+
+Outputs:
+  ZoneId:
+    Description: Hosted Zone ID to import elsewhere
+    Value: !Ref AlexDevZone
+    Export:
+      Name: alexfischman-dev:ZoneId
+
+  NameServers:
+    Description: NS values to configure at GoDaddy
+    Value: !Join [",", !GetAtt [AlexDevZone, NameServers]]
+    Export:
+      Name: alexfischman-dev:NameServers
