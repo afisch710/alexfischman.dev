@@ -1,0 +1,51 @@
+name: alexfischman.dev PR Validation
+
+on:
+  pull_request:
+    branches: [ development ]
+    paths:
+      - 'web/**'
+      - 'content/**'
+
+jobs:
+  validate:
+    name: Validate Next.js Application
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Validate CloudFormation Template
+      run: |
+        aws cloudformation validate-template \
+          --template-body file://web/cloudformation.yaml
+
+    # Next.js specific steps - uncomment when adding Next.js app
+    # - name: Set up Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '20.10.0'
+    #     cache: 'yarn'
+
+    # - name: Install Dependencies
+    #   run: yarn install --frozen-lockfile
+    #   working-directory: ./web
+
+    # - name: Run Prebuild
+    #   run: yarn prebuild
+    #   working-directory: ./web
+
+    # - name: Run Linter
+    #   run: yarn lint
+    #   working-directory: ./web
+
+    # - name: Run Type Check
+    #   run: yarn type-check
+    #   working-directory: ./web
