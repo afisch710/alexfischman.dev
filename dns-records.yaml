@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Route 53 records for alexfischman.dev → CloudFront
+
+Mappings:
+  AWSServiceHostedZoneIds:
+    CloudFront:
+      HostedZoneId: Z2FDTNDATAQYW2
+
+Resources:
+  ApexAlias:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !ImportValue alexfischman-dev:ZoneId
+      Name: alexfischman.dev
+      Type: A
+      AliasTarget:
+        DNSName: !ImportValue alexfischman-dev:CloudFrontDomain
+        HostedZoneId:
+          Fn::FindInMap:
+            - AWSServiceHostedZoneIds
+            - CloudFront
+            - HostedZoneId
+
+  WwwAlias:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !ImportValue alexfischman-dev:ZoneId
+      Name: www.alexfischman.dev
+      Type: A
+      AliasTarget:
+        DNSName: !ImportValue alexfischman-dev:CloudFrontDomain
+        HostedZoneId:
+          Fn::FindInMap:
+            - AWSServiceHostedZoneIds
+            - CloudFront
+            - HostedZoneId
