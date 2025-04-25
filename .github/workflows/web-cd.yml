@@ -1,0 +1,80 @@
+name: alexfischman.dev Web Deployment
+
+on:
+  push:
+    branches: [ development ]
+    paths:
+      - 'web/**'
+      - 'content/**'
+
+jobs:
+  deploy:
+    name: Deploy Next.js Application
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # Next.js specific steps - uncomment when adding Next.js app
+    # - name: Set up Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '20.10.0'
+    #     cache: 'yarn'
+
+    # - name: Install Dependencies
+    #   run: yarn install --frozen-lockfile
+    #   working-directory: ./web
+
+    # - name: Run Prebuild
+    #   run: yarn prebuild
+    #   working-directory: ./web
+
+    # - name: Build Next.js Application
+    #   run: yarn build
+    #   working-directory: ./web
+
+    # - name: Export Next.js to Static HTML
+    #   run: yarn next export
+    #   working-directory: ./web
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Get Stack Outputs
+      id: stack-outputs
+      run: |
+        BUCKET_NAME=$(aws cloudformation describe-stacks \
+          --stack-name alexfischman-dev-app \
+          --query 'Stacks[0].Outputs[?OutputKey==`BucketName`].OutputValue' \
+          --output text)
+        CF_DIST_ID=$(aws cloudformation describe-stacks \
+          --stack-name alexfischman-dev-app \
+          --query 'Stacks[0].Outputs[?OutputKey==`CloudFrontDistributionId`].OutputValue' \
+          --output text)
+        echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
+        echo "cf_dist_id=$CF_DIST_ID" >> $GITHUB_OUTPUT
+
+    # - name: Upload Static Files to S3
+    #   run: |
+    #     aws s3 cp web/out s3://${{ steps.stack-outputs.outputs.bucket_name }}/ \
+    #       --recursive \
+    #       --cache-control max-age=21600
+
+    - name: Deploy CloudFormation Stack
+      run: |
+        aws cloudformation deploy \
+          --template-file web/cloudformation.yaml \
+          --stack-name alexfischman-dev-app \
+          --capabilities CAPABILITY_IAM \
+          --no-fail-on-empty-changeset
+
+    - name: Invalidate CloudFront Cache
+      run: |
+        aws cloudfront create-invalidation \
+          --distribution-id ${{ steps.stack-outputs.outputs.cf_dist_id }} \
+          --paths "/*"

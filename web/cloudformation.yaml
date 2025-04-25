@@ -1,0 +1,101 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CloudFormation template for Next.js static site hosting of alexfischman.dev'
+
+Parameters:
+  DomainName:
+    Type: String
+    Description: 'The domain name for the website'
+    Default: 'alexfischman.dev'
+
+Resources:
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref DomainName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders: ['*']
+            AllowedMethods: [GET, HEAD]
+            AllowedOrigins: ['*']
+            MaxAge: 3000
+
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref WebsiteBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowCloudFrontServicePrincipal
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub '${WebsiteBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}"
+
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+        Aliases:
+          - !Ref DomainName
+          - !Sub "www.${DomainName}"
+        Origins:
+          - DomainName: !GetAtt WebsiteBucket.RegionalDomainName
+            Id: S3Origin
+            OriginAccessControlId: !GetAtt CloudFrontOriginAccessControl.Id
+            S3OriginConfig: {}
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6  # CachingOptimized
+          OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf  # CORS-S3Origin
+        ViewerCertificate:
+          AcmCertificateArn: !ImportValue alexfischman-dev:CertificateArn
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        PriceClass: PriceClass_100
+        HttpVersion: http2
+        IPV6Enabled: true
+
+  CloudFrontOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub ${AWS::StackName}-OAC
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+Outputs:
+  BucketName:
+    Description: 'Name of the S3 bucket to hold website content'
+    Value: !Ref WebsiteBucket
+    Export:
+      Name: !Sub ${AWS::StackName}-BucketName
+
+  CloudFrontDistributionId:
+    Description: 'ID of the CloudFront distribution'
+    Value: !Ref CloudFrontDistribution
+    Export:
+      Name: !Sub ${AWS::StackName}-DistributionId
+
+  CloudFrontDomainName:
+    Description: 'Domain name of the CloudFront distribution'
+    Value: !GetAtt CloudFrontDistribution.DomainName
+    Export:
+      Name: alexfischman-dev:CloudFrontDomain
