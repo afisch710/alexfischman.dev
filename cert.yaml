@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: DNS‑validated ACM certificate for alexfischman.dev
+
+Resources:
+  SiteCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: alexfischman.dev
+      SubjectAlternativeNames:
+        - www.alexfischman.dev
+      ValidationMethod: DNS
+
+Outputs:
+  CertificateArn:
+    Description: ARN of the DNS‑validated ACM certificate
+    Value: !Ref SiteCertificate
+    Export:
+      Name: alexfischman-dev:CertificateArn
