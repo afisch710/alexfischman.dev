@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { Container } from '@mui/material';
 import ExperiencePage from '@/components/experience/ExperiencePage';
 import { Experience } from '@/context/ExperienceProvider';
-import { fetchExperiences } from '@/lib/fetchExperiences';
+import { fetchExperiences } from '../../lib/fetchExperiences';
 
 interface ExperienceSlugPageProps {
   experience: Experience;

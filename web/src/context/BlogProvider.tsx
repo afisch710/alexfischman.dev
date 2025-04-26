@@ -1,6 +1,6 @@
 // /src/context/BlogProvider.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { fetchBlogs } from "@/lib/fetchBlogs";
+import { fetchBlogs } from "../lib/fetchBlogs";
 
 export interface Post {
   title: string;
