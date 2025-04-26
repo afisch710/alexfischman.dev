@@ -1,0 +1,50 @@
+# .github/workflows/update-github-profile.yml
+name: Refresh GitHub Profile Data
+
+on:
+  schedule:
+    - cron: '0 8 * * *'    # 2 AM Central Time (08:00 UTC)
+  workflow_dispatch:            # allows manual runs too
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up jq
+        run: sudo apt-get install -y jq
+
+      - name: Make script executable
+        run: chmod +x .github/scripts/workflow/update_github_profile.sh
+
+      - name: Fetch GitHub profile data
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROFILE_UPDATE_TOKEN }}
+        run: |
+          .github/scripts/workflow/update_github_profile.sh \
+            --username afischman710 \
+            --output profile-data.json
+
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Get bucket name from CloudFormation
+        id: get-bucket
+        run: |
+          BUCKET_NAME=$(aws cloudformation describe-stacks \
+            --stack-name alexfischman-dev-app \
+            --query 'Stacks[0].Outputs[?OutputKey==`BucketName`].OutputValue' \
+            --output text)
+          echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
+
+      - name: Upload snapshot to S3
+        run: |
+          aws s3 cp profile-data.json s3://${{ steps.get-bucket.outputs.bucket_name }}/profile-data.json \
+            --content-type application/json \
+            --cache-control max-age=21600
