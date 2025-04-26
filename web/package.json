@@ -1,0 +1,43 @@
+{
+  "name": "alexfischman.dev",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prebuild": "ts-node scripts/generate-posts.ts && ts-node scripts/generate-experience.ts",
+    "dev": "next dev --turbopack",
+    "dev:strict": "next dev --turbopack",
+    "dev:strict-check": "next lint && next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.6",
+    "@mui/material": "^6.4.6",
+    "framer-motion": "^12.4.10",
+    "gray-matter": "^4.0.3",
+    "next": "15.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "remark": "^15.0.1",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@octokit/graphql": "^8.2.2",
+    "@octokit/rest": "^21.1.1",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^16.5.0",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.0",
+    "link-preview-js": "^3.0.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  }
+}

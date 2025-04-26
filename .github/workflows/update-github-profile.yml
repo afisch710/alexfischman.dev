@@ -27,7 +27,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PROFILE_UPDATE_TOKEN }}
           GITHUB_USERNAME: afisch710
-          GITHUB_PROFILE_OUTPUT: web/public/github-profile.json
+          GITHUB_PROFILE_OUTPUT: web/src/data/github-profile.json
         run: |
           chmod +x web/scripts/generate-github-profile.sh
           cd web && ./scripts/generate-github-profile.sh
@@ -50,6 +50,6 @@ jobs:
 
       - name: Upload snapshot to S3
         run: |
-          aws s3 cp web/public/github-profile.json s3://${{ steps.get-bucket.outputs.bucket_name }}/github-profile.json \
+          aws s3 cp web/src/data/github-profile.json s3://${{ steps.get-bucket.outputs.bucket_name }}/github-profile.json \
             --content-type application/json \
             --cache-control max-age=21600
