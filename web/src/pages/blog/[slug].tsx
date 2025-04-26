@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { Container } from '@mui/material';
 import BlogPost from '../../components/blog/BlogPost';
 import { Post } from '../../context/BlogProvider';
-import { fetchBlogs } from '@/lib';
+import { fetchBlogs } from '@/lib/fetchBlogs';
 
 interface BlogPostPageProps {
   post: Post;
