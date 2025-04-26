@@ -1,6 +1,6 @@
 // /src/context/ExperienceProvider.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { fetchExperiences } from "@/lib/fetchExperiences";
+import { fetchExperiences } from "@/lib";
 
 export interface Artifact {
   url: string;
