@@ -13,19 +13,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up jq
-        run: sudo apt-get install -y jq
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-      - name: Make script executable
-        run: chmod +x .github/scripts/workflow/update_github_profile.sh
+      - name: Install dependencies
+        working-directory: ./web
+        run: |
+          npm install
 
-      - name: Fetch GitHub profile data
+      - name: Generate GitHub profile data
         env:
           GITHUB_TOKEN: ${{ secrets.PROFILE_UPDATE_TOKEN }}
+          GITHUB_USERNAME: afisch710
+          GITHUB_PROFILE_OUTPUT: web/public/github-profile.json
         run: |
-          .github/scripts/workflow/update_github_profile.sh \
-            --username afischman710 \
-            --output profile-data.json
+          chmod +x web/scripts/generate-github-profile.sh
+          cd web && ./scripts/generate-github-profile.sh
 
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
@@ -45,6 +50,6 @@ jobs:
 
       - name: Upload snapshot to S3
         run: |
-          aws s3 cp profile-data.json s3://${{ steps.get-bucket.outputs.bucket_name }}/profile-data.json \
+          aws s3 cp web/public/github-profile.json s3://${{ steps.get-bucket.outputs.bucket_name }}/github-profile.json \
             --content-type application/json \
             --cache-control max-age=21600
