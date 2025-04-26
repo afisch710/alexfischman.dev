@@ -135,7 +135,7 @@ async function generateGitHubProfile(username: string, outputFile: string): Prom
     failureRuns += failureData.total_count || 0;
   }
 
-  // 4. Write JSON output
+  // 4. Write JSON output to both locations
   console.log(`Writing data to ${outputFile}...`);
   const profileData: GitHubProfileData = {
     totalContributions,
@@ -147,6 +147,7 @@ async function generateGitHubProfile(username: string, outputFile: string): Prom
     },
   };
 
+  // Write to the specified output file (which will be in src/data)
   fs.writeFileSync(outputFile, JSON.stringify(profileData, null, 2));
   console.log(`✅ Wrote profile data to ${outputFile}`);
 }
@@ -154,7 +155,7 @@ async function generateGitHubProfile(username: string, outputFile: string): Prom
 // Main execution
 if (require.main === module) {
   const username = process.env.GITHUB_USERNAME || 'afisch710';
-  const outputFile = process.env.GITHUB_PROFILE_OUTPUT || path.resolve(__dirname, '../public/github-profile.json');
+  const outputFile = process.env.GITHUB_PROFILE_OUTPUT || path.resolve(__dirname, '../src/data/github-profile.json');
   
   generateGitHubProfile(username, outputFile)
     .then(() => console.log('Profile data updated successfully!'))

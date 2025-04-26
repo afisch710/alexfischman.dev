@@ -47,7 +47,7 @@ fi
 
 # Set default values if not provided
 export GITHUB_USERNAME=${GITHUB_USERNAME:-"afisch710"}
-export GITHUB_PROFILE_OUTPUT=${GITHUB_PROFILE_OUTPUT:-"web/public/github-profile.json"}
+export GITHUB_PROFILE_OUTPUT=${GITHUB_PROFILE_OUTPUT:-"$WEB_DIR/src/data/github-profile.json"}
 
 # Run the TypeScript script
 echo "Running GitHub profile generator (TypeScript version)..."

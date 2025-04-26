@@ -1,0 +1,377 @@
+[
+  {
+    "title": "Smart Dialer: T9 Contact Search for Windows Phone",
+    "company": "Microsoft",
+    "team": "Windows Phone",
+    "tags": [
+      "Mobile",
+      "C++/CX",
+      "XAML",
+      "UX",
+      "App Development",
+      "Windows",
+      "UWP"
+    ],
+    "priority": 9,
+    "description": "Redesigned the Windows Phone dialer experience by developing a fast and memory-efficient T9 contact search engine. I implemented a persistent Trie-based indexing system that dynamically reindexed contacts on add, remove, or update operations—delivering instant, accurate matches as users typed on the keypad. In parallel, I partnered closely with PM and Design to craft and implement the user experience for integrating smart search directly into the dialer UI. This feature shipped to all Windows Phone users and significantly improved contact accessibility from the native dialer.",
+    "artifacts": [],
+    "slug": "smart-dialer-t9-contact-search-for-windows-phone"
+  },
+  {
+    "title": "Accessible Dialer: Voice & Visual Accessibility for Windows Phone",
+    "company": "Microsoft",
+    "team": "Windows Phone",
+    "tags": [
+      "Mobile",
+      "C++/CX",
+      "XAML",
+      "UX",
+      "App Development",
+      "Windows",
+      "UWP"
+    ],
+    "priority": 10,
+    "description": "Led the accessibility overhaul of the Windows Phone Dialer app to ensure inclusive use for users with visual and motor impairments. This included implementing visual accessibility features such as high contrast mode and text zoom, as well as integrating auditory support via screen reader (Narrator) compatibility—enabling full voice-based navigation through the dialer interface. The project required tight collaboration with accessibility guidelines and OS-level APIs to deliver a fully navigable and compliant experience for all users.",
+    "artifacts": [],
+    "slug": "accessible-dialer-voice-visual-accessibility-for-windows-phone"
+  },
+  {
+    "title": "Cross-Form Factor Call UI – Modern Telephony Experiences for Windows Devices",
+    "company": "Microsoft",
+    "team": "Windows",
+    "tags": [
+      "Desktop",
+      "Mobile",
+      "C++/CX",
+      "XAML",
+      "UX",
+      "OS",
+      "Windows"
+    ],
+    "priority": 8,
+    "description": "As the primary engineer for call control UX, I led the design and development of modern calling interfaces across both experimental and mainstream Windows devices. This included building a fully functional telephony experience for Andromeda, Microsoft’s tented dual-screen device, where I implemented core controls like mute, hold, DTMF, and hang-up—all tailored for a flexible dual-display form factor. In parallel, I architected and delivered the new calling UI for Windows desktop—bringing a polished, standards-compliant phone call experience to the Windows PC platform. This work required close collaboration with PM and Design to ensure consistency with Windows UX guidelines and accessibility expectations, especially given the scale of the desktop user base. Together, these efforts pushed forward the Phone Link platform’s vision of seamless, native call integration across form factors—laying the groundwork for future extensibility and cross-device continuity.",
+    "artifacts": [],
+    "slug": "cross-form-factor-call-ui-modern-telephony-experiences-for-windows-devices"
+  },
+  {
+    "title": "Metered Network Mode – Data Cost Awareness in Windows Networking",
+    "company": "Microsoft",
+    "team": "Windows",
+    "tags": [
+      "Desktop",
+      "C++/CX",
+      "OS",
+      "Windows"
+    ],
+    "priority": 10,
+    "description": "Engineered and integrated support for metered networks within Windows networking settings—enabling the OS and applications to detect cost-sensitive networks like cellular and automatically enter a low-data mode. This system-level feature ensured that apps behaved responsibly on metered connections, helping users avoid unexpected data charges and improving overall control over bandwidth usage. The implementation required close integration with the Windows networking stack and alignment with platform-wide data usage policies.",
+    "artifacts": [],
+    "slug": "metered-network-mode-data-cost-awareness-in-windows-networking"
+  },
+  {
+    "title": "Windows Bluetooth HFP – Enabling Phone Calls from PC via Hands-Free Profile",
+    "company": "Microsoft",
+    "team": "Windows",
+    "tags": [
+      "Desktop",
+      "C++/CX",
+      "OS",
+      "Windows",
+      "Bluetooth",
+      "API Development"
+    ],
+    "priority": 5,
+    "description": "Partnered with the Windows Bluetooth team to implement the Bluetooth Hands-Free Profile (HFP) in the HF role, allowing Windows PCs to function as Bluetooth headsets for mobile phones. This work enabled users to make, receive, and control cellular calls directly from their desktop—marking a key first step in Microsoft’s now expansive cross-device strategy. I contributed to low-level API development and system integration to support real-time call controls, audio routing, and device state synchronization. This project laid the technical foundation for what would become a full suite of phone-to-PC continuity features across Windows and mobile platforms.",
+    "artifacts": [],
+    "slug": "windows-bluetooth-hfp-enabling-phone-calls-from-pc-via-hands-free-profile"
+  },
+  {
+    "title": "Phone Link Calling – Launched Bluetooth Calling from PC to Millions of Users",
+    "company": "Microsoft",
+    "team": "Phone Link",
+    "tags": [
+      "Desktop",
+      "Windows",
+      "UWP",
+      "C++/CX",
+      "C#",
+      "App Development",
+      "API Development",
+      "UX",
+      "XAML",
+      "Bluetooth",
+      "Telemetry",
+      "Android",
+      "Java"
+    ],
+    "priority": 6,
+    "description": "I was selected by the newly formed Microsoft Phone Link team (known as Your Phone at the time) to lead the calling development effort in the new Windows app. This work was building on the Windows OS work I had led to enable calling functionality via Bluetooth (HFP) on desktop. I partnered with PM/Design to build a calling experience from scratch in the Phone Link app. This included an onboarding experience for a user to Bluetooth pair their Windows PC with their mobile phone and once onboarded, dial phone calls, answer phone calls, and interact with phone calls. Additionally, we added support for contact syncing and call history in Phone Link.",
+    "artifacts": [],
+    "slug": "phone-link-calling-launched-bluetooth-calling-from-pc-to-millions-of-users"
+  },
+  {
+    "title": "Cross device connectivity re-architecture",
+    "company": "Microsoft",
+    "team": "Phone Link",
+    "tags": [
+      "Desktop",
+      "Windows",
+      "UWP",
+      "C++/CX",
+      "C#",
+      "App Development",
+      "API Development",
+      "Telemetry"
+    ],
+    "priority": 10,
+    "description": "Handpicked as the engineering lead for phone calling in Microsoft’s newly formed Phone Link team (then Your Phone), I architected and built the feature from the ground up—delivering full Bluetooth-based calling between Windows PCs and Android phones. This marked one of the first major capabilities in Microsoft’s cross-device initiative, and rapidly scaled to millions of users worldwide. Leveraging the Bluetooth HFP infrastructure I had previously implemented at the OS level, I created a fully native calling experience within the Phone Link app. I led development of the end-to-end stack, including device onboarding via Bluetooth pairing, real-time call controls (dial, answer, mute, hang up), contact sync, and call history. I also collaborated closely with PM and Design to define the user journey and ensure a polished, Windows-aligned UX. The feature was instrumental in establishing Phone Link as a flagship experience for Android + Windows integration, earning widespread media attention—including The Verge’s 2020 coverage and early previews. Today, it continues to serve as a foundational feature used by millions of users to stay connected across devices.",
+    "artifacts": [],
+    "slug": "cross-device-connectivity-re-architecture"
+  },
+  {
+    "title": "AADC Compliance – Protecting Young Users in Line with EU Privacy Law",
+    "company": "Microsoft",
+    "team": "Phone Link",
+    "tags": [
+      "Desktop",
+      "Windows",
+      "UWP",
+      "C++/CX",
+      "C#",
+      "UX",
+      "XAML",
+      "Android",
+      "Java",
+      "Compliance",
+      "GDPR",
+      "Telemetry"
+    ],
+    "priority": 7,
+    "description": "Served as the lead engineer responsible for bringing our product into compliance with the EU’s newly introduced Age Appropriate Design Code (AADC)—a regulation prohibiting most forms of data collection from users under a certain age. The project was high urgency, with significant legal and financial implications for non-compliance. I implemented age detection logic and built conditional UX flows that dynamically adjusted the interface based on user age group—proactively hiding or disabling features that involved data sharing or personalization. In parallel, I led a comprehensive refactor of our telemetry systems across both Windows and Android codebases to ensure no data was collected for users flagged as underage. This work was delivered on an accelerated timeline to meet legal deadlines, and successfully safeguarded Microsoft from noncompliance penalties while reinforcing our commitment to responsible data handling and child safety.",
+    "artifacts": [],
+    "slug": "aadc-compliance-protecting-young-users-in-line-with-eu-privacy-law"
+  },
+  {
+    "title": "Samsung Partnership Engineering – Cross-Geo QA & Feature Ownership for Galaxy Devices",
+    "company": "Microsoft",
+    "team": "Phone Link",
+    "tags": [
+      "Desktop",
+      "Windows",
+      "UWP",
+      "Android",
+      "Mobile",
+      "Compliance",
+      "Global Readiness",
+      "Global Partnership",
+      "Cross geo"
+    ],
+    "priority": 9,
+    "description": "As part of Microsoft’s strategic partnership with Samsung to preinstall our Link to Windows Android app on Galaxy devices, I served as the technical point of contact for multiple core Phone Link features—supporting ongoing integration, compliance, and quality assurance efforts across the partnership. A key requirement was passing Samsung’s biannual QA certification cycle ahead of major device or OS launches. I was directly responsible for diagnosing and resolving issues surfaced by Samsung’s QA team—often under tight timelines—to ensure our features remained fully functional and certifiable. This work was mission-critical to maintaining preinstall status and ensuring continued product availability on flagship Samsung devices. Beyond unblocking product delivery, the role offered invaluable cross-geo collaboration experience. I worked closely with Samsung engineers in South Korea to align on feature readiness, edge case behavior, and cross-platform integration, contributing directly to the success of one of Microsoft’s highest-profile mobile partnerships.",
+    "artifacts": [],
+    "slug": "samsung-partnership-engineering-cross-geo-qa-feature-ownership-for-galaxy-devices"
+  },
+  {
+    "title": "iOS: Solving Apple's Walled Garden",
+    "company": "Microsoft",
+    "team": "Phone Link iOS",
+    "tags": [
+      "Mobile",
+      "iOS",
+      "Mac",
+      "App Development",
+      "Bluetooth"
+    ],
+    "priority": 1,
+    "description": "Apple’s walled garden has long limited third-party developers from enabling deep integrations with iOS. For years, this made it virtually impossible to support meaningful cross-device functionality between iPhones and Windows PCs. I co-developed a pitch with my manager and coworker proposing a bold workaround: leveraging Bluetooth to enable seamless cross-device features, inspired by how iPhones interact with modern cars. Our proposal included working prototypes for initiating and receiving phone calls, sending and receiving iMessages, syncing call history and contacts, and displaying iOS notifications—all on a Windows PC paired with an iPhone. The demo impressed leadership all the way up to the Corporate Vice President level (two steps from the CEO), securing executive buy-in to greenlight the initiative.",
+    "artifacts": [],
+    "slug": "ios-solving-apple-s-walled-garden"
+  },
+  {
+    "title": "iOS App Clip",
+    "company": "Microsoft",
+    "team": "Phone Link iOS",
+    "tags": [
+      "Mobile",
+      "iOS",
+      "iOS App Clip",
+      "AASA",
+      "Swift",
+      "UX",
+      "Mac",
+      "App Development",
+      "Bluetooth"
+    ],
+    "priority": 1,
+    "description": "To streamline onboarding for our iPhone + Windows cross-device experience, I proposed leveraging Apple’s then-new App Clip framework to eliminate friction for first-time users. At the time, App Clips were completely uncharted territory within Microsoft. I pitched the idea to leadership: users could scan a QR code from the Phone Link app on their Windows PC using the iPhone’s native camera, instantly launching a lightweight App Clip for our iOS companion app, Link to Windows. Within seconds—no App Store visit required—users could consent, pair their iPhone via Bluetooth, and unlock calling, messaging, contacts, call history, and notification sync on their PC. I built the initial prototype, secured executive buy-in, and led the feature through to production. This App Clip experience became the primary onboarding path, ultimately accounting for well over two-thirds of all new user activations and playing a pivotal role in the product’s success. We were also the first team at Microsoft to ship an iOS App Clip in a live product.",
+    "artifacts": [],
+    "slug": "ios-app-clip"
+  },
+  {
+    "title": "MAP & PBAP Bluetooth Profile Implementation – Core to iOS Cross-Device Functionality",
+    "company": "Microsoft",
+    "team": "Phone Link iOS",
+    "tags": [
+      "Desktop",
+      "Windows",
+      "C#",
+      ".NET",
+      "Bluetooth",
+      "Compliance",
+      "UX",
+      "API Development",
+      "App Development",
+      "Telemetry",
+      "iOS"
+    ],
+    "priority": 0,
+    "description": "As the lead engineer for our Bluetooth messaging and contact sync stack, I designed and implemented the Message Access Profile (MAP 1.1) and Phone Book Access Profile (PBAP 1.1.1), both essential for enabling iMessage, SMS, call history, and contact integration between iPhones and Windows PCs. I crafted the architecture for both profiles, implemented the majority of the codebase, and built the automated test infrastructure to validate their functionality. Due to platform limitations—specifically, the lack of L2CAP support in Windows user-mode applications—we were restricted to legacy RFCOMM-based versions of the profiles (MAP 1.1 and PBAP 1.1.1). While newer versions existed, they required L2CAP and were therefore out of reach, making timely qualification of the older specs absolutely critical. I joined the Bluetooth Special Interest Group (SIG) and took full ownership of the official qualification process, completing all required compliance testing, documentation, and coordination to obtain the licenses and patent rights necessary for shipping. I also represented Microsoft at the SIG’s UnPlugFest, where I tested our implementation with real devices from Apple, Google, Samsung, and others to ensure interoperability. Thanks to early delivery and rigorous validation, we qualified both profiles before their official deprecation deadline. Missing that window would have made it legally and technically impossible to ship these features—potentially derailing the entire iOS cross-device effort.",
+    "artifacts": [
+      {
+        "url": "https://www.theverge.com/2023/3/24/23654672/microsoft-phone-link-hands-on-imessage-ios",
+        "title": "A first look at using iMessage from a PC with Microsoft’s Phone Link app",
+        "description": "Microsoft’s new Phone Link can also let you make and receive calls and mirror your iPhone’s notifications to your Windows PC.",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24533257/phonelinklede.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200"
+      }
+    ],
+    "slug": "map-pbap-bluetooth-profile-implementation-core-to-ios-cross-device-functionality"
+  },
+  {
+    "title": "SIG Compliance",
+    "company": "Microsoft",
+    "team": "Phone Link iOS",
+    "tags": [
+      "Desktop",
+      "OS",
+      "Windows",
+      "App Development",
+      "Bluetooth",
+      ".NET",
+      "Compliance",
+      "DMA",
+      "Global Readiness"
+    ],
+    "priority": 5,
+    "description": "Following the successful launch of our MAP and PBAP Bluetooth integrations, new regulatory requirements under the EU’s Digital Markets Act (DMA) created compliance risks for the broader Phone Link product. To align with DMA mandates without exposing the entire Phone Link stack to third-party extensibility, Microsoft reclassified Phone Link as a core Windows feature. This reclassification, however, created a conflict: our Bluetooth MAP and PBAP profile qualifications had been explicitly filed as non-Windows components. Without resolution, we faced potential noncompliance with either the DMA or the Bluetooth SIG—jeopardizing the licensing status of our critical iOS cross-device functionality. I led the coordination effort across multiple stakeholders—including the Windows Bluetooth team, Microsoft’s legal counsel, our product team, and the Bluetooth SIG. I drove the discussions that aligned legal interpretations, technical implementation details, and certification requirements. Ultimately, I led the successful reclassification of our profile qualifications in a way that preserved SIG compliance while satisfying DMA constraints. This work ensured uninterrupted licensing and feature delivery for millions of users in the EU and globally, protecting one of the most critical components of our iOS integration work.",
+    "artifacts": [],
+    "slug": "sig-compliance"
+  },
+  {
+    "title": "iOS File Share",
+    "company": "Microsoft",
+    "team": "Phone Link iOS",
+    "tags": [
+      "Desktop",
+      "Windows",
+      "C#",
+      "XAML",
+      "Mobile",
+      "iOS",
+      "iOS App Clip",
+      "Mac",
+      "Swift",
+      "Bluetooth",
+      "App Development",
+      "UX",
+      "Telemetry"
+    ],
+    "priority": 1,
+    "description": "Two years after launching our Bluetooth-only iOS integration, we expanded Phone Link to support Microsoft Account (MSA) sign-in—unlocking advanced features like cross-device file sharing between iPhones and Windows PCs. I led the engineering effort to evolve our onboarding system into a hybrid model supporting both Bluetooth and MSA-based pairing. This was a critical-path dependency for launching file sharing, as highlighted in The Verge’s coverage. This onboarding flow introduced substantial UX and architectural complexity. I collaborated closely with product managers and designers to craft an experience that was flexible yet intuitive. Users could onboard via an App Clip-powered Bluetooth flow—requiring no app install—or opt into a full app experience for enhanced capabilities like file sharing via MSA. Full app onboarding also supported both methods from the outset, and the Phone Link Windows app had to accommodate all permutations seamlessly. My work enabled millions of users to get connected in seconds while providing a smooth path to richer features like file sharing—delivered on top of the robust foundation I built.",
+    "artifacts": [
+      {
+        "url": "https://www.theverge.com/2024/12/11/24318886/microsoft-phone-link-file-sharing-ios-windows-pcs",
+        "title": "Microsoft starts testing iPhone file sharing for Windows PCs",
+        "description": "Microsoft is updating its Phone Link app to support file sharing to iPhone devices. It allows a Windows PC to send or receive files from an iOS device.",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25785677/phone_link_ios_setup.png?quality=90&strip=all&crop=0,4.5905172413793,100,41.072395739303"
+      }
+    ],
+    "slug": "ios-file-share"
+  },
+  {
+    "title": "Universal Link Onboarding & Deep Linking – Inventing New Patterns for Seamless iOS UX",
+    "company": "Microsoft",
+    "team": "Phone Link iOS",
+    "tags": [
+      "Web",
+      "JavaScript",
+      "Angular",
+      "AASA",
+      "UX",
+      "App Development",
+      "iOS",
+      "Mac",
+      "iOS Universal Links",
+      "iOS App Clips"
+    ],
+    "priority": 2,
+    "description": "As we expanded Phone Link to support Microsoft Account sign-in and cross-device file sharing, I led the complete redesign of our Link to Windows AASA website to support both App Clips and iOS universal links. This work was foundational to evolving our onboarding flow from Bluetooth-only to a full-featured, account-enabled experience. In doing so, I pioneered two key UX solutions that navigated around restrictive and poorly documented iOS platform behaviors—solutions that are now gaining traction across the industry as best practices for building seamless iOS onboarding flows. First, I solved the long-standing iOS limitation of lacking native deferred deep linking, which Android supports out of the box. We needed a single QR code that could install the app and carry onboarding context into the first launch. Without a solution, users would have been forced to scan the same QR twice. I developed and productized a novel workaround: our website copies the original link into the iOS clipboard just before redirecting to the App Store. When the app is first launched, it checks the clipboard, asks for permission, and resumes onboarding exactly where the user left off. This clipboard-based deferred deep linking flow was both elegant and reliable, and became a core enabler of our frictionless setup experience. Second, I discovered and addressed a non-obvious iOS behavior: universal links don’t trigger app launches if they match the domain of the website the user is currently on. This broke deep linking from our AASA site for users who manually entered the URL. To resolve this, I introduced a second universal link domain and routed CTA clicks through it, preserving full context via query parameters. This allowed deep linking to work reliably across all user entry points, including App Clips, QR scans, browser links, and manual visits. These solutions not only resolved major platform constraints—they helped define new patterns for building premium onboarding experiences on iOS. By navigating undocumented edge cases and crafting highly maintainable, user-friendly architectures, I set a new standard for how large-scale iOS UX should be built. These flows became core to the success of our iOS offering and are now being looked at as models for other Microsoft and industry teams alike.",
+    "artifacts": [],
+    "slug": "universal-link-onboarding-deep-linking-inventing-new-patterns-for-seamless-ios-ux"
+  },
+  {
+    "title": "Pourtle",
+    "company": "Personal",
+    "team": "",
+    "tags": [
+      "Microservice",
+      "ReactJS",
+      "Material UI",
+      "Web",
+      "API Development",
+      "WebRTC",
+      "Web Sockets",
+      "App Development",
+      "UX",
+      "JavaScript",
+      "Python",
+      "Github Actions",
+      "AWS",
+      "Cloudformation",
+      "Lambda",
+      "S3",
+      "Cloudfront",
+      "DevOps"
+    ],
+    "priority": 5,
+    "description": "Pourtle is a real-time content-sharing web app that enables instant, bidirectional transfer of files, photos, videos, and notes between two devices—most commonly from phone to computer—using a secure WebRTC connection. I built the full stack from the ground up. The backend consists of a Python-based AWS Lambda microservice using WebSockets to facilitate WebRTC signaling between clients. Connections are initiated by scanning a QR code or entering a short pairing code, similar to smart TV app auth. Once connected, data is transferred directly between peers—no centralized storage involved. The frontend, built in React with Material UI, delivers a seamless and responsive UX optimized for both mobile and desktop users. The app is fully cloud-hosted via AWS S3 + CloudFront, with infrastructure defined in CloudFormation. Continuous integration and deployment are handled through GitHub Actions, automatically deploying the site and backend on PR merges and content updates. This project highlights deep expertise across real-time networking, full-stack development, cloud infrastructure, and DevOps—demonstrating end-to-end technical ownership and production-grade engineering.",
+    "artifacts": [
+      {
+        "url": "https://pourtle.com",
+        "title": "Pourtle | Your content where you need it",
+        "description": "Web site created using create-react-app",
+        "image": "https://pourtle.com/pourtle.png"
+      }
+    ],
+    "slug": "pourtle"
+  },
+  {
+    "title": "alexfischman.dev",
+    "company": "Personal",
+    "team": "",
+    "tags": [
+      "Web",
+      "React",
+      "NextJS",
+      "Material UI",
+      "Netlify",
+      "JavaScript",
+      "Github Actions",
+      "AWS",
+      "Cloudformation",
+      "S3",
+      "Cloudfront",
+      "DevOps"
+    ],
+    "priority": 5,
+    "description": "My personal portfolio site, alexfischman.dev, is built with Next.js, combining client-side rendering and static generation for a fast, responsive experience. It uses Material UI for styling and Netlify CMS to power a markdown-based personal blog. The site is hosted using AWS S3 + CloudFront for global delivery, with infrastructure defined via CloudFormation. CI/CD is fully automated through GitHub Actions, which triggers deployments on both pull request merges and new blog post commits—ensuring the site stays up to date with zero manual effort. This project showcases not only my front-end development skills but also my ownership of cloud infrastructure and DevOps practices, making it a robust and scalable hub for my engineering work and writing.",
+    "artifacts": [
+      {
+        "url": "https://alexfischman.dev",
+        "title": "alexfischman.dev Test Page",
+        "description": "",
+        "image": ""
+      }
+    ],
+    "slug": "alexfischman-dev"
+  }
+]
