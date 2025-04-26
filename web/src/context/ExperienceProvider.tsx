@@ -37,7 +37,7 @@ export const ExperienceProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   useEffect(() => {
     fetchExperiences()
       .then(setExperiences)
-      .catch(err => setError(err.message))
+      .catch((err: Error) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
 
