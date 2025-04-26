@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Configure output directory for static export
-  distDir: 'out',
+  // Configure static export
+  output: 'export',
   // Remove webpack-specific configuration
   // webpack: (config, { isServer }) => {
   //   // Add custom webpack configuration if needed
