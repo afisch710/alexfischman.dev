@@ -2,13 +2,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { fetchExperiences } from "../lib/fetchExperiences";
 
-export interface Artifact {
-  url: string;
-  title: string;
-  description: string;
-  image: string;
-}
-
 export interface Experience {
   slug: string;
   title: string;
@@ -16,9 +9,14 @@ export interface Experience {
   team: string;
   tags: string[];
   description: string;
-  artifacts: Artifact[];
+  artifacts: Array<{
+    url: string;
+    title: string;
+    description: string;
+    image: string;
+  }>;
   priority: number;
-  ogImage: string;
+  ogImage?: string;
 }
 
 interface ExperienceContextType {
