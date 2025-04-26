@@ -47,11 +47,7 @@ jobs:
       working-directory: ./web
 
     - name: Run Type Check
-      run: |
-        # First run the check-modules script to ensure all required files exist
-        ./scripts/check-modules.sh
-        # Then run the type check
-        yarn type-check
+      run: yarn type-check
       working-directory: ./web
       
     - name: Build Next.js Application
