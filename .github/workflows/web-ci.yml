@@ -27,6 +27,12 @@ jobs:
         aws cloudformation validate-template \
           --template-body file://web/cloudformation.yaml
 
+    - name: Install cfn-lint
+      run: pip install cfn-lint
+
+    - name: Lint CloudFormation
+      run: cfn-lint web/cloudformation.yaml
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
