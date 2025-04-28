@@ -5,7 +5,7 @@ import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Fa
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Post } from "../../context/BlogProvider";
+import { Post } from "../../types/blog";
 
 interface BlogPostProps {
     post: Post;

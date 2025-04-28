@@ -10,7 +10,7 @@ import {
     Paper
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { Experience } from '@/context/ExperienceProvider';
+import { Experience } from '@/types/experience';
 import LinkPreview from '../common/LinkPreview';
 
 interface Artifact {

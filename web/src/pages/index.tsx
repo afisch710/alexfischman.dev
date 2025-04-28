@@ -4,10 +4,13 @@ import Head from 'next/head';
 import { Box, Typography, Container, Button, Fade, Zoom, TypographyProps, SxProps, Theme } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import NextLink from 'next/link';
-import { useBlog } from "../context/BlogProvider";
+import { GetStaticProps } from 'next';
+import type { Post } from "../types/blog";
 import BlogPreview from "../components/blog/BlogPreview";
-import { useExperience } from '@/context/ExperienceProvider';
+import type { Experience } from '@/types/experience';
+import experiencesData from '@/data/experience.json';
 import ExperienceCard from '@/components/experience/ExperienceCard';
+import postsData from '@/data/posts.json';
 
 // Track if intro has played in this SPA session
 let introPlayedInApp = false;
@@ -64,7 +67,7 @@ function StreamingText({
         );
 
         return () => timeouts.forEach(clearTimeout);
-    }, [text, startDelay, charDelay, skip]);
+    }, [text, startDelay, charDelay, skip, onComplete]);
 
     return (
         <Typography variant={variant} component={component} gutterBottom={gutterBottom} sx={sx} {...props}>
@@ -74,7 +77,10 @@ function StreamingText({
     );
 }
 
-export default function Home() {
+export default function Home({
+  featured,
+  experiences,
+}: { featured: Post; experiences: Experience[] }) {
     const [firstDone, setFirstDone] = useState(false);
     const [secondDone, setSecondDone] = useState(false);
     const [highlightsVisible, setHighlightsVisible] = useState(false);
@@ -116,9 +122,6 @@ export default function Home() {
         }
     }, []);
 
-    // Rename loading and error values for clarity.
-    const { experiences, loading: experienceLoading, error: experienceError } = useExperience();
-    const { posts, loading: blogLoading, error: blogError } = useBlog();
 
     return (
         <>
@@ -235,11 +238,7 @@ export default function Home() {
                             Highlights
                         </Typography>
                         <Grid container spacing={2} alignItems="stretch">
-                            {experienceLoading ? (
-                                <Typography>Loading experiences...</Typography>
-                            ) : experienceError ? (
-                                <Typography color="error">{experienceError}</Typography>
-                            ) : experiences.slice(0, 3).map((exp, index) => (
+                            {experiences.slice(0, 3).map((exp, index) => (
                                 <Grid size={{ xs: 12, md: 4 }} key={index}>
                                     <ExperienceCard experience={exp} />
                                 </Grid>
@@ -257,18 +256,15 @@ export default function Home() {
                         <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
                             Featured Blog Post
                         </Typography>
-                        {blogLoading ? (
-                            <Typography>Loading featured post...</Typography>
-                        ) : blogError ? (
-                            <Typography color="error">{blogError}</Typography>
-                        ) : posts.length > 0 ? (
-                            <BlogPreview post={posts[0]} />
-                        ) : (
-                            <Typography>No posts available</Typography>
-                        )}
+                        <BlogPreview post={featured} />
                     </Box>
                 </Fade>
             </Container>
         </>
     );
 }
+export const getStaticProps: GetStaticProps<{ featured: Post; experiences: Experience[] }> = async () => {
+  const posts: Post[] = postsData;
+  const experiences: Experience[] = [...experiencesData].sort((a, b) => a.priority - b.priority);
+  return { props: { featured: posts[0], experiences } };
+};
