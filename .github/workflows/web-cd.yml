@@ -34,6 +34,14 @@ jobs:
       run: yarn build
       working-directory: ./web
 
+    - name: Run Post-Build Script
+      run: |
+        # Make the script executable
+        chmod +x post-build.sh
+        # Run the post-build script
+        ./post-build.sh
+      working-directory: ./web
+
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
