@@ -6,6 +6,7 @@ on:
     paths:
       - 'web/**'
       - 'content/**'
+  workflow_dispatch:  # allows manual runs
 
 jobs:
   validate:
