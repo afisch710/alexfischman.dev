@@ -3,14 +3,14 @@ import { Experience } from '../context/ExperienceProvider';
 import experiencesData from '../data/experience.json';
 
 export async function fetchExperiences(): Promise<Experience[]> {
-  // Return the experiences data directly
-  return experiencesData as Experience[];
+  const data = experiencesData as Experience[];
+  // sort ascending: lower `priority` values come first
+  return [...data].sort((a, b) => a.priority - b.priority);
 }
 
 // Create a named variable for the default export
 const fetchExperiencesModule = {
-    fetchExperiences
+  fetchExperiences
 };
 
-// Export the named variable as default
 export default fetchExperiencesModule;
