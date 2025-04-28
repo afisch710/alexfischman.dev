@@ -64,9 +64,6 @@ Resources:
           ViewerProtocolPolicy: redirect-to-https
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6  # CachingOptimized
           OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf  # CORS-S3Origin
-          FunctionAssociations:
-            - EventType: viewer-request
-              FunctionARN: !GetAtt CloudFrontFunction.Arn
         CustomErrorResponses:
           - ErrorCode: 403
             ResponseCode: 200
@@ -92,33 +89,6 @@ Resources:
         OriginAccessControlOriginType: s3
         SigningBehavior: always
         SigningProtocol: sigv4
-
-  CloudFrontFunction:
-    Type: AWS::CloudFront::Function
-    Properties:
-      Name: !Sub ${AWS::StackName}-URLRewrite
-      AutoPublish: true
-      FunctionConfig:
-        Comment: "URL rewrite function for static site routing"
-        Runtime: cloudfront-js-1.0
-      FunctionMetadata:
-        FunctionARN: !Sub "arn:aws:cloudfront::${AWS::AccountId}:function/${AWS::StackName}-URLRewrite"
-      Code: |
-        function handler(event) {
-          var request = event.request;
-          var uri = request.uri;
-          
-          // Check whether the URI is missing a file name.
-          if (uri.endsWith('/')) {
-            request.uri += 'index.html';
-          } 
-          // Check whether the URI is missing a file extension.
-          else if (!uri.includes('.')) {
-            request.uri += '/index.html';
-          }
-          
-          return request;
-        }
 
 Outputs:
   BucketName:
