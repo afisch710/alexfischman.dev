@@ -12,7 +12,7 @@ export default function BlogIndex() {
         <>
             <Head>
                 {/* Primary Meta Tags */}
-                <title>Blog | Alex Fischman – Senior Software Engineer & Founder</title>
+                <title>Blog | Alex Fischman</title>
                 <meta
                     name="description"
                     content="Read the latest blog posts by Alex Fischman on software engineering, AI, technology, weather, and more."
