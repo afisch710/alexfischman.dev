@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState, useMemo } from 'react';
 import Head from 'next/head';
 import {
@@ -107,44 +107,47 @@ export default function Experience() {
     return (
         <>
             <Head>
-                <title key="title">Experience | af.dev</title>
+                {/* Primary Meta Tags */}
+                <title>Experience | Alex Fischman</title>
                 <meta
-                    key="description"
                     name="description"
                     content="Explore projects and experiences by Alex Fischman."
                 />
+
+                {/* Open Graph */}
+                <meta property="og:type" content="website" />
                 <meta
-                    key="og:title"
                     property="og:title"
-                    content="Experience | af.dev"
+                    content="Experience | Alex Fischman"
                 />
                 <meta
-                    key="og:description"
                     property="og:description"
                     content="Explore projects and experiences by Alex Fischman."
                 />
-                <meta key="og:image" property="og:image" content="/af_dark.png" />
                 <meta
-                    key="twitter:card"
-                    name="twitter:card"
-                    content="summary_large_image"
+                    property="og:url"
+                    content="https://www.alexfischman.dev/experience"
                 />
                 <meta
-                    key="twitter:title"
+                    property="og:image"
+                    content="https://www.alexfischman.dev/af_dark.png"
+                />
+
+                {/* Twitter Card */}
+                <meta
                     name="twitter:title"
-                    content="Experience | af.dev"
+                    content="Experience | Alex Fischman"
                 />
                 <meta
-                    key="twitter:description"
                     name="twitter:description"
                     content="Explore projects and experiences by Alex Fischman."
                 />
                 <meta
-                    key="twitter:image"
                     name="twitter:image"
-                    content="/af_dark.png"
+                    content="https://www.alexfischman.dev/af_dark.png"
                 />
             </Head>
+
             <Box width="100%" p={4} pb={8} position="relative">
                 {/* Header with title and filter toggle icon */}
                 <Box
