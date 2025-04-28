@@ -18,8 +18,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>af.dev</title>
-        <meta name="description" content="Alex Fischman's developer portfolio" />
+        <title>Alex Fischman</title>
+        <meta name="description" content="Software Engineering Portfolio" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <ThemeProvider theme={theme}>

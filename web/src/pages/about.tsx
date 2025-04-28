@@ -11,14 +11,49 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function About() {
     // Removed unused theme variable
-    
+
     return (
         <>
             <Head>
-                <title key="title">About | af.dev</title>
-                <meta name="description" content="Learn more about Alex Fischman, his background in software development and personal interests." />
-                <meta property="og:title" content="About Alex Fischman | af.dev" />
-                <meta property="og:description" content="Senior Software Engineer, entrepreneur, and weather enthusiast." />
+                {/* Primary Meta Tags */}
+                <title>Experience | Alex Fischman</title>
+                <meta
+                    name="description"
+                    content="Learn more about Alex Fischman."
+                />
+
+                {/* Open Graph */}
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="About | Alex Fischman"
+                />
+                <meta
+                    property="og:description"
+                    content="Learn more about Alex Fischman."
+                />
+                <meta
+                    property="og:url"
+                    content="https://www.alexfischman.dev/experience"
+                />
+                <meta
+                    property="og:image"
+                    content="https://www.alexfischman.dev/af_dark.png"
+                />
+
+                {/* Twitter Card */}
+                <meta
+                    name="twitter:title"
+                    content="About | Alex Fischman"
+                />
+                <meta
+                    name="twitter:description"
+                    content="Learn more about Alex Fischman."
+                />
+                <meta
+                    name="twitter:image"
+                    content="https://www.alexfischman.dev/af_dark.png"
+                />
             </Head>
             <Container maxWidth="lg" sx={{ py: 4 }}>
                 <Paper

@@ -8,9 +8,7 @@ class MyDocument extends Document {
                 <Head>
                     {/* Only include truly global static meta tags here */}
                     <link rel="icon" href="/af.ico" />
-                    <meta name="description" content="Alex Fischman's developer portfolio" />
-                    {/* You could include some generic Twitter meta tags if you wish */}
-                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="description" content="Software Engineering Portfolio" />
                 </Head>
                 <body>
                     <Main />
