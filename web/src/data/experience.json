@@ -367,9 +367,9 @@
     "artifacts": [
       {
         "url": "https://alexfischman.dev",
-        "title": "alexfischman.dev Test Page",
-        "description": "",
-        "image": ""
+        "title": "af.dev",
+        "description": "Alex Fischman's developer portfolio",
+        "image": "https://alexfischman.dev/af.svg"
       }
     ],
     "slug": "alexfischman-dev"

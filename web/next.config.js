@@ -3,6 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   // Configure static export
   output: 'export',
+  // Ensure images are optimized
+  images: {
+    unoptimized: true,
+  },
+  // Add trailing slashes to URLs for better SEO
+  trailingSlash: true,
   // Remove webpack-specific configuration
   // webpack: (config, { isServer }) => {
   //   // Add custom webpack configuration if needed
