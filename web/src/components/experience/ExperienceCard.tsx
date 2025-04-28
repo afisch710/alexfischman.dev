@@ -8,7 +8,7 @@ import {
     Chip,
     Box,
 } from "@mui/material";
-import { Experience } from "../../context/ExperienceProvider";
+import { Experience } from "../../types/experience";
 
 interface ExperienceCardProps {
     experience: Experience;

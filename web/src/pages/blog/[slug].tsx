@@ -3,8 +3,8 @@ import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Container } from '@mui/material';
 import BlogPost from '../../components/blog/BlogPost';
-import { Post } from '../../context/BlogProvider';
-import { fetchBlogs } from '../../lib/fetchBlogs';
+import { Post } from '../../types/blog';
+import postsData from '../../data/posts.json';
 
 interface BlogPostPageProps {
   post: Post;
@@ -28,7 +28,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await fetchBlogs();
+  const posts: Post[] = postsData;
   const paths = posts.map((post: Post) => ({
     params: { slug: post.slug },
   }));
@@ -40,7 +40,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params }) => {
   const { slug } = params as { slug: string };
-  const posts = await fetchBlogs();
+  const posts: Post[] = postsData;
   const post = posts.find((p: Post) => p.slug === slug);
   if (!post) {
     return { notFound: true };

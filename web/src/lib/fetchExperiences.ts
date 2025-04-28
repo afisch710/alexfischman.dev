@@ -1,4 +1,4 @@
-import { Experience } from '../context/ExperienceProvider';
+import { Experience } from '../types/experience';
 // Directly import the JSON data from the src/data folder.
 import experiencesData from '../data/experience.json';
 

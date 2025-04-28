@@ -2,11 +2,12 @@
 import React from 'react';
 import Head from 'next/head';
 import { Box, Typography } from '@mui/material';
-import { useBlog } from '../../context/BlogProvider';
+import { GetStaticProps } from 'next';
+import type { Post } from '../../types/blog';
+import postsData from '../../data/posts.json';
 import BlogPreview from '@/components/blog/BlogPreview';
 
-export default function BlogIndex() {
-    const { posts, loading, error } = useBlog();
+export default function BlogIndex({ posts }: { posts: Post[] }) {
 
     return (
         <>
@@ -52,21 +53,20 @@ export default function BlogIndex() {
             </Head>
 
             <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
-                {loading ? (
-                    <Typography>Loading...</Typography>
-                ) : error ? (
-                    <Typography color="error">{error}</Typography>
-                ) : (
-                    <>
-                        <Typography variant="h3" gutterBottom>
-                            Blog
-                        </Typography>
-                        {posts.map(post => (
-                            <BlogPreview key={post.slug} post={post} />
-                        ))}
-                    </>
-                )}
+                <>
+                    <Typography variant="h3" gutterBottom>
+                        Blog
+                    </Typography>
+                    {posts.map(post => (
+                        <BlogPreview key={post.slug} post={post} />
+                    ))}
+                </>
             </Box>
         </>
     );
 }
+
+export const getStaticProps: GetStaticProps<{ posts: Post[] }> = async () => {
+  const posts: Post[] = postsData;
+  return { props: { posts } };
+};

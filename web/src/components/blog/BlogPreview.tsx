@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
-import { Post } from "../../context/BlogProvider";
+import { Post } from "../../types/blog";
 
 interface BlogPreviewProps {
   post: Post;

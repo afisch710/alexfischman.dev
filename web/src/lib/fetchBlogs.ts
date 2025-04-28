@@ -1,4 +1,4 @@
-import { Post } from '../context/BlogProvider';
+import { Post } from '../types/blog';
 // Directly import the JSON data from the src/data folder.
 import postsData from '../data/posts.json';
 
