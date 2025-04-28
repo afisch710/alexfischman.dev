@@ -197,24 +197,31 @@ export default function Home({
                         />
                     )}
                     {!skipped && !highlightsVisible && (
-                        <Button
-                            ref={skipBtnRef}
-                            autoFocus={false}
-                            variant="contained"
-                            color="secondary"
-                            onClick={skipAll}
-                            style={{
+                        <Box
+                            sx={{
                                 position: 'fixed',
-                                bottom: '10%',
-                                right: '10%',
+                                bottom: '25%',
+                                left: 0,
+                                right: 0,
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: 'center',
                                 zIndex: 1000,
                             }}
-                            sx={{
-                                animation: 'pulse 2s ease-in-out infinite',
-                            }}
                         >
-                            Skip Intro
-                        </Button>
+                            <Button
+                                ref={skipBtnRef}
+                                autoFocus={false}
+                                variant="contained"
+                                color="secondary"
+                                onClick={skipAll}
+                                sx={{
+                                    animation: 'pulse 2s ease-in-out infinite',
+                                }}
+                            >
+                                Skip Intro
+                            </Button>
+                        </Box>
                     )}
                     <Zoom
                         in={secondDone}
