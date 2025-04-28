@@ -14,9 +14,9 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   return (
     <>
       <Head>
-        <title key="title">{`${post.title} - af.dev`}</title>
+        <title key="title">{`${post.title} | Alex Fischman`}</title>
         <meta key="description" name="description" content={post.description} />
-        <meta key="og:title" property="og:title" content={`${post.title} | af.dev`} />
+        <meta key="og:title" property="og:title" content={`${post.title} | Alex Fischman`} />
         <meta key="og:description" property="og:description" content={post.description} />
         <meta key="og:image" property="og:image" content={post.ogImage || '/af_dark.png'} />
       </Head>

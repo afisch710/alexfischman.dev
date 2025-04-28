@@ -14,11 +14,11 @@ export default function ExperienceSlugPage({ experience }: ExperienceSlugPagePro
   return (
     <>
       <Head>
-        <title key="title">{`${experience.title} | af.dev`}</title>
+        <title key="title">{`${experience.title} | Alex Fischman`}</title>
         <meta key="description" name="description" content={experience.description} />
-        <meta key="og:title" property="og:title" content={`${experience.title} | af.dev`} />
+        <meta key="og:title" property="og:title" content={`${experience.title} | Alex Fischman`} />
         <meta key="og:description" property="og:description" content={experience.description} />
-        <meta key="og:image" property="og:image" content={experience.ogImage || '/af_large.png'} />
+        <meta key="og:image" property="og:image" content={experience.ogImage || '/af_dark.png'} />
       </Head>
       <Container>
         <ExperiencePage experience={experience} />
