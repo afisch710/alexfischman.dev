@@ -5,6 +5,7 @@ import { IconButton, Drawer, List, ListItemButton, ListItemText, useTheme, useMe
 import WeatherBackground from "../weather/WeatherBackground";
 import { usePathname, useRouter } from "next/navigation";
 import MenuIcon from "@mui/icons-material/Menu";
+import Footer from "./Footer";
 
 const tabRoutes = ["", "blog", "experience", "about"];
 
@@ -12,6 +13,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
     const pathname = usePathname();
     const router = useRouter();
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
 
     // Get the current pathname or default to an empty string.
     const safePath = pathname ?? "";
@@ -27,6 +29,31 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
     React.useEffect(() => {
         scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     }, [pathname, selectedTab]);
+
+    // Check if content is shorter than viewport and adjust footer position
+    React.useEffect(() => {
+        const checkContentHeight = () => {
+            if (contentRef.current && scrollContainerRef.current) {
+                const contentHeight = contentRef.current.offsetHeight;
+                const viewportHeight = window.innerHeight;
+                const headerHeight = 64; // Approximate header height
+                
+                // If content is shorter than viewport minus header, add min-height to push footer down
+                if (contentHeight < (viewportHeight - headerHeight)) {
+                    contentRef.current.style.minHeight = `${viewportHeight - headerHeight}px`;
+                } else {
+                    contentRef.current.style.minHeight = 'auto';
+                }
+            }
+        };
+        
+        checkContentHeight();
+        window.addEventListener('resize', checkContentHeight);
+        
+        return () => {
+            window.removeEventListener('resize', checkContentHeight);
+        };
+    }, []);
 
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
     const theme = useTheme();
@@ -63,7 +90,6 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                 sx={{
                     width: "100%",
                     height: "100%",
-                    pb: 3,
                 }}
             >
                 {/* Header with logo at left and Tabs at right */}
@@ -93,7 +119,11 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                     </Box>
                     {/* Mobile menu or desktop tabs */}
                     {isMobile ? (
-                        <IconButton color="inherit" onClick={() => setMobileNavOpen(true)}>
+                        <IconButton 
+                            color="inherit" 
+                            onClick={() => setMobileNavOpen(true)}
+                            sx={{ color: 'white' }}
+                        >
                             <MenuIcon />
                         </IconButton>
                     ) : (
@@ -135,57 +165,70 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                 {/* Scrollable content area */}
                 <Box
                     sx={{
-                        height: { xs: 'calc(100dvh - 56px)', md: 'calc(100dvh - 64px)' },
+                        flex: 1,
                         width: '100%',
                         overscrollBehaviorY: 'none',
-                        overflowY: 'auto',
+                        overflowY: "auto",
+                        display: "flex",
+                        flexDirection: "column",
                     }}
                     ref={scrollContainerRef}
                 >
                     <Box
+                        ref={contentRef}
                         sx={{
                             width: { xs: "95%", md: "85%" },
                             maxWidth: "1200px",
                             mx: "auto",
+                            pb: 3, // Add padding at the bottom of content
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
                         }}
                     >
-                        {children}
-                    </Box>
-                    <Drawer
-                        anchor="right"
-                        open={mobileNavOpen}
-                        onClose={() => setMobileNavOpen(false)}
-                        PaperProps={{
-                            sx: {
-                                backgroundColor: 'rgba(50,50,50,0.75)',
-                            }
-                        }}
-                        BackdropProps={{
-                            sx: {
-                                backgroundColor: 'rgba(0,0,0,0.5)',
-                            }
-                        }}
-                    >
-                        <Box sx={{ width: 240 }} role="presentation" onClick={() => setMobileNavOpen(false)}>
-                            <List>
-                                {tabRoutes.map((route) => (
-                                    <ListItemButton
-                                        key={route}
-                                        onClick={() => router.push(`/${route}`)}
-                                    >
-                                        <ListItemText
-                                            primary={
-                                                route === ""
-                                                    ? "Home"
-                                                    : route.charAt(0).toUpperCase() + route.slice(1)
-                                            }
-                                        />
-                                    </ListItemButton>
-                                ))}
-                            </List>
+                        <Box sx={{ flex: 1 }}>
+                            {children}
                         </Box>
-                    </Drawer>
+                        
+                        {/* Footer - now inside the scrollable content but will stick to bottom if content is short */}
+                        <Footer />
+                    </Box>
                 </Box>
+                
+                <Drawer
+                    anchor="right"
+                    open={mobileNavOpen}
+                    onClose={() => setMobileNavOpen(false)}
+                    PaperProps={{
+                        sx: {
+                            backgroundColor: 'rgba(50,50,50,0.75)',
+                        }
+                    }}
+                    BackdropProps={{
+                        sx: {
+                            backgroundColor: 'rgba(0,0,0,0.5)',
+                        }
+                    }}
+                >
+                    <Box sx={{ width: 240 }} role="presentation" onClick={() => setMobileNavOpen(false)}>
+                        <List>
+                            {tabRoutes.map((route) => (
+                                <ListItemButton
+                                    key={route}
+                                    onClick={() => router.push(`/${route}`)}
+                                >
+                                    <ListItemText
+                                        primary={
+                                            route === ""
+                                                ? "Home"
+                                                : route.charAt(0).toUpperCase() + route.slice(1)
+                                        }
+                                    />
+                                </ListItemButton>
+                            ))}
+                        </List>
+                    </Box>
+                </Drawer>
             </Stack>
         </Box>
     );
