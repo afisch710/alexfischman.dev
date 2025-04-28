@@ -7,8 +7,7 @@ on:
       - 'dns-records.yaml'
 
 jobs:
-  validate-template:
-    name: Validate DNS Records CloudFormation
+  validate:
     runs-on: ubuntu-latest
 
     steps:

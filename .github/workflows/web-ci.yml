@@ -9,7 +9,6 @@ on:
 
 jobs:
   validate:
-    name: Validate Next.js Application
     runs-on: ubuntu-latest
 
     steps:

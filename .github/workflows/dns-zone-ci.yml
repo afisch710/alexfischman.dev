@@ -7,8 +7,7 @@ on:
       - 'dns-zone.yaml'
 
 jobs:
-  validate-template:
-    name: Validate DNS Zone CloudFormation
+  validate:
     runs-on: ubuntu-latest
 
     steps:
