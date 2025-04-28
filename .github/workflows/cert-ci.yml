@@ -7,8 +7,7 @@ on:
       - 'cert.yaml'
 
 jobs:
-  validate-template:
-    name: Validate Certificate CloudFormation
+  validate:
     runs-on: ubuntu-latest
 
     steps:
