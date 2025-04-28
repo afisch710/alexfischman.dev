@@ -16,7 +16,7 @@ export default function About() {
         <>
             <Head>
                 {/* Primary Meta Tags */}
-                <title>Experience | Alex Fischman</title>
+                <title>About | Alex Fischman</title>
                 <meta
                     name="description"
                     content="Learn more about Alex Fischman."
