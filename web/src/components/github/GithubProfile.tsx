@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import githubProfileData from '@/data/github-profile.json';
 import { Chip, Divider } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -38,7 +37,7 @@ interface GitHubProfileData {
     };
 }
 
-const GithubProfile: React.FC<GithubProfileProps> = ({ username }) => {
+const GithubProfile: React.FC<GithubProfileProps> = () => {
     const {
         totalContributions,
         monthlyContributions,
@@ -80,7 +79,6 @@ const GithubProfile: React.FC<GithubProfileProps> = ({ username }) => {
             : 0;
     });
 
-    const theme = useTheme();
     // Color scale for contributions
     const contribColors = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
 
