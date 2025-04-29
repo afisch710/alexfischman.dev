@@ -17,15 +17,15 @@ export default function Footer() {
                 flexDirection: { xs: "column", sm: "row" },
                 alignItems: "center",
                 justifyContent: { xs: "center", sm: "space-between" },
-                py: 3,
-                mt: 2,
-                borderTop: `1px solid rgba(255, 255, 255, 0.3)`,
-                gap: { xs: 2, sm: 0 },
+                py: 1.5,
+                mt: 1,
+                borderTop: `1px solid rgba(255, 255, 255, 0.1)`,
+                gap: { xs: 1, sm: 0 },
             }}
         >
             <Box sx={{ 
                 display: "flex", 
-                gap: 2,
+                gap: 1,
                 order: { xs: 1, sm: 2 },
                 justifyContent: "center",
                 width: { xs: "100%", sm: "auto" }

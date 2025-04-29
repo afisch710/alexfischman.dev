@@ -69,12 +69,12 @@ function reducer(state: GroundCycleState, action: Action): GroundCycleState {
 
 const WEATHER_TRANSITION_DURATION = '5'; // seconds
 const WEATHER_TRANSITION = `opacity ${WEATHER_TRANSITION_DURATION}s ease-in-out`;
-const WEATHER_DURATION = 40000; // ms
+const WEATHER_DURATION = 20000; // ms
 
 export default function WeatherBackground() {
     const [state, dispatch] = useReducer(reducer, {
-        season: "Winter",
-        weather: seasonWeatherMapping["Winter"][0],
+        season: "Summer",
+        weather: seasonWeatherMapping["Summer"][0],
         weatherCount: 0,
         weatherTarget: 2, // Deterministic value for SSR/hydration consistency
     });
