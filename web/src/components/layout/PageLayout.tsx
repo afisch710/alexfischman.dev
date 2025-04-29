@@ -9,7 +9,13 @@ import Footer from "./Footer";
 
 const tabRoutes = ["", "blog", "experience", "about"];
 
-export default function PageLayout({ children }: { children: React.ReactNode }) {
+export default function PageLayout({ 
+  children, 
+  className 
+}: { 
+  children: React.ReactNode;
+  className?: string;
+}) {
     const pathname = usePathname();
     const router = useRouter();
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -61,6 +67,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
 
     return (
         <Box
+            className={className}
             sx={{
                 width: "100%",
                 height: "100dvh",

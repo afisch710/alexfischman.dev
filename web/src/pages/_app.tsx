@@ -9,6 +9,7 @@ import "./globals.css";
 import { VisibilityProvider } from "@/context/VisibilityProvider";
 import theme from "../theme";
 import type { AppProps } from "next/app";
+import { roboto } from "@/lib/fonts";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <VisibilityProvider>
-          <PageLayout>
+          <PageLayout className={roboto.variable}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={router.asPath}
