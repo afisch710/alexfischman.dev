@@ -239,6 +239,16 @@ export default function Ground({ weather, season }: GroundProps) {
         });
     }, [weather, season]);
 
+    // Set CSS variable --vh to 1% of window.innerHeight
+    useEffect(() => {
+      const setVh = () => {
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+      };
+      setVh();
+      window.addEventListener('resize', setVh);
+      return () => window.removeEventListener('resize', setVh);
+    }, []);
+
     return (
         <Box
             sx={{
@@ -246,7 +256,8 @@ export default function Ground({ weather, season }: GroundProps) {
                 bottom: 0,
                 left: 0,
                 width: "100vw",
-                height: "10dvh",
+                height: "calc(var(--vh, 1vh) * 10 + env(safe-area-inset-bottom))",
+                paddingBottom: "env(safe-area-inset-bottom)",
                 overflow: "hidden",
             }}
         >
