@@ -97,6 +97,7 @@ export default function PageLayout({
                 sx={{
                     width: "100%",
                     height: "100%",
+                    pb: 3,
                 }}
             >
                 {/* Header with logo at left and Tabs at right */}
