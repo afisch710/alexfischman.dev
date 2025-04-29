@@ -10,6 +10,15 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 type GitHubProfileData = {
   totalContributions: number;
   monthlyContributions: Record<string, number>;
+  commitContributions: number;
+  issueContributions: number;
+  prContributions: number;
+  prReviewContributions: number;
+  followersCount: number;
+  followingCount: number;
+  starredCount: number;
+  reposContributedToCount: number;
+  languageCount: Record<string, number>;
   workflows: {
     total: number;
     success: number;
@@ -47,6 +56,31 @@ async function generateGitHubProfile(username: string, outputFile: string): Prom
               }
             }
           }
+          totalCommitContributions
+          totalIssueContributions
+          totalPullRequestContributions
+          totalPullRequestReviewContributions
+          commitContributionsByRepository(maxRepositories: 100) {
+            repository { nameWithOwner }
+          }
+          issueContributionsByRepository(maxRepositories: 100) {
+            repository { nameWithOwner }
+          }
+          pullRequestContributionsByRepository(maxRepositories: 100) {
+            repository { nameWithOwner }
+          }
+          pullRequestReviewContributionsByRepository(maxRepositories: 100) {
+            repository { nameWithOwner }
+          }
+        }
+        followers {
+          totalCount
+        }
+        following {
+          totalCount
+        }
+        starredRepositories {
+          totalCount
         }
       }
     }
@@ -66,6 +100,31 @@ async function generateGitHubProfile(username: string, outputFile: string): Prom
 
   // Extract total contributions
   const totalContributions = graphqlData.data?.user?.contributionsCollection?.contributionCalendar?.totalContributions || 0;
+  const commitContributions = graphqlData.data.user.contributionsCollection.totalCommitContributions || 0;
+  const issueContributions = graphqlData.data.user.contributionsCollection.totalIssueContributions || 0;
+  const prContributions = graphqlData.data.user.contributionsCollection.totalPullRequestContributions || 0;
+  const prReviewContributions = graphqlData.data.user.contributionsCollection.totalPullRequestReviewContributions || 0;
+
+  // Derive repos contributed to by unique repository across all contribution types
+  const coll = graphqlData.data.user.contributionsCollection;
+  const repoNames = new Set<string>();
+  coll.commitContributionsByRepository.forEach((edge: any) =>
+    repoNames.add(edge.repository.nameWithOwner)
+  );
+  coll.issueContributionsByRepository.forEach((edge: any) =>
+    repoNames.add(edge.repository.nameWithOwner)
+  );
+  coll.pullRequestContributionsByRepository.forEach((edge: any) =>
+    repoNames.add(edge.repository.nameWithOwner)
+  );
+  coll.pullRequestReviewContributionsByRepository.forEach((edge: any) =>
+    repoNames.add(edge.repository.nameWithOwner)
+  );
+  const reposContributedToCount = repoNames.size;
+
+  const followersCount = graphqlData.data.user.followers.totalCount;
+  const followingCount = graphqlData.data.user.following.totalCount;
+  const starredCount = graphqlData.data.user.starredRepositories.totalCount;
 
   // Process contributions by month
   const monthlyContributions: Record<string, number> = {};
@@ -85,15 +144,31 @@ async function generateGitHubProfile(username: string, outputFile: string): Prom
     monthlyContributions[monthKey] += day.contributionCount;
   }
 
-  // 2. List public repositories
+  // 2. List all repositories (including private) for authenticated user
   console.log('Fetching repository list...');
-  const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?type=public&per_page=100`, {
-    headers: {
-      'Authorization': `token ${githubToken}`,
-    },
-  });
+  const reposResponse = await fetch(
+    `https://api.github.com/user/repos?visibility=all&per_page=100`,
+    {
+      headers: {
+        'Authorization': `token ${githubToken}`,
+        'Accept': 'application/vnd.github.v3+json',
+      },
+    }
+  );
 
   const reposData = await reposResponse.json();
+  // Compute language distribution across all repos (including private)
+  const languageCount: Record<string, number> = {};
+  for (const repo of reposData) {
+    // Fetch each repo's detailed language usage
+    const langRes = await fetch(repo.languages_url, {
+      headers: { 'Authorization': `token ${githubToken}`, 'Accept': 'application/vnd.github.v3+json' },
+    });
+    const langs = await langRes.json(); // e.g. { "JavaScript": 12345, "Python": 6789, ... }
+    for (const [lang, bytes] of Object.entries(langs)) {
+      languageCount[lang] = (languageCount[lang] || 0) + (bytes as number);
+    }
+  }
   const repos = reposData.map((repo: any) => repo.name);
 
   // 3. Count workflow runs
@@ -140,6 +215,15 @@ async function generateGitHubProfile(username: string, outputFile: string): Prom
   const profileData: GitHubProfileData = {
     totalContributions,
     monthlyContributions,
+    commitContributions,
+    issueContributions,
+    prContributions,
+    prReviewContributions,
+    followersCount,
+    followingCount,
+    starredCount,
+    reposContributedToCount,
+    languageCount,
     workflows: {
       total: totalRuns,
       success: successRuns,
@@ -165,4 +249,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = generateGitHubProfile; 
+module.exports = generateGitHubProfile;

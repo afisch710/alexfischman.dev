@@ -11,6 +11,7 @@ import type { Experience } from '@/types/experience';
 import experiencesData from '@/data/experience.json';
 import ExperienceCard from '@/components/experience/ExperienceCard';
 import postsData from '@/data/posts.json';
+import GithubProfile from '@/components/github/GithubProfile';
 
 // Track if intro has played in this SPA session
 let introPlayedInApp = false;
@@ -85,6 +86,7 @@ export default function Home({
     const [secondDone, setSecondDone] = useState(false);
     const [highlightsVisible, setHighlightsVisible] = useState(false);
     const [blogVisible, setBlogVisible] = useState(false);
+    const [githubVisible, setGithubVisible] = useState(false);
     const [skipped, setSkipped] = useState(false);
 
     const firstText = "Hi, I'm Alex Fischman — a senior software engineer and founder of Smarter Weather.";
@@ -258,12 +260,25 @@ export default function Home({
                 </Fade>
 
                 {/* Featured Blog Post Section */}
-                <Fade in={blogVisible} timeout={500} unmountOnExit onEntered={() => { introPlayedInApp = true; }}>
+                <Fade in={blogVisible} timeout={500} unmountOnExit onEntered={() => { 
+                    introPlayedInApp = true; 
+                    setGithubVisible(true);
+                }}>
                     <Box sx={{ py: 4 }}>
                         <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
                             Featured Blog Post
                         </Typography>
                         <BlogPreview post={featured} />
+                    </Box>
+                </Fade>
+
+                {/* GitHub Activity Section */}
+                <Fade in={githubVisible} timeout={500} unmountOnExit>
+                    <Box sx={{ py: 4 }}>
+                        <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+                            Activity
+                        </Typography>
+                        <GithubProfile username="alexfischman" />
                     </Box>
                 </Fade>
             </Container>
