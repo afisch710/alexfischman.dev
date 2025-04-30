@@ -11,8 +11,13 @@
 </head>
 
 <body>
+    <!-- Enable manual init to prevent automatic config loading -->
+    <script>
+        window.CMS_MANUAL_INIT = true;
+    </script>
     <!-- Load the CMS runtime -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+    <!-- Inline configuration and manual init -->
     <script>
         CMS.init({
             backend: {
