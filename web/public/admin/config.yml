@@ -3,6 +3,7 @@ backend:
   repo: alexfischman/alexfischman.dev
   branch: development
   auth_scope: repo
+  app_id: Ov23li43Rjen58luWgOc
 
 # These lines tell Netlify CMS where to upload media files
 media_folder: "public/uploads"
