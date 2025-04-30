@@ -5,14 +5,10 @@ backend:
   auth_scope: repo
   app_id: Ov23li43Rjen58luWgOc
 
-# These lines tell Netlify CMS where to upload media files
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-# Enable editorial workflow for content review
 publish_mode: editorial_workflow
-
-# Add local backend support for development
 local_backend: true
 
 collections:
@@ -21,6 +17,8 @@ collections:
     folder: "content/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "blog/{{slug}}"
+    preview_template: "preview-templates/BlogPostPreview"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
