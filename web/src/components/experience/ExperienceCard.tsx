@@ -24,7 +24,6 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
                     borderRadius: 3,
                     display: "flex",
                     flexDirection: "column",
-                    my: 2,
                     boxShadow: 3,
                     overflow: "hidden",
                     backgroundColor: (theme) => theme.palette.background.paper,

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
-import { Box, Typography, Container, Button, Fade, Zoom, TypographyProps, SxProps, Theme } from '@mui/material';
+import { Box, Typography, Container, Button, Fade, Zoom, TypographyProps, SxProps, Theme, alpha } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import NextLink from 'next/link';
 import { GetStaticProps } from 'next';
@@ -89,7 +89,7 @@ export default function Home({
     const [githubVisible, setGithubVisible] = useState(false);
     const [skipped, setSkipped] = useState(false);
 
-    const firstText = "Hi, I'm Alex Fischman — a senior software engineer and founder of Smarter Weather.";
+    const firstText = "Hi, I'm Alex Fischman.\nA senior software engineer and founder of Smarter Weather.";
 
     // Memoize onComplete handlers so they don't change identity each render
     const handleFirstDone = useCallback(() => {
@@ -145,7 +145,7 @@ export default function Home({
                 <meta name="twitter:image" content="https://www.alexfischman.dev/af_dark.png" />
             </Head>
 
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" sx={{ py: { xs: 2, md: 4 } }}>
                 {/* Global CSS for animations */}
                 <style>{`
           @keyframes fadeIn {
@@ -168,15 +168,39 @@ export default function Home({
         `}</style>
 
                 {/* Hero Section with StreamingText */}
-                <Box sx={{ position: 'relative', textAlign: 'center', py: 4, px: { xs: 2, md: 8 } }}>
+                <Box sx={{ 
+                    position: 'relative', 
+                    textAlign: 'center', 
+                    py: { xs: 3, md: 4 },
+                    px: { xs: 2, md: 4 },
+                    mb: { xs: 4, md: 6 },
+                    bgcolor: 'background.paper',
+                    borderRadius: 4,
+                    boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.common.black, 0.1)}`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
                     <StreamingText
                         text={firstText}
                         component="div"
                         gutterBottom
                         sx={{
-                            typography: { xs: 'h5', md: 'h4' },
-                            maxWidth: { xs: '100%', md: '60%' },
-                            mx: 'auto'
+                            typography: { xs: 'h3', md: 'h2' },
+                            maxWidth: { xs: '100%', md: '85%' },
+                            mx: 'auto',
+                            fontWeight: 700,
+                            mb: 3,
+                            color: 'text.primary',
+                            letterSpacing: '-0.02em',
+                            lineHeight: { xs: 1.3, md: 1.2 },
+                            '& br': {
+                                display: 'block',
+                                content: '""',
+                                marginTop: { xs: 1, md: 2 },
+                            },
+                            whiteSpace: 'pre-line',
                         }}
                         showCursor={!firstDone}
                         onComplete={handleFirstDone}
@@ -190,8 +214,13 @@ export default function Home({
                             gutterBottom
                             charDelay={30}
                             sx={{
-                                maxWidth: { xs: '100%', md: '80%' },
-                                mx: 'auto'
+                                maxWidth: { xs: '95%', md: '75%' },
+                                mx: 'auto',
+                                color: 'text.secondary',
+                                lineHeight: 1.6,
+                                fontSize: { xs: '1.1rem', md: '1.25rem' },
+                                mb: 3,
+                                letterSpacing: '0.01em',
                             }}
                             showCursor={!secondDone}
                             onComplete={handleSecondDone}
@@ -219,6 +248,11 @@ export default function Home({
                                 onClick={skipAll}
                                 sx={{
                                     animation: 'pulse 2s ease-in-out infinite',
+                                    borderRadius: 2,
+                                    px: 4,
+                                    py: 1.5,
+                                    fontSize: '1rem',
+                                    fontWeight: 600,
                                 }}
                             >
                                 Skip Intro
@@ -233,7 +267,25 @@ export default function Home({
                         onEntered={() => setHighlightsVisible(true)}
                     >
                         <Box sx={{ mt: 4, textAlign: 'center' }}>
-                            <Button component={NextLink} href="/about" variant="outlined" color="primary">
+                            <Button 
+                                component={NextLink} 
+                                href="/about" 
+                                variant="contained" 
+                                color="primary"
+                                sx={{
+                                    px: 4,
+                                    py: 1.5,
+                                    fontSize: '1rem',
+                                    fontWeight: 600,
+                                    borderRadius: 2,
+                                    boxShadow: (theme) => `0 4px 14px ${alpha(theme.palette.primary.main, 0.3)}`,
+                                    '&:hover': {
+                                        transform: 'translateY(-2px)',
+                                        boxShadow: (theme) => `0 6px 20px ${alpha(theme.palette.primary.main, 0.4)}`,
+                                    },
+                                    transition: 'all 0.3s ease',
+                                }}
+                            >
                                 Learn More
                             </Button>
                         </Box>
@@ -242,8 +294,18 @@ export default function Home({
 
                 {/* Highlights Section */}
                 <Fade in={highlightsVisible} timeout={500} onEntered={() => setBlogVisible(true)} unmountOnExit>
-                    <Box>
-                        <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+                    <Box sx={{ mb: { xs: 4, md: 5 } }}>
+                        <Typography 
+                            variant="h4" 
+                            component="h2" 
+                            gutterBottom 
+                            sx={{ 
+                                textAlign: { xs: 'center', md: 'left' },
+                                fontWeight: 600,
+                                mb: 2,
+                                color: 'text.primary',
+                            }}
+                        >
                             Highlights
                         </Typography>
                         <Grid container spacing={2} alignItems="stretch">
@@ -253,7 +315,7 @@ export default function Home({
                                 </Grid>
                             ))}
                         </Grid>
-                        <Button component={NextLink} href="/experience" variant="outlined" color="primary" sx={{ mt: 4 }}>
+                        <Button component={NextLink} href="/experience" variant="outlined" color="primary" sx={{ mt: 3 }}>
                             See More
                         </Button>
                     </Box>
@@ -264,8 +326,18 @@ export default function Home({
                     introPlayedInApp = true; 
                     setGithubVisible(true);
                 }}>
-                    <Box sx={{ py: 4 }}>
-                        <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+                    <Box sx={{ mb: { xs: 4, md: 5 } }}>
+                        <Typography 
+                            variant="h4" 
+                            component="h2" 
+                            gutterBottom 
+                            sx={{ 
+                                textAlign: { xs: 'center', md: 'left' },
+                                fontWeight: 600,
+                                mb: 3,
+                                color: 'text.primary',
+                            }}
+                        >
                             Featured Blog Post
                         </Typography>
                         <BlogPreview post={featured} />
@@ -274,8 +346,18 @@ export default function Home({
 
                 {/* GitHub Activity Section */}
                 <Fade in={githubVisible} timeout={500} unmountOnExit>
-                    <Box sx={{ py: 4 }}>
-                        <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+                    <Box sx={{ mb: { xs: 4, md: 5 } }}>
+                        <Typography 
+                            variant="h4" 
+                            component="h2" 
+                            gutterBottom 
+                            sx={{ 
+                                textAlign: { xs: 'center', md: 'left' },
+                                fontWeight: 600,
+                                mb: 3,
+                                color: 'text.primary',
+                            }}
+                        >
                             Activity
                         </Typography>
                         <GithubProfile username="alexfischman" />
