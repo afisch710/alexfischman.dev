@@ -1,16 +1,12 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import Head from 'next/head';
-import { Box, Typography, Chip, IconButton, Collapse, Tooltip, Zoom, Button } from '@mui/material';
+import { Box, Typography, Chip, IconButton, Collapse } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { GetStaticProps } from 'next';
 import type { Experience } from '../../types/experience';
 import experiencesData from '../../data/experience.json';
 import ExperienceCard from '../../components/experience/ExperienceCard';
-import { alpha } from '@mui/material/styles';
-
-// Track if teaching tip has been shown in this SPA session
-let teachingTipShown = false;
 
 export default function ExperiencePage({
     experiences,
