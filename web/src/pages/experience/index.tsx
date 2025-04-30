@@ -18,6 +18,7 @@ export default function ExperiencePage({
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     // State for showing/hiding filters
     const [filtersVisible, setFiltersVisible] = useState<boolean>(false);
+    const [hasClickedFilter, setHasClickedFilter] = useState<boolean>(false);
 
     // Build a list of all companies from experiences
     const allCompanies = useMemo(() => {
@@ -69,6 +70,11 @@ export default function ExperiencePage({
         });
     }, [experiences, selectedCompanies, selectedTags]);
 
+    const handleFilterClick = () => {
+        setFiltersVisible(prev => !prev);
+        setHasClickedFilter(true);
+    };
+
     return (
         <>
             <Head>
@@ -117,12 +123,31 @@ export default function ExperiencePage({
                     mb={2}
                 >
                     <Typography variant="h3">Experience</Typography>
-                    <IconButton
-                        onClick={() => setFiltersVisible(prev => !prev)}
-                        color="primary"
-                    >
-                        <FilterListIcon />
-                    </IconButton>
+                    <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                        <IconButton
+                            onClick={handleFilterClick}
+                            color="primary"
+                            sx={{
+                                animation: !hasClickedFilter ? 'pulse 2s ease-in-out infinite' : 'none',
+                                '@keyframes pulse': {
+                                    '0%': {
+                                        transform: 'scale(1)',
+                                        boxShadow: '0 0 0 0 rgba(25, 118, 210, 0.4)',
+                                    },
+                                    '70%': {
+                                        transform: 'scale(1.1)',
+                                        boxShadow: '0 0 0 10px rgba(25, 118, 210, 0)',
+                                    },
+                                    '100%': {
+                                        transform: 'scale(1)',
+                                        boxShadow: '0 0 0 0 rgba(25, 118, 210, 0)',
+                                    },
+                                },
+                            }}
+                        >
+                            <FilterListIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
 
                 {/* Filter Controls */}
