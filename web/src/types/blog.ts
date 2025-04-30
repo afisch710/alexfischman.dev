@@ -4,5 +4,7 @@ export interface Post {
   description: string;
   slug: string;
   body: string;
-  ogImage?: string;
+  ogImage: string | null;
+  tags: string[];
+  draft: boolean;
 } 

@@ -367,9 +367,9 @@
     "artifacts": [
       {
         "url": "https://alexfischman.dev",
-        "title": "af.dev",
-        "description": "Alex Fischman's developer portfolio",
-        "image": "https://alexfischman.dev/af.svg"
+        "title": "Alex Fischman | Senior Software Engineer & Founder",
+        "description": "Blog, experience, and about me.",
+        "image": "https://www.alexfischman.dev/af_dark.png"
       }
     ],
     "slug": "alexfischman-dev"
