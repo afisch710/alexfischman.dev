@@ -30,10 +30,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                     content="Read the latest blog posts by Alex Fischman on software engineering, AI, technology, weather, and more."
                 />
                 <meta property="og:url" content="https://www.alexfischman.dev/blog" />
-                <meta
-                    property="og:image"
-                    content="https://www.alexfischman.dev/og-image.png"
-                />
+                <meta property="og:image" content="https://www.alexfischman.dev/af_dark.png" />
 
                 {/* Twitter Card */}
                 <meta name="twitter:card" content="summary_large_image" />
@@ -46,10 +43,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                     name="twitter:description"
                     content="Read the latest blog posts by Alex Fischman on software engineering, AI, technology, weather, and more."
                 />
-                <meta
-                    name="twitter:image"
-                    content="https://www.alexfischman.dev/og-image.png"
-                />
+                <meta property="twitter:image" content="https://www.alexfischman.dev/af_dark.png" />
             </Head>
 
             <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
