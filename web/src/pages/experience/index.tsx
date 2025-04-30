@@ -94,10 +94,7 @@ export default function ExperiencePage({
                     content="Explore projects and professional experiences by Alex Fischman."
                 />
                 <meta property="og:url" content="https://www.alexfischman.dev/experience" />
-                <meta
-                    property="og:image"
-                    content="https://www.alexfischman.dev/og-image.png"
-                />
+                <meta property="og:image" content="https://www.alexfischman.dev/af_dark.png" />
                 {/* Twitter Card */}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:site" content="@your_twitter_handle" />
@@ -109,10 +106,7 @@ export default function ExperiencePage({
                     name="twitter:description"
                     content="Explore projects and professional experiences by Alex Fischman."
                 />
-                <meta
-                    name="twitter:image"
-                    content="https://www.alexfischman.dev/og-image.png"
-                />
+                <meta property="twitter:image" content="https://www.alexfischman.dev/af_dark.png" />
             </Head>
             <Box sx={{ width: '100%', p: 4, pb: 8 }}>
                 {/* Header with title and filter toggle icon */}
