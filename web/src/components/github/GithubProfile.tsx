@@ -181,7 +181,7 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
                         <Box sx={{ position: 'relative', height: 120, mb: 1 }}>
                             <Box sx={{ position: 'absolute', left: 0, bottom: 0, top: 0, width: 24, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 {yAxisLabels.map((value) => (
-                                    <Typography variant="caption" key={value}>
+                                    <Typography variant="caption" color="text.secondary" key={value}>
                                         {value}
                                     </Typography>
                                 ))}
@@ -225,7 +225,20 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
                         <Box sx={{ display: 'flex', ml: '28px', gap: 1.5 }}>
                             {monthEntries.map(([month]) => (
                                 <Box key={month} sx={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
-                                    <Typography variant="caption">
+                                    <Typography 
+                                        variant="caption"
+                                        color="text.secondary"
+                                        sx={{
+                                            display: 'inline-block',
+                                            transform: 'rotate(-45deg)',
+                                            transformOrigin: 'left center',
+                                            whiteSpace: 'nowrap',
+                                            position: 'relative',
+                                            left: '0%',
+                                            top: '0.5em',
+                                            marginLeft: '-0.5em',
+                                        }}
+                                    >
                                         {getMonthAbbrev(month.split('-')[1])}
                                     </Typography>
                                 </Box>
