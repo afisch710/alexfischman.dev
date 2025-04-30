@@ -5,58 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Content Manager | Alex Fischman</title>
-
-    <!-- Netlify CMS default styles -->
-    <link rel="stylesheet" href="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.css" />
+    <link rel="stylesheet" href="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.css" />
+    <link rel="cms-config-url" href="/admin/config.yml" type="text/yaml" />
 </head>
 
 <body>
-    <!-- Enable manual init to prevent automatic config loading -->
-    <script>
-        window.CMS_MANUAL_INIT = true;
-    </script>
-    <!-- Load the CMS runtime -->
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-    <!-- Inline configuration and manual init -->
-    <script>
-        CMS.init({
-            backend: {
-                name: 'github',
-                repo: 'afisch710/alexfischman.dev',
-                branch: 'development',
-                auth_scope: 'repo',
-                client_id: 'Ov23li43Rjen58luWgOc',
-                open_authoring: true,
-                workflow: true
-            },
-            publish_mode: 'editorial_workflow',
-            media_folder: 'public/uploads',
-            public_folder: '/uploads',
-            collections: [
-                {
-                    name: 'blog',
-                    label: 'Blog',
-                    folder: 'content/blog',
-                    create: true,
-                    slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
-                    preview_path: 'blog/{{slug}}',
-                    preview_template: 'BlogPostPreview',
-                    fields: [
-                        { label: 'Title', name: 'title', widget: 'string' },
-                        { label: 'Publish Date', name: 'date', widget: 'datetime' },
-                        { label: 'Description', name: 'description', widget: 'text' },
-                        { label: 'Featured Image', name: 'thumbnail', widget: 'image', required: false },
-                        { label: 'Tags', name: 'tags', widget: 'list', required: false },
-                        { label: 'Body', name: 'body', widget: 'markdown' }
-                    ],
-                    sortable_fields: ['title', 'date'],
-                    view_filters: [
-                        { label: 'Drafts', field: 'draft', pattern: true }
-                    ]
-                }
-            ]
-        });
-    </script>
+    <script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
 </body>
 
 </html>
