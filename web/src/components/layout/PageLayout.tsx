@@ -9,12 +9,12 @@ import Footer from "./Footer";
 
 const tabRoutes = ["", "blog", "experience", "about"];
 
-export default function PageLayout({ 
-  children, 
-  className 
-}: { 
-  children: React.ReactNode;
-  className?: string;
+export default function PageLayout({
+    children,
+    className
+}: {
+    children: React.ReactNode;
+    className?: string;
 }) {
     const pathname = usePathname();
     const router = useRouter();
@@ -43,7 +43,7 @@ export default function PageLayout({
                 const contentHeight = contentRef.current.offsetHeight;
                 const viewportHeight = window.innerHeight;
                 const headerHeight = 64; // Approximate header height
-                
+
                 // If content is shorter than viewport minus header, add min-height to push footer down
                 if (contentHeight < (viewportHeight - headerHeight)) {
                     contentRef.current.style.minHeight = `${viewportHeight - headerHeight}px`;
@@ -52,10 +52,10 @@ export default function PageLayout({
                 }
             }
         };
-        
+
         checkContentHeight();
         window.addEventListener('resize', checkContentHeight);
-        
+
         return () => {
             window.removeEventListener('resize', checkContentHeight);
         };
@@ -97,7 +97,7 @@ export default function PageLayout({
                 sx={{
                     width: "100%",
                     height: "100%",
-                    pb: 3,
+                    pb: { xs: 2, md: 4 },
                 }}
             >
                 {/* Header with logo at left and Tabs at right */}
@@ -127,8 +127,8 @@ export default function PageLayout({
                     </Box>
                     {/* Mobile menu or desktop tabs */}
                     {isMobile ? (
-                        <IconButton 
-                            color="inherit" 
+                        <IconButton
+                            color="inherit"
                             onClick={() => setMobileNavOpen(true)}
                             sx={{ color: 'white' }}
                         >
@@ -197,12 +197,12 @@ export default function PageLayout({
                         <Box sx={{ flex: 1 }}>
                             {children}
                         </Box>
-                        
+
                         {/* Footer - now inside the scrollable content but will stick to bottom if content is short */}
                         <Footer />
                     </Box>
                 </Box>
-                
+
                 <Drawer
                     anchor="right"
                     open={mobileNavOpen}

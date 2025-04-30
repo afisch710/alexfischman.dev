@@ -223,7 +223,7 @@ export default function Home({
                                 gutterBottom
                                 charDelay={30}
                                 sx={{
-                                    maxWidth: { xs: '95%', md: '75%' },
+                                    maxWidth: { xs: '100%', md: '95%' },
                                     mx: 'auto',
                                     color: 'text.secondary',
                                     lineHeight: { xs: 1.5, md: 1.6 },
