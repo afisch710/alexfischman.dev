@@ -280,7 +280,7 @@ export default function Home({
                                 <Button 
                                     component={NextLink} 
                                     href="/about" 
-                                    variant="contained" 
+                                    variant="outlined" 
                                     color="primary"
                                     sx={{
                                         px: { xs: 2, md: 4 },
