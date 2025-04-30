@@ -171,125 +171,137 @@ export default function Home({
                 <Box sx={{ 
                     position: 'relative', 
                     textAlign: 'center', 
-                    py: { xs: 3, md: 4 },
-                    px: { xs: 2, md: 4 },
-                    mb: { xs: 4, md: 6 },
-                    bgcolor: 'background.paper',
-                    borderRadius: 4,
-                    boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.common.black, 0.1)}`,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                 }}>
-                    <StreamingText
-                        text={firstText}
-                        component="div"
-                        gutterBottom
-                        sx={{
-                            typography: { xs: 'h3', md: 'h2' },
-                            maxWidth: { xs: '100%', md: '85%' },
-                            mx: 'auto',
-                            fontWeight: 700,
-                            mb: 3,
-                            color: 'text.primary',
-                            letterSpacing: '-0.02em',
-                            lineHeight: { xs: 1.3, md: 1.2 },
-                            '& br': {
-                                display: 'block',
-                                content: '""',
-                                marginTop: { xs: 1, md: 2 },
-                            },
-                            whiteSpace: 'pre-line',
-                        }}
-                        showCursor={!firstDone}
-                        onComplete={handleFirstDone}
-                        skip={skipped}
-                    />
-                    {firstDone && (
+                    <Fade in={secondDone} timeout={500}>
+                        <Box sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            bgcolor: 'background.paper',
+                            borderRadius: 4,
+                            boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.common.black, 0.1)}`,
+                            zIndex: -1,
+                        }} />
+                    </Fade>
+                    <Box sx={{
+                        py: { xs: 3, md: 4 },
+                        px: { xs: 2, md: 4 },
+                        mb: { xs: 4, md: 6 },
+                    }}>
                         <StreamingText
-                            text="After 10 years at Microsoft building products used by millions, I now focus on creating elegant, high-performance software that blends big data, real-time visuals, and AI to reinvent how we experience weather. While I'm focused on my own venture, I'm also open to opportunities where I can help build something impactful."
-                            variant="subtitle1"
-                            component="p"
+                            text={firstText}
+                            component="div"
                             gutterBottom
-                            charDelay={30}
                             sx={{
-                                maxWidth: { xs: '95%', md: '75%' },
+                                typography: { xs: 'h4', md: 'h2' },
+                                maxWidth: { xs: '100%', md: '85%' },
                                 mx: 'auto',
-                                color: 'text.secondary',
-                                lineHeight: 1.6,
-                                fontSize: { xs: '1.1rem', md: '1.25rem' },
-                                mb: 3,
-                                letterSpacing: '0.01em',
+                                fontWeight: 700,
+                                mb: { xs: 2, md: 3 },
+                                color: 'text.primary',
+                                letterSpacing: '-0.02em',
+                                lineHeight: { xs: 1.2, md: 1.2 },
+                                fontSize: { xs: '1.5rem', md: 'h2.fontSize' },
+                                '& br': {
+                                    display: 'block',
+                                    content: '""',
+                                    marginTop: { xs: 0.5, md: 2 },
+                                },
+                                whiteSpace: 'pre-line',
                             }}
-                            showCursor={!secondDone}
-                            onComplete={handleSecondDone}
+                            showCursor={!firstDone}
+                            onComplete={handleFirstDone}
                             skip={skipped}
                         />
-                    )}
-                    {!skipped && !highlightsVisible && (
-                        <Box
-                            sx={{
-                                position: 'fixed',
-                                bottom: '25%',
-                                left: 0,
-                                right: 0,
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                zIndex: 1000,
-                            }}
+                        {firstDone && (
+                            <StreamingText
+                                text="After 10 years at Microsoft building products used by millions, I now focus on creating elegant, high-performance software that blends big data, real-time visuals, and AI to reinvent how we experience weather. While I'm focused on my own venture, I'm also open to opportunities where I can help build something impactful."
+                                variant="subtitle1"
+                                component="p"
+                                gutterBottom
+                                charDelay={30}
+                                sx={{
+                                    maxWidth: { xs: '95%', md: '75%' },
+                                    mx: 'auto',
+                                    color: 'text.secondary',
+                                    lineHeight: { xs: 1.5, md: 1.6 },
+                                    fontSize: { xs: '0.875rem', md: '1.25rem' },
+                                    mb: { xs: 2, md: 3 },
+                                    letterSpacing: '0.01em',
+                                }}
+                                showCursor={!secondDone}
+                                onComplete={handleSecondDone}
+                                skip={skipped}
+                            />
+                        )}
+                        {!skipped && !highlightsVisible && (
+                            <Box
+                                sx={{
+                                    position: 'fixed',
+                                    bottom: '25%',
+                                    left: 0,
+                                    right: 0,
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    zIndex: 1000,
+                                }}
+                            >
+                                <Button
+                                    ref={skipBtnRef}
+                                    autoFocus={false}
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={skipAll}
+                                    sx={{
+                                        animation: 'pulse 2s ease-in-out infinite',
+                                        borderRadius: 2,
+                                        px: { xs: 2, md: 4 },
+                                        py: { xs: 0.75, md: 1.5 },
+                                        fontSize: { xs: '0.8125rem', md: '1rem' },
+                                        fontWeight: 600,
+                                        minWidth: { xs: 'auto', md: '140px' },
+                                    }}
+                                >
+                                    Skip Intro
+                                </Button>
+                            </Box>
+                        )}
+                        <Zoom
+                            in={secondDone}
+                            timeout={500}
+                            style={{ transitionDelay: secondDone ? '200ms' : '0ms' }}
+                            unmountOnExit
+                            onEntered={() => setHighlightsVisible(true)}
                         >
-                            <Button
-                                ref={skipBtnRef}
-                                autoFocus={false}
-                                variant="contained"
-                                color="secondary"
-                                onClick={skipAll}
-                                sx={{
-                                    animation: 'pulse 2s ease-in-out infinite',
-                                    borderRadius: 2,
-                                    px: 4,
-                                    py: 1.5,
-                                    fontSize: '1rem',
-                                    fontWeight: 600,
-                                }}
-                            >
-                                Skip Intro
-                            </Button>
-                        </Box>
-                    )}
-                    <Zoom
-                        in={secondDone}
-                        timeout={500}
-                        style={{ transitionDelay: secondDone ? '200ms' : '0ms' }}
-                        unmountOnExit
-                        onEntered={() => setHighlightsVisible(true)}
-                    >
-                        <Box sx={{ mt: 4, textAlign: 'center' }}>
-                            <Button 
-                                component={NextLink} 
-                                href="/about" 
-                                variant="contained" 
-                                color="primary"
-                                sx={{
-                                    px: 4,
-                                    py: 1.5,
-                                    fontSize: '1rem',
-                                    fontWeight: 600,
-                                    borderRadius: 2,
-                                    boxShadow: (theme) => `0 4px 14px ${alpha(theme.palette.primary.main, 0.3)}`,
-                                    '&:hover': {
-                                        transform: 'translateY(-2px)',
-                                        boxShadow: (theme) => `0 6px 20px ${alpha(theme.palette.primary.main, 0.4)}`,
-                                    },
-                                    transition: 'all 0.3s ease',
-                                }}
-                            >
-                                Learn More
-                            </Button>
-                        </Box>
-                    </Zoom>
+                            <Box sx={{ mt: { xs: 3, md: 6 }, textAlign: 'center' }}>
+                                <Button 
+                                    component={NextLink} 
+                                    href="/about" 
+                                    variant="contained" 
+                                    color="primary"
+                                    sx={{
+                                        px: { xs: 2, md: 4 },
+                                        py: { xs: 0.75, md: 1.5 },
+                                        fontSize: { xs: '0.8125rem', md: '1rem' },
+                                        fontWeight: 600,
+                                        borderRadius: 2,
+                                        minWidth: { xs: 'auto', md: '140px' },
+                                        boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.primary.main, 0.3)}`,
+                                        '&:hover': {
+                                            transform: 'translateY(-2px)',
+                                            boxShadow: (theme) => `0 6px 20px ${alpha(theme.palette.primary.main, 0.4)}`,
+                                        },
+                                        transition: 'all 0.3s ease',
+                                    }}
+                                >
+                                    Learn More
+                                </Button>
+                            </Box>
+                        </Zoom>
+                    </Box>
                 </Box>
 
                 {/* Highlights Section */}
