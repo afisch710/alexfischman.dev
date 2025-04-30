@@ -4,6 +4,8 @@ import Head from 'next/head';
 
 const AdminPage = () => {
   useEffect(() => {
+    (window as any).CMS_MANUAL_INIT = true;
+
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.css';
@@ -20,6 +22,7 @@ const AdminPage = () => {
 
     return () => {
       document.head.removeChild(link);
+      document.body.removeChild(script);
     };
   }, []);
 
