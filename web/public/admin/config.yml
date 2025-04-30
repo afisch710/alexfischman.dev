@@ -3,7 +3,7 @@ backend:
   repo: afisch710/alexfischman.dev
   branch: development
   auth_scope: repo
-  app_id: Ov23li43Rjen58luWgOc
+  client_id: Ov23li43Rjen58luWgOc
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
