@@ -1,18 +1,35 @@
 // pages/admin/index.tsx
-import dynamic from 'next/dynamic'
-import 'netlify-cms-app/dist/netlify-cms.css'
-import '../../public/admin/cms'
+'use client'
 
-const AdminPage = dynamic(() => import('netlify-cms-app').then((m) => {
-    const CMS = m.default || m
-    CMS.init()
-    const CmsComponent = () => <div id="nc-root" />
-    CmsComponent.displayName = 'CmsComponent'
-    return CmsComponent
-}), {
-    ssr: false,
-})
+import { useEffect } from 'react'
+import dynamic from 'next/dynamic'
+
+const AdminPageContent = () => {
+  useEffect(() => {
+    (async () => {
+      const CMS = (await import('netlify-cms-app')).default
+      const BlogPostPreview = (await import('../../components/admin/BlogPostPreview')).default
+      CMS.registerPreviewTemplate('blog', BlogPostPreview)
+      CMS.init()
+    })()
+  }, [])
+
+  return <div id="nc-root" />
+}
+
+const AdminPage = dynamic(
+  () => Promise.resolve(AdminPageContent),
+  { ssr: false }
+)
 
 export default function Admin() {
-    return <AdminPage />
+  return <AdminPage />
+}
+
+// Skip static generation for this page
+export const getStaticProps = () => {
+  if (typeof window === 'undefined') {
+    return { props: {} }
+  }
+  return { props: {} }
 }
