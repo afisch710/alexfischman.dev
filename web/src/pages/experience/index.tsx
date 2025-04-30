@@ -1,12 +1,16 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Head from 'next/head';
-import { Box, Typography, Chip, IconButton, Collapse } from '@mui/material';
+import { Box, Typography, Chip, IconButton, Collapse, Tooltip, Zoom, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { GetStaticProps } from 'next';
 import type { Experience } from '../../types/experience';
 import experiencesData from '../../data/experience.json';
 import ExperienceCard from '../../components/experience/ExperienceCard';
+import { alpha } from '@mui/material/styles';
+
+// Track if teaching tip has been shown in this SPA session
+let teachingTipShown = false;
 
 export default function ExperiencePage({
     experiences,
@@ -18,6 +22,7 @@ export default function ExperiencePage({
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     // State for showing/hiding filters
     const [filtersVisible, setFiltersVisible] = useState<boolean>(false);
+    const [hasClickedFilter, setHasClickedFilter] = useState<boolean>(false);
 
     // Build a list of all companies from experiences
     const allCompanies = useMemo(() => {
@@ -69,6 +74,11 @@ export default function ExperiencePage({
         });
     }, [experiences, selectedCompanies, selectedTags]);
 
+    const handleFilterClick = () => {
+        setFiltersVisible(prev => !prev);
+        setHasClickedFilter(true);
+    };
+
     return (
         <>
             <Head>
@@ -117,12 +127,31 @@ export default function ExperiencePage({
                     mb={2}
                 >
                     <Typography variant="h3">Experience</Typography>
-                    <IconButton
-                        onClick={() => setFiltersVisible(prev => !prev)}
-                        color="primary"
-                    >
-                        <FilterListIcon />
-                    </IconButton>
+                    <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                        <IconButton
+                            onClick={handleFilterClick}
+                            color="primary"
+                            sx={{
+                                animation: !hasClickedFilter ? 'pulse 2s ease-in-out infinite' : 'none',
+                                '@keyframes pulse': {
+                                    '0%': {
+                                        transform: 'scale(1)',
+                                        boxShadow: '0 0 0 0 rgba(25, 118, 210, 0.4)',
+                                    },
+                                    '70%': {
+                                        transform: 'scale(1.1)',
+                                        boxShadow: '0 0 0 10px rgba(25, 118, 210, 0)',
+                                    },
+                                    '100%': {
+                                        transform: 'scale(1)',
+                                        boxShadow: '0 0 0 0 rgba(25, 118, 210, 0)',
+                                    },
+                                },
+                            }}
+                        >
+                            <FilterListIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
 
                 {/* Filter Controls */}
