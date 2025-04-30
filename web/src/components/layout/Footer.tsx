@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Typography, useTheme, Tooltip } from '@mui/material';
+import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
@@ -30,108 +30,60 @@ export default function Footer() {
                 justifyContent: "center",
                 width: { xs: "100%", sm: "auto" }
             }}>
-                <Tooltip title="View Alex's GitHub">
-                    <IconButton
-                        href="https://github.com/afisch710"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub"
-                        sx={{
-                            color: theme.palette.text.primary,
-                            '&:hover': {
-                                color: theme.palette.primary.main,
-                            },
-                        }}
-                    >
-                        <GitHubIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="View Alex's LinkedIn">
-                    <IconButton
-                        href="https://www.linkedin.com/in/afischman710/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn"
-                        sx={{
-                            color: theme.palette.text.primary,
-                            '&:hover': {
-                                color: theme.palette.primary.main,
-                            },
-                        }}
-                    >
-                        <LinkedInIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Email Alex">
-                    <IconButton
-                        href="mailto:afischman710@gmail.com"
-                        aria-label="Email"
-                        sx={{
-                            color: theme.palette.text.primary,
-                            '&:hover': {
-                                color: theme.palette.primary.main,
-                            },
-                        }}
-                    >
-                        <EmailIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="View this website's repo">
-                    <IconButton
-                        href="https://github.com/afisch710/alexfischman.dev"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Repository"
-                        sx={{
-                            color: theme.palette.text.primary,
-                            '&:hover': {
-                                color: theme.palette.primary.main,
-                            },
-                        }}
-                    >
-                        <CodeIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Visit Pourtle">
-                    <IconButton
-                        href="https://pourtle.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Pourtle"
-                        sx={{
-                            color: theme.palette.text.primary,
-                            '&:hover': {
-                                color: theme.palette.primary.main,
-                            },
-                            '& img': {
-                                width: 24,
-                                height: 24,
-                            },
-                        }}
-                    >
-                        <img src="/pourtle_logo.svg" alt="Pourtle" />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Visit Smarter Weather">
-                    <IconButton
-                        href="https://smarterweather.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Smarter Weather"
-                        sx={{
-                            color: theme.palette.text.primary,
-                            '&:hover': {
-                                color: theme.palette.primary.main,
-                            },
-                            '& img': {
-                                width: 24,
-                                height: 24,
-                            },
-                        }}
-                    >
-                        <img src="/smarterweather_light.svg" alt="Smarter Weather" />
-                    </IconButton>
-                </Tooltip>
+                <IconButton
+                    href="https://github.com/afisch710"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    sx={{
+                        color: theme.palette.text.primary,
+                        '&:hover': {
+                            color: theme.palette.primary.main,
+                        },
+                    }}
+                >
+                    <GitHubIcon />
+                </IconButton>
+                <IconButton
+                    href="https://www.linkedin.com/in/afischman710/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    sx={{
+                        color: theme.palette.text.primary,
+                        '&:hover': {
+                            color: theme.palette.primary.main,
+                        },
+                    }}
+                >
+                    <LinkedInIcon />
+                </IconButton>
+                <IconButton
+                    href="mailto:afischman710@gmail.com"
+                    aria-label="Email"
+                    sx={{
+                        color: theme.palette.text.primary,
+                        '&:hover': {
+                            color: theme.palette.primary.main,
+                        },
+                    }}
+                >
+                    <EmailIcon />
+                </IconButton>
+                <IconButton
+                    href="https://github.com/afisch710/alexfischman.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Repository"
+                    sx={{
+                        color: theme.palette.text.primary,
+                        '&:hover': {
+                            color: theme.palette.primary.main,
+                        },
+                    }}
+                >
+                    <CodeIcon />
+                </IconButton>
             </Box>
             
             <Typography 
