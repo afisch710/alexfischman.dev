@@ -11,6 +11,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import StarIcon from '@mui/icons-material/Star';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import { useTheme, alpha } from '@mui/material/styles';
 
 export interface GithubProfileProps {
     /** GitHub username to display */
@@ -36,6 +37,12 @@ interface GitHubProfileData {
         failure: number;
     };
 }
+
+// Function to convert month number to abbreviated name
+const getMonthAbbrev = (monthStr: string) => {
+    const date = new Date(2000, parseInt(monthStr) - 1, 1);
+    return date.toLocaleString('en-US', { month: 'short' });
+};
 
 const GithubProfile: React.FC<GithubProfileProps> = () => {
     const {
@@ -118,14 +125,34 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
     // Month to display status for: active (click) takes precedence over hover
     const displayedMonth = activeMonth !== null ? activeMonth : hoveredMonth;
 
+    const theme = useTheme();
+
     return (
         <Card variant="outlined" sx={{ borderRadius: 3, boxShadow: 1, p: 1, width: '100%', maxWidth: 1200 }}>
             <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                <Box 
+                    component="a" 
+                    href="https://github.com/afisch710"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: 1, 
+                        mb: 1,
+                        color: 'inherit',
+                        textDecoration: 'none',
+                        cursor: 'pointer',
+                        '&:hover': {
+                            color: theme.palette.primary.main,
+                        },
+                        transition: 'color 0.2s',
+                    }}
+                >
                     <GitHubIcon />
                     <Typography variant="h6">GitHub Activity</Typography>
                 </Box>
-                <Divider sx={{ mb: 2 }} />
+                <Divider sx={{ mb: 2, bgcolor: (theme) => alpha(theme.palette.text.primary, 0.2) }} />
 
                 <Box
                     sx={{
@@ -138,7 +165,13 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
                     }}
                 >
                     {/* Chart Section */}
-                    <Box sx={{ flex: 1, px: 6 }}>
+                    <Box sx={{ 
+                        flex: 1, 
+                        px: 6,
+                        py: 2,
+                        bgcolor: 'rgba(0, 0, 0, 0.2)',
+                        borderRadius: 2,
+                    }}>
                         <Typography variant="subtitle2" gutterBottom>
                             Monthly Contributions
                         </Typography>
@@ -191,7 +224,7 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
                             {monthEntries.map(([month]) => (
                                 <Box key={month} sx={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
                                     <Typography variant="caption">
-                                        {month.split('-')[1]}
+                                        {getMonthAbbrev(month.split('-')[1])}
                                     </Typography>
                                 </Box>
                             ))}
@@ -205,14 +238,14 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
                         }}>
                             {displayedMonth &&
                                 <Typography variant="body2" color="text.primary" component="span">
-                                    {displayedMonth} — {monthlyContributions[displayedMonth]} contributions
+                                    {getMonthAbbrev(displayedMonth.split('-')[1])} {displayedMonth.split('-')[0]} — {monthlyContributions[displayedMonth]} contributions
                                 </Typography>
                             }
                         </Box>
                     </Box>
                     {/* Stats Section */}
                     <Box sx={{ flex: 1 }}>
-                        <Typography variant="subtitle1" gutterBottom>
+                        <Typography variant="h5" gutterBottom>
                             {totalContributions.toLocaleString()} contributions in the last year
                         </Typography>
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }}>
