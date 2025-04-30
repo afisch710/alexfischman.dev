@@ -11,8 +11,14 @@ import theme from "../theme";
 import type { AppProps } from "next/app";
 import { roboto } from "@/lib/fonts";
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const isAdminPage = router.pathname.startsWith('/admin');
+
+  // If it's the admin page, don't wrap it in any site layout
+  if (isAdminPage) {
+    return <Component {...pageProps} />;
+  }
 
   return (
     <>
@@ -27,9 +33,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={router.asPath}
-                initial={{ opacity: 0, y: 50 }}      // Start 50px below final position
-                animate={{ opacity: 1, y: 0 }}         // Animate upward to its natural position
-                exit={{ opacity: 0, y: 50 }}           // Animate downward as it fades out
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.2 }}
                 style={{ height: "100%" }}
               >
