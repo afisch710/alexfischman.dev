@@ -4,11 +4,11 @@ backend:
   branch: development
   auth_scope: repo
   client_id: Ov23li43Rjen58luWgOc
+  open_authoring: true
+  workflow: true
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
-
-publish_mode: editorial_workflow
 
 collections:
   - name: "blog"
