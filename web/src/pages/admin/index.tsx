@@ -6,7 +6,9 @@ import '../../public/admin/cms'
 const AdminPage = dynamic(() => import('netlify-cms-app').then((m) => {
     const CMS = m.default || m
     CMS.init()
-    return () => <div id="nc-root" />
+    const CmsComponent = () => <div id="nc-root" />
+    CmsComponent.displayName = 'CmsComponent'
+    return CmsComponent
 }), {
     ssr: false,
 })
