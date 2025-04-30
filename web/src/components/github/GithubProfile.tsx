@@ -167,10 +167,12 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
                     {/* Chart Section */}
                     <Box sx={{ 
                         flex: 1, 
-                        px: 6,
+                        px: { xs: 2, md: 6 },
                         py: 2,
-                        bgcolor: 'rgba(0, 0, 0, 0.2)',
+                        bgcolor: 'background.paper',
                         borderRadius: 2,
+                        width: { xs: '100%', md: 'auto' },
+                        overflow: 'auto',
                     }}>
                         <Typography variant="subtitle2" gutterBottom>
                             Monthly Contributions
