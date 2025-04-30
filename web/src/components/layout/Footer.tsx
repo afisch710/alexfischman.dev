@@ -4,6 +4,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import CodeIcon from '@mui/icons-material/Code';
+import Image from 'next/image';
 
 export default function Footer() {
     const theme = useTheme();
@@ -109,7 +110,12 @@ export default function Footer() {
                             },
                         }}
                     >
-                        <img src="/pourtle_logo.svg" alt="Pourtle" />
+                        <Image 
+                            src="/pourtle_logo.svg" 
+                            alt="Pourtle" 
+                            width={24}
+                            height={24}
+                        />
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Visit Smarter Weather">
@@ -129,7 +135,12 @@ export default function Footer() {
                             },
                         }}
                     >
-                        <img src="/smarterweather_light.svg" alt="Smarter Weather" />
+                        <Image 
+                            src="/smarterweather_light.svg" 
+                            alt="Smarter Weather" 
+                            width={24}
+                            height={24}
+                        />
                     </IconButton>
                 </Tooltip>
             </Box>
