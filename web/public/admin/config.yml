@@ -1,9 +1,18 @@
 backend:
-  name: git-gateway
-  branch: main # Or your default branch
+  name: github
+  repo: alexfischman/alexfischman.dev
+  branch: development
+  auth_scope: repo
 
-media_folder: "public/uploads" # Where media files are stored
+# These lines tell Netlify CMS where to upload media files
+media_folder: "public/uploads"
 public_folder: "/uploads"
+
+# Enable editorial workflow for content review
+publish_mode: editorial_workflow
+
+# Add local backend support for development
+local_backend: true
 
 collections:
   - name: "blog"
@@ -15,4 +24,11 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Description", name: "description", widget: "text" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
+    sortable_fields: ['title', 'date']
+    view_filters:
+      - label: "Drafts"
+        field: "draft"
+        pattern: true
