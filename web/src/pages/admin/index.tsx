@@ -1,35 +1,39 @@
 // pages/admin/index.tsx
-'use client'
+import React, { useEffect } from 'react';
+import Head from 'next/head';
 
-import { useEffect } from 'react'
-import dynamic from 'next/dynamic'
-
-const AdminPageContent = () => {
+const AdminPage = () => {
   useEffect(() => {
-    (async () => {
-      const CMS = (await import('netlify-cms-app')).default
-      const BlogPostPreview = (await import('../../components/admin/BlogPostPreview')).default
-      CMS.registerPreviewTemplate('blog', BlogPostPreview)
-      CMS.init()
-    })()
-  }, [])
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.css';
+    document.head.appendChild(link);
 
-  return <div id="nc-root" />
-}
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js';
+    script.onload = () => {
+      const cms = (window as any).CMS;
+      cms.registerPreviewTemplate('blog', (window as any).BlogPostPreview);
+      cms.init({ configPath: '/admin/config.yml' });
+    };
+    document.body.appendChild(script);
 
-const AdminPage = dynamic(
-  () => Promise.resolve(AdminPageContent),
-  { ssr: false }
-)
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
 
-export default function Admin() {
-  return <AdminPage />
-}
+  return (
+    <>
+      <Head>
+        <title>Admin | Content Manager</title>
+      </Head>
+      <div id="nc-root" />
+    </>
+  );
+};
 
-// Skip static generation for this page
-export const getStaticProps = () => {
-  if (typeof window === 'undefined') {
-    return { props: {} }
-  }
-  return { props: {} }
-}
+// Mark this page as not using the default layout
+AdminPage.getLayout = (page: React.ReactNode) => page;
+
+export default AdminPage;

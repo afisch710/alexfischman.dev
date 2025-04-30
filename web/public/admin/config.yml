@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: alexfischman/alexfischman.dev
+  repo: afisch710/alexfischman.dev
   branch: development
   auth_scope: repo
   app_id: Ov23li43Rjen58luWgOc
@@ -17,7 +17,7 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     preview_path: "blog/{{slug}}"
-    preview_template: "preview-templates/BlogPostPreview"
+    preview_template: "BlogPostPreview"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
