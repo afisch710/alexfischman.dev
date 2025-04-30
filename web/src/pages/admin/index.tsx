@@ -16,7 +16,7 @@ const AdminPage = () => {
     script.onload = () => {
       const cms = (window as any).CMS;
       cms.registerPreviewTemplate('blog', (window as any).BlogPostPreview);
-      cms.init({ configPath: '/admin/config.yml' });
+      cms.init();
     };
     document.body.appendChild(script);
 
@@ -30,6 +30,7 @@ const AdminPage = () => {
     <>
       <Head>
         <title>Admin | Content Manager</title>
+        <link rel="cms-config-url" href="/admin/config.yml" type="text/yaml" />
       </Head>
       <div id="nc-root" />
     </>
