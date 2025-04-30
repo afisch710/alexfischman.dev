@@ -128,7 +128,7 @@ export default function Home({
     return (
         <>
             <Head>
-                {/* Primary Meta Tags */}
+                {/* Primary meta tags */}
                 <title>Alex Fischman | Senior Software Engineer & Founder</title>
                 <meta name="description" content="Blog, experience, and about me." />
 
