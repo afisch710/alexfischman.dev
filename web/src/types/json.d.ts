@@ -11,7 +11,9 @@ declare module '../data/posts.json' {
     description: string;
     slug: string;
     body: string;
-    ogImage?: string;
+    ogImage: string | null;
+    tags: string[];
+    draft: boolean;
   }>;
   export default value;
 }
@@ -56,7 +58,9 @@ declare module '@/data/posts.json' {
     description: string;
     slug: string;
     body: string;
-    ogImage?: string;
+    ogImage: string | null;
+    tags: string[];
+    draft: boolean;
   }>;
   export default value;
 }
