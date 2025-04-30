@@ -71,10 +71,10 @@ jobs:
         echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
         echo "cf_dist_id=$CF_DIST_ID" >> $GITHUB_OUTPUT
 
-    - name: Upload Static Files to S3
+    - name: Sync Static Files to S3 (with cleanup)
       run: |
-        aws s3 cp web/out s3://${{ steps.stack-outputs.outputs.bucket_name }}/ \
-          --recursive \
+        aws s3 sync web/out s3://${{ steps.stack-outputs.outputs.bucket_name }}/ \
+          --delete \
           --cache-control max-age=21600
 
     - name: Invalidate CloudFront Cache
