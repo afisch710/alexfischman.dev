@@ -6,6 +6,7 @@ backend:
   client_id: Ov23li43Rjen58luWgOc
   open_authoring: true
   workflow: true
+  publish_mode: editorial_workflow
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
