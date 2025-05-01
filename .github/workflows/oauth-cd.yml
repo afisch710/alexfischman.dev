@@ -56,8 +56,10 @@ jobs:
           cd dist
           zip -r ../function.zip .
           cd ..
-          # Upload to S3
-          aws s3 cp function.zip s3://${{ steps.get-bucket.outputs.bucket }}/oauth/function.zip
+          # Upload to S3 with commit-specific key
+          KEY="oauth/function-${GITHUB_SHA}.zip"
+          aws s3 cp function.zip s3://${{ steps.get-bucket.outputs.bucket }}/$KEY
+          echo "key=$KEY" >> $GITHUB_OUTPUT
 
       - name: Deploy OAuth proxy CloudFormation stack
         run: |
@@ -67,7 +69,7 @@ jobs:
             --parameter-overrides \
               OAuthClientId=${{ secrets.OAUTH_CLIENT_ID }} \
               OAuthClientSecret=${{ secrets.OAUTH_CLIENT_SECRET }} \
-              FunctionS3Key=oauth/function.zip \
+              FunctionS3Key=${{ steps.package.outputs.key }} \
               ArtifactBucketName=${{ steps.get-bucket.outputs.bucket }} \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset
