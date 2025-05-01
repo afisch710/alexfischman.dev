@@ -1,0 +1,43 @@
+name: oauth-ci
+
+on:
+  pull_request:
+    branches: [ development ]
+    paths:
+      - 'services/oauth/**'
+  workflow_dispatch:  # allows manual runs
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          cache-dependency-path: services/oauth/package.json
+
+      - name: Install dependencies
+        working-directory: services/oauth
+        run: yarn install --frozen-lockfile
+
+      - name: Run tests
+        working-directory: services/oauth
+        run: yarn test
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Validate CloudFormation template
+        run: |
+          aws cloudformation validate-template \
+            --template-body file://services/oauth/cloudformation.yaml
