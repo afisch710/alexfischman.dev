@@ -45,9 +45,10 @@ jobs:
           echo "bucket=$BUCKET_NAME" >> $GITHUB_OUTPUT
 
       - name: Package Lambda function
-        working-directory: services/oauth
         run: |
-          zip -r function.zip index.js node_modules/
+          cd services/oauth/src
+          zip -r ../function.zip .   # now index.js and node_modules/ are at the zip root
+          cd ../..
           aws s3 cp function.zip s3://${{ steps.get-bucket.outputs.bucket }}/oauth/function.zip
 
       - name: Deploy OAuth proxy CloudFormation stack
