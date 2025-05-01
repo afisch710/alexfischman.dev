@@ -3,7 +3,9 @@ backend:
   repo: afisch710/alexfischman.dev
   branch: development
   auth_scope: repo
-  proxy_url: https://alexfischman.dev/oauth/auth
+  base_url: https://alexfischman.dev/oauth
+  open_authoring: true
+  workflow: true
 
 publish_mode: editorial_workflow
 
