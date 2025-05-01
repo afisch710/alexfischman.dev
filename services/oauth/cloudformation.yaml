@@ -26,7 +26,7 @@ Resources:
         Bucket: !Ref ArtifactBucketName
         Key: !Ref FunctionS3Key
       Runtime: nodejs20.x
-      Handler: index.handler
+      Handler: src/index.handler
       Timeout: 10
       Environment:
         Variables:
