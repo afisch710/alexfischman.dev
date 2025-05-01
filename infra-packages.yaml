@@ -47,6 +47,20 @@ Resources:
             Condition:
               StringNotEquals:
                 s3:x-amz-server-side-encryption-aws-kms-key-id: !GetAtt ArtifactBucket.Arn
+          - Sid: AllowGitHubActionsUpload
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action:
+              - s3:PutObject
+              - s3:GetObject
+              - s3:ListBucket
+            Resource:
+              - !Sub '${ArtifactBucket.Arn}/*'
+              - !Sub '${ArtifactBucket.Arn}'
+            Condition:
+              StringEquals:
+                aws:PrincipalType: IAMUser
 
 Outputs:
   BucketName:
