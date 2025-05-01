@@ -3,10 +3,7 @@ backend:
   repo: afisch710/alexfischman.dev
   branch: development
   auth_scope: repo
-  client_id: Ov23li43Rjen58luWgOc
-  proxy_url: https://alexfischman.dev/oauth
-  open_authoring: true
-  workflow: true
+  proxy_url: https://alexfischman.dev/oauth/auth
 
 publish_mode: editorial_workflow
 
