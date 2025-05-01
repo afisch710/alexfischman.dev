@@ -10,6 +10,17 @@
 </head>
 
 <body>
+    <script>
+      // Listen for OAuth messages from the proxy
+      window.addEventListener('message', (event) => {
+        const { type, token, error } = event.data || {};
+        if (type === 'OAUTH_SUCCESS') {
+          window.CMS.authenticate({ token });
+        } else if (type === 'OAUTH_ERROR') {
+          window.CMS.authError(error);
+        }
+      });
+    </script>
     <script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
 </body>
 

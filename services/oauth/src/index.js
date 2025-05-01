@@ -3,92 +3,92 @@ const fetch = require('node-fetch');
 const { URLSearchParams } = require('url');
 
 exports.handler = async (event) => {
-    try {
-        const code = event.queryStringParameters?.code;
-        const redirect_uri = process.env.REDIRECT_URI;
+  try {
+    const code = event.queryStringParameters?.code;
+    const redirect_uri = process.env.REDIRECT_URI;
 
-        // ---------- Verbose debug logging ----------
-        console.log('Callback query:', event.queryStringParameters);
-        console.log('Cookie header:', event.headers?.cookie || event.headers?.Cookie);
-        console.log('Has client ID?', !!process.env.GITHUB_CLIENT_ID);
-        console.log('Has client secret?', !!process.env.GITHUB_CLIENT_SECRET);
-        // -------------------------------------------
-        console.log('redirect_uri:', redirect_uri);
+    // ---------- Verbose debug logging ----------
+    console.log('Callback query:', event.queryStringParameters);
+    // console.log('Cookie header:', event.headers?.cookie || event.headers?.Cookie);
+    console.log('Has client ID?', !!process.env.GITHUB_CLIENT_ID);
+    console.log('Has client secret?', !!process.env.GITHUB_CLIENT_SECRET);
+    // -------------------------------------------
+    console.log('redirect_uri:', redirect_uri);
 
-        // 1. No code yet? Redirect user to GitHub for auth, setting state cookie via JS
-        const generatedState = Math.random().toString(36).substring(2);
-        if (!code) {
-            const params = new URLSearchParams({
-                client_id: process.env.GITHUB_CLIENT_ID,
-                redirect_uri,
-                scope: 'repo',
-                state: generatedState
-            });
-            const authUrl = `https://github.com/login/oauth/authorize?${params.toString()}`;
-            const html = `<!DOCTYPE html>
+    // 1. No code yet? Redirect user to GitHub for auth
+    if (!code) {
+      const params = new URLSearchParams({
+        client_id: process.env.GITHUB_CLIENT_ID,
+        redirect_uri,
+        scope: 'repo'
+      });
+      const authUrl = `https://github.com/login/oauth/authorize?${params.toString()}`;
+      const html = `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
 <body>
   <script>
-    // Store state cookie then navigate
-    document.cookie = "oauth_state=${generatedState}; Path=/; SameSite=Lax";
     window.location = "${authUrl}";
   </script>
   <noscript>
-    State cookie needed. <a href="${authUrl}">Click here to authenticate</a>.
+    <a href="${authUrl}">Click here to authenticate</a>.
   </noscript>
 </body>
 </html>`;
-            return {
-                statusCode: 200,
-                headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
-                body: html
-            };
-        }
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
+        body: html
+      };
+    }
 
-        // 2. Exchange code for an access token
-        // Prepare URL-encoded body
-        const params = new URLSearchParams({
-            client_id: process.env.GITHUB_CLIENT_ID,
-            client_secret: process.env.GITHUB_CLIENT_SECRET,
-            code
-        });
-        console.log('POSTing to GitHub with body:', params.toString());
-        const tokenResponse = await fetch(
-            'https://github.com/login/oauth/access_token',
-            {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: params.toString()
-            }
-        );
-        // Fail on non-2xx
-        if (!tokenResponse.ok) {
-            const text = await tokenResponse.text();
-            throw new Error(`Token exchange failed: ${tokenResponse.status} ${text}`);
-        }
-        const tokenData = await tokenResponse.json();
-        console.log('GitHub token response:', tokenData);
+    // 2. Exchange code for an access token
+    // Prepare URL-encoded body
+    const params = new URLSearchParams({
+      client_id: process.env.GITHUB_CLIENT_ID,
+      client_secret: process.env.GITHUB_CLIENT_SECRET,
+      code
+    });
+    console.log('POSTing to GitHub with body:', params.toString());
+    const tokenResponse = await fetch(
+      'https://github.com/login/oauth/access_token',
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params.toString()
+      }
+    );
+    // Fail on non-2xx
+    if (!tokenResponse.ok) {
+      const text = await tokenResponse.text();
+      throw new Error(`Token exchange failed: ${tokenResponse.status} ${text}`);
+    }
+    const tokenData = await tokenResponse.json();
+    console.log('GitHub token response:', tokenData);
 
-        if (tokenData.error || !tokenData.access_token) {
-            throw new Error(
-                tokenData.error_description || tokenData.error || 'No access token'
-            );
-        }
+    if (tokenData.error || !tokenData.access_token) {
+      throw new Error(
+        tokenData.error_description || tokenData.error || 'No access token'
+      );
+    }
 
-        const token = tokenData.access_token;
+    const token = tokenData.access_token;
 
-        // 3. Return HTML snippet to authenticate CMS and close window
-        const html = `<!DOCTYPE html>
+    // 3. Return HTML snippet to authenticate CMS and close window
+    const html = `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
 <body>
   <script>
-    if (window.opener && window.opener.CMS) {
-      window.opener.CMS.authenticate({ token: "${token}" });
+    // Send OAuth token back to CMS via postMessage
+    if (window.opener) {
+      window.opener.postMessage(
+        { type: 'OAUTH_SUCCESS', token: "${token}" },
+        '*' // allow any origin; CMS should verify message origin
+      );
     }
     window.close();
   </script>
@@ -96,30 +96,34 @@ exports.handler = async (event) => {
 </body>
 </html>`;
 
-        return {
-            statusCode: 200,
-            headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
-            body: html
-        };
-    } catch (error) {
-        console.error('OAuth proxy error:', error);
-        const errHtml = `<!DOCTYPE html>
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
+      body: html
+    };
+  } catch (error) {
+    console.error('OAuth proxy error:', error);
+    const errHtml = `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
 <body>
   <script>
-    if (window.opener && window.opener.CMS && window.opener.CMS.authError) {
-      window.opener.CMS.authError(${JSON.stringify(error.message)});
+    // Send OAuth error back to CMS via postMessage
+    if (window.opener) {
+      window.opener.postMessage(
+        { type: 'OAUTH_ERROR', error: ${JSON.stringify(error.message)} },
+        '*'
+      );
     }
     window.close();
   </script>
   <noscript>Authentication failed: ${error.message}</noscript>
 </body>
 </html>`;
-        return {
-            statusCode: 500,
-            headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
-            body: errHtml
-        };
-    }
+    return {
+      statusCode: 500,
+      headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
+      body: errHtml
+    };
+  }
 };
