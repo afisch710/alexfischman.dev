@@ -3,6 +3,34 @@ const fetch = require('node-fetch');
 const { URLSearchParams } = require('url');
 
 exports.handler = async (event) => {
+  // Proxy all GitHub API calls through this function, except the initial OAuth callback
+  const proxyPrefix = '/oauth/auth';
+  // Extract token from HttpOnly cookie
+  const cookieHeader = event.headers?.cookie || event.headers?.Cookie || '';
+  const tokenMatch = cookieHeader.match(/(?:^|; )github_oauth_token=([^;]+)/);
+  const token = tokenMatch?.[1];
+  // If this request is NOT the initial GET to the OAuth endpoint, proxy it
+  if (!(event.httpMethod === 'GET' && event.path === proxyPrefix)) {
+    // Derive GitHub API path
+    const apiPath = event.path.replace(proxyPrefix, '') || '/';
+    const githubUrl = `https://api.github.com${apiPath}`;
+    // Forward the request
+    const proxyResponse = await fetch(githubUrl, {
+      method: event.httpMethod,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': event.headers['Content-Type'] || ''
+      },
+      body: ['GET', 'HEAD'].includes(event.httpMethod) ? undefined : event.body
+    });
+    const responseBody = await proxyResponse.text();
+    return {
+      statusCode: proxyResponse.status,
+      headers: { 'Content-Type': proxyResponse.headers.get('content-type') || 'application/json' },
+      body: responseBody
+    };
+  }
   try {
     const code = event.queryStringParameters?.code;
     const redirect_uri = process.env.REDIRECT_URI;
