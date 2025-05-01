@@ -44,7 +44,6 @@ Resources:
     Type: AWS::Serverless::HttpApi
     Properties:
       Name: GitHubOAuthProxyApi
-      StageName: prod
       CorsConfiguration:
         AllowMethods:
           - GET
@@ -62,7 +61,7 @@ Resources:
 Outputs:
   ProxyUrl:
     Description: "The API Gateway URL of your OAuth proxy (/oauth/auth)"
-    Value: !Sub 'https://${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com/prod/oauth/auth'
+    Value: !Sub 'https://${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com/oauth/auth'
     Export:
       Name: !Sub '${AWS::StackName}-ProxyUrl'
   
