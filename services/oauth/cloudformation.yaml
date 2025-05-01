@@ -35,33 +35,30 @@ Resources:
           REDIRECT_URI: !Sub 'https://${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com/prod/auth'
       Events:
         ProxyApi:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /auth
             Method: ANY
-            RestApiId: !Ref OAuthProxyApi
+            ApiId: !Ref OAuthProxyApi
 
   OAuthProxyApi:
-    Type: AWS::Serverless::Api
+    Type: AWS::Serverless::HttpApi
     Properties:
       Name: GitHubOAuthProxyApi
       StageName: prod
-      EndpointConfiguration: REGIONAL
-      Cors:
-        AllowMethods: "'GET,POST,OPTIONS'"
-        AllowHeaders: "'Content-Type,X-API-Key'"
-        AllowOrigin: "'*'"
+      CorsConfiguration:
+        AllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
+        AllowOrigins:
+          - '*'
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 20
+        ThrottlingRateLimit: 10
 
-  ApiThrottleStage:
-    Type: AWS::ApiGateway::Stage
-    Properties:
-      StageName: prod
-      RestApiId: !Ref OAuthProxyApi
-      MethodSettings:
-        - ResourcePath: "/*"
-          HttpMethod: "*"
-          ThrottlingBurstLimit: 20
-          ThrottlingRateLimit: 10
 
 Outputs:
   ProxyUrl:
@@ -81,9 +78,3 @@ Outputs:
     Value: !Sub '${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com'
     Export:
       Name: !Sub '${AWS::StackName}-ApiEndpoint'
-  
-  ApiStageName:
-    Description: "The API Gateway stage name (for CloudFront origin path)"
-    Value: prod
-    Export:
-      Name: !Sub '${AWS::StackName}-ApiStageName'
