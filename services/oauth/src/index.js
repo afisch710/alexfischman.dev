@@ -3,6 +3,8 @@ const fetch = require('node-fetch');
 const { URLSearchParams } = require('url');
 
 exports.handler = async (event) => {
+  // Normalize incoming path for AWS HTTP API (v1/v2)
+  const requestPath = event.path || event.rawPath || '';
   // Proxy all GitHub API calls through this function, except the initial OAuth callback
   const proxyPrefix = '/oauth/auth';
   // Extract token from HttpOnly cookie
@@ -10,9 +12,9 @@ exports.handler = async (event) => {
   const tokenMatch = cookieHeader.match(/(?:^|; )github_oauth_token=([^;]+)/);
   const token = tokenMatch?.[1];
   // If this request is NOT the initial GET to the OAuth endpoint, proxy it
-  if (!(event.httpMethod === 'GET' && event.path === proxyPrefix)) {
+  if (!(event.httpMethod === 'GET' && requestPath === proxyPrefix)) {
     // Derive GitHub API path
-    const apiPath = event.path.replace(proxyPrefix, '') || '/';
+    const apiPath = requestPath.replace(proxyPrefix, '') || '/';
     const githubUrl = `https://api.github.com${apiPath}`;
     // Forward the request
     const proxyResponse = await fetch(githubUrl, {
