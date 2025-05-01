@@ -2,9 +2,9 @@
   {
     "title": "My First Post",
     "date": "2025-03-12T12:00:00",
-    "description": "An introduction to my blog using Netlify CMS.",
+    "description": "An introduction to my blog.",
     "slug": "2025-03-12-my-first-post",
-    "body": "\nWelcome to my new blog powered by Netlify CMS and Next.js!",
+    "body": "\nWelcome to my new blog!",
     "ogImage": null,
     "tags": [],
     "draft": false
