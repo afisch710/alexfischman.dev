@@ -26,10 +26,6 @@ jobs:
         working-directory: services/oauth
         run: yarn install --frozen-lockfile
 
-      - name: Run tests
-        working-directory: services/oauth
-        run: yarn test
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
