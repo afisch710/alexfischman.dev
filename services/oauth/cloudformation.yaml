@@ -51,9 +51,17 @@ Resources:
         AllowMethods: "'GET,POST,OPTIONS'"
         AllowHeaders: "'Content-Type,X-API-Key'"
         AllowOrigin: "'*'"
-      Throttle:
-        BurstLimit: 20
-        RateLimit: 10
+
+  ApiThrottleStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      StageName: prod
+      RestApiId: !Ref OAuthProxyApi
+      MethodSettings:
+        - ResourcePath: "/*"
+          HttpMethod: "*"
+          ThrottlingBurstLimit: 20
+          ThrottlingRateLimit: 10
 
 Outputs:
   ProxyUrl:
