@@ -2,117 +2,91 @@
 const fetch = require('node-fetch');
 const { URLSearchParams } = require('url');
 
-const handler = async (event) => {
+exports.handler = async (event) => {
     try {
         const code = event.queryStringParameters?.code;
+        const redirect_uri = process.env.REDIRECT_URI;
 
         // 1. No code yet? Redirect user to GitHub for auth
         if (!code) {
             const params = new URLSearchParams({
                 client_id: process.env.GITHUB_CLIENT_ID,
-                redirect_uri: process.env.REDIRECT_URI,
+                redirect_uri,
                 scope: 'repo',
-                state: Math.random().toString(36).substring(7) // Add CSRF protection
+                state: Math.random().toString(36).substring(2) // CSRF protection
             });
             return {
                 statusCode: 302,
                 headers: {
-                    'Location': `https://github.com/login/oauth/authorize?${params.toString()}`,
+                    Location: `https://github.com/login/oauth/authorize?${params.toString()}`,
                     'Cache-Control': 'no-store'
-                },
+                }
             };
         }
 
         // 2. Exchange code for an access token
-        const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                client_id: process.env.GITHUB_CLIENT_ID,
-                client_secret: process.env.GITHUB_CLIENT_SECRET,
-                code,
-                redirect_uri: process.env.REDIRECT_URI,
-            }),
-        });
+        const tokenResponse = await fetch(
+            'https://github.com/login/oauth/access_token',
+            {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    client_id: process.env.GITHUB_CLIENT_ID,
+                    client_secret: process.env.GITHUB_CLIENT_SECRET,
+                    code,
+                    redirect_uri
+                })
+            }
+        );
+        const tokenData = await tokenResponse.json();
 
-        if (!tokenRes.ok) {
-            throw new Error(`GitHub token exchange failed: ${tokenRes.statusText}`);
+        if (tokenData.error || !tokenData.access_token) {
+            throw new Error(
+                tokenData.error_description || tokenData.error || 'No access token'
+            );
         }
 
-        const data = await tokenRes.json();
-        
-        if (data.error) {
-            throw new Error(`GitHub OAuth error: ${data.error_description || data.error}`);
-        }
+        const token = tokenData.access_token;
 
-        const { access_token } = data;
+        // 3. Return HTML snippet to authenticate CMS and close window
+        const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+  <script>
+    if (window.opener && window.opener.CMS) {
+      window.opener.CMS.authenticate({ token: "${token}" });
+    }
+    window.close();
+  </script>
+  <noscript>Please close this window and return to the CMS.</noscript>
+</body>
+</html>`;
 
-        if (!access_token) {
-            throw new Error('No access token received from GitHub');
-        }
-
-        // 3. Return HTML that passes the token to the CMS
         return {
             statusCode: 200,
-            headers: {
-                'Content-Type': 'text/html',
-                'Cache-Control': 'no-store',
-                'X-Content-Type-Options': 'nosniff',
-                'Content-Security-Policy': "default-src 'none'; script-src 'unsafe-inline'"
-            },
-            body: `
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="utf-8">
-                    <title>Authentication Complete</title>
-                </head>
-                <body>
-                    <script>
-                        if (window.opener) {
-                            window.opener.CMS.authenticate({ token: "${access_token}" });
-                            window.close();
-                        } else {
-                            document.body.innerHTML = 'Authentication successful! You can close this window.';
-                        }
-                    </script>
-                </body>
-                </html>
-            `,
+            headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
+            body: html
         };
     } catch (error) {
-        console.error('OAuth error:', error);
-        
+        console.error('OAuth proxy error:', error);
+        const errHtml = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+  <script>
+    if (window.opener && window.opener.CMS && window.opener.CMS.authError) {
+      window.opener.CMS.authError(${JSON.stringify(error.message)});
+    }
+    window.close();
+  </script>
+  <noscript>Authentication failed: ${error.message}</noscript>
+</body>
+</html>`;
         return {
             statusCode: 500,
-            headers: {
-                'Content-Type': 'text/html',
-                'Cache-Control': 'no-store'
-            },
-            body: `
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="utf-8">
-                    <title>Authentication Error</title>
-                </head>
-                <body>
-                    <script>
-                        if (window.opener) {
-                            window.opener.CMS.authError('${error.message.replace(/'/g, "\\'")}');
-                            window.close();
-                        } else {
-                            document.body.innerHTML = 'Authentication failed. You can close this window.';
-                        }
-                    </script>
-                </body>
-                </html>
-            `,
+            headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
+            body: errHtml
         };
     }
 };
-
-module.exports = { handler };
