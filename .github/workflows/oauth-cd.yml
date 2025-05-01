@@ -47,9 +47,8 @@ jobs:
       - name: Package Lambda function
         run: |
           cd services/oauth/src
-          zip -r ../function.zip .   # now index.js and node_modules/ are at the zip root
-          cd ../..
-          aws s3 cp function.zip s3://${{ steps.get-bucket.outputs.bucket }}/oauth/function.zip
+          zip -r ../function.zip .
+          aws s3 cp ../function.zip s3://${{ steps.get-bucket.outputs.bucket }}/oauth/function.zip
 
       - name: Deploy OAuth proxy CloudFormation stack
         run: |
