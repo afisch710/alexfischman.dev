@@ -36,7 +36,7 @@ Resources:
         ProxyApi:
           Type: HttpApi
           Properties:
-            Path: /auth
+            Path: /oauth/auth
             Method: ANY
             ApiId: !Ref OAuthProxyApi
 
@@ -61,8 +61,8 @@ Resources:
 
 Outputs:
   ProxyUrl:
-    Description: "The API Gateway URL of your OAuth proxy"
-    Value: !Sub 'https://${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com/prod/auth'
+    Description: "The API Gateway URL of your OAuth proxy (/oauth/auth)"
+    Value: !Sub 'https://${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com/prod/oauth/auth'
     Export:
       Name: !Sub '${AWS::StackName}-ProxyUrl'
   
