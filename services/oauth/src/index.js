@@ -4,11 +4,10 @@ const { URLSearchParams } = require('url');
 
 exports.handler = async (event) => {
     try {
-        const { code, state: returnedState } = event.queryStringParameters || {};
-        const cookieHeader = event.headers?.cookie || event.headers?.Cookie || '';
+        const code = event.queryStringParameters?.code;
         const redirect_uri = process.env.REDIRECT_URI;
 
-        // 1. No code yet? Redirect user to GitHub for auth
+        // 1. No code yet? Redirect user to GitHub for auth, setting state cookie via JS
         const generatedState = Math.random().toString(36).substring(2);
         if (!code) {
             const params = new URLSearchParams({
@@ -17,24 +16,26 @@ exports.handler = async (event) => {
                 scope: 'repo',
                 state: generatedState
             });
+            const authUrl = `https://github.com/login/oauth/authorize?${params.toString()}`;
+            const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+  <script>
+    // Store state cookie then navigate
+    document.cookie = "oauth_state=${generatedState}; Path=/; SameSite=Lax";
+    window.location = "${authUrl}";
+  </script>
+  <noscript>
+    State cookie needed. <a href="${authUrl}">Click here to authenticate</a>.
+  </noscript>
+</body>
+</html>`;
             return {
-                statusCode: 302,
-                headers: {
-                    Location: `https://github.com/login/oauth/authorize?${params.toString()}`,
-                    'Cache-Control': 'no-store',
-                    'Set-Cookie': `oauth_state=${generatedState}; HttpOnly; Path=/; Secure; SameSite=Lax`
-                }
+                statusCode: 200,
+                headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
+                body: html
             };
-        }
-
-        // Validate OAuth state
-        const match = cookieHeader.match(/(?:^|; )oauth_state=([^;]+)/);
-        if (!match) {
-            throw new Error('Missing oauth_state cookie');
-        }
-        const savedState = match[1];
-        if (returnedState !== savedState) {
-            throw new Error('Invalid OAuth state');
         }
 
         // 2. Exchange code for an access token
@@ -43,8 +44,7 @@ exports.handler = async (event) => {
             client_id: process.env.GITHUB_CLIENT_ID,
             client_secret: process.env.GITHUB_CLIENT_SECRET,
             code,
-            redirect_uri,
-            state: returnedState
+            redirect_uri
         });
         const tokenResponse = await fetch(
             'https://github.com/login/oauth/access_token',
