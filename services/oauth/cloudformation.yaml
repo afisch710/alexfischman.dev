@@ -32,7 +32,6 @@ Resources:
         Variables:
           GITHUB_CLIENT_ID: !Ref OAuthClientId
           GITHUB_CLIENT_SECRET: !Ref OAuthClientSecret
-          REDIRECT_URI: !Sub 'https://${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com/prod/auth'
       Events:
         ProxyApi:
           Type: HttpApi
