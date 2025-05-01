@@ -21,6 +21,7 @@
                     // Use Netlify CMS OAuth callback
                     if (window.CMS.oauthCallback) {
                         window.CMS.oauthCallback(token);
+                        window.location.reload();
                     }
                 } else if (type === 'OAUTH_ERROR') {
                     // Use Netlify CMS OAuth error callback
