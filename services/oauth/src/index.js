@@ -5,6 +5,8 @@ const { URLSearchParams } = require('url');
 exports.handler = async (event) => {
   // Normalize incoming path for AWS HTTP API (v1/v2)
   const requestPath = event.path || event.rawPath || '';
+  // Normalize HTTP method (API Gateway v1 & v2)
+  const httpMethod = event.httpMethod || event.requestContext?.http?.method || '';
   // Proxy all GitHub API calls through this function, except the initial OAuth callback
   const proxyPrefix = '/oauth/auth';
   // Extract token from HttpOnly cookie
@@ -12,19 +14,19 @@ exports.handler = async (event) => {
   const tokenMatch = cookieHeader.match(/(?:^|; )github_oauth_token=([^;]+)/);
   const token = tokenMatch?.[1];
   // If this request is NOT the initial GET to the OAuth endpoint, proxy it
-  if (!(event.httpMethod === 'GET' && requestPath === proxyPrefix)) {
+  if (!(httpMethod === 'GET' && requestPath === proxyPrefix)) {
     // Derive GitHub API path
     const apiPath = requestPath.replace(proxyPrefix, '') || '/';
     const githubUrl = `https://api.github.com${apiPath}`;
     // Forward the request
     const proxyResponse = await fetch(githubUrl, {
-      method: event.httpMethod,
+      method: httpMethod,
       headers: {
         'Authorization': `Bearer ${token}`,
         'Accept': 'application/vnd.github.v3+json',
         'Content-Type': event.headers['Content-Type'] || ''
       },
-      body: ['GET', 'HEAD'].includes(event.httpMethod) ? undefined : event.body
+      body: ['GET', 'HEAD'].includes(httpMethod) ? undefined : event.body
     });
     const responseBody = await proxyResponse.text();
     return {
