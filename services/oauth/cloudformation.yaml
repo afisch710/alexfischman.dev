@@ -16,6 +16,10 @@ Parameters:
   ArtifactBucketName:
     Type: String
     Description: Name of the existing S3 bucket for Lambda artifacts
+  RedirectUri:
+    Type: String
+    Description: The OAuth redirect URI (must match GitHub OAuth App settings)
+    Default: https://alexfischman.dev/oauth/auth
 
 Resources:
   OAuthProxyFunction:
@@ -32,6 +36,7 @@ Resources:
         Variables:
           GITHUB_CLIENT_ID: !Ref OAuthClientId
           GITHUB_CLIENT_SECRET: !Ref OAuthClientSecret
+          REDIRECT_URI: !Ref RedirectUri
       Events:
         ProxyApi:
           Type: HttpApi
