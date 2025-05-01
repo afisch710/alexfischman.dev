@@ -45,6 +45,7 @@ jobs:
           echo "bucket=$BUCKET_NAME" >> $GITHUB_OUTPUT
 
       - name: Package Lambda function
+        id: package
         working-directory: services/oauth
         run: |
           # Create a temporary directory for packaging
@@ -57,9 +58,9 @@ jobs:
           zip -r ../function.zip .
           cd ..
           # Upload to S3 with commit-specific key
-          KEY="oauth/function-${GITHUB_SHA}.zip"
-          aws s3 cp function.zip s3://${{ steps.get-bucket.outputs.bucket }}/$KEY
-          echo "key=$KEY" >> $GITHUB_OUTPUT
+          S3_KEY="oauth/function-${GITHUB_SHA}.zip"
+          aws s3 cp function.zip "s3://${{ steps.get-bucket.outputs.bucket }}/${S3_KEY}"
+          echo "S3_KEY=${S3_KEY}" >> "$GITHUB_ENV"
 
       - name: Deploy OAuth proxy CloudFormation stack
         run: |
@@ -69,7 +70,7 @@ jobs:
             --parameter-overrides \
               OAuthClientId=${{ secrets.OAUTH_CLIENT_ID }} \
               OAuthClientSecret=${{ secrets.OAUTH_CLIENT_SECRET }} \
-              FunctionS3Key=${{ steps.package.outputs.key }} \
+              FunctionS3Key=${S3_KEY} \
               ArtifactBucketName=${{ steps.get-bucket.outputs.bucket }} \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset
