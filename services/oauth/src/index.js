@@ -13,6 +13,7 @@ exports.handler = async (event) => {
         console.log('Has client ID?', !!process.env.GITHUB_CLIENT_ID);
         console.log('Has client secret?', !!process.env.GITHUB_CLIENT_SECRET);
         // -------------------------------------------
+        console.log('redirect_uri:', redirect_uri);
 
         // 1. No code yet? Redirect user to GitHub for auth, setting state cookie via JS
         const generatedState = Math.random().toString(36).substring(2);
@@ -50,9 +51,9 @@ exports.handler = async (event) => {
         const params = new URLSearchParams({
             client_id: process.env.GITHUB_CLIENT_ID,
             client_secret: process.env.GITHUB_CLIENT_SECRET,
-            code,
-            redirect_uri
+            code
         });
+        console.log('POSTing to GitHub with body:', params.toString());
         const tokenResponse = await fetch(
             'https://github.com/login/oauth/access_token',
             {
