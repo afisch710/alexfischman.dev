@@ -1,8 +1,8 @@
 // index.js
-import fetch from 'node-fetch';
-import { URLSearchParams } from 'url';
+const fetch = require('node-fetch');
+const { URLSearchParams } = require('url');
 
-export const handler = async (event) => {
+const handler = async (event) => {
     try {
         const code = event.queryStringParameters?.code;
 
@@ -114,3 +114,5 @@ export const handler = async (event) => {
         };
     }
 };
+
+module.exports = { handler };
