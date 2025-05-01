@@ -5,10 +5,7 @@ const { URLSearchParams } = require('url');
 exports.handler = async (event) => {
     try {
         const code = event.queryStringParameters?.code;
-        // Compute redirect URI based on request headers to match GitHub App callback
-        const proto = event.headers['X-Forwarded-Proto'] || event.headers['x-forwarded-proto'] || 'https';
-        const host  = event.headers['Host'] || event.headers['host'];
-        const redirect_uri = `${proto}://${host}/oauth/auth`;
+        const redirect_uri = process.env.REDIRECT_URI;
 
         // 1. No code yet? Redirect user to GitHub for auth
         if (!code) {
