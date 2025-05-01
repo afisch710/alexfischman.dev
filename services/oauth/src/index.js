@@ -77,29 +77,13 @@ exports.handler = async (event) => {
 
     const token = tokenData.access_token;
 
-    // 3. Return HTML snippet to authenticate CMS and close window
-    const html = `<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"></head>
-<body>
-  <script>
-    // Send OAuth token back to CMS via postMessage
-    if (window.opener) {
-      window.opener.postMessage(
-        { type: 'OAUTH_SUCCESS', token: "${token}" },
-        '*' // allow any origin; CMS should verify message origin
-      );
-    }
-    window.close();
-  </script>
-  <noscript>Please close this window and return to the CMS.</noscript>
-</body>
-</html>`;
-
+    // 3. Set OAuth token in HttpOnly cookie and redirect to CMS
     return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' },
-      body: html
+      statusCode: 302,
+      headers: {
+        'Set-Cookie': `github_oauth_token=${token}; HttpOnly; Secure; SameSite=Lax; Path=/admin`,
+        'Location': '/admin/'
+      }
     };
   } catch (error) {
     console.error('OAuth proxy error:', error);
