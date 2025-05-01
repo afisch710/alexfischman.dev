@@ -11,15 +11,20 @@
 
 <body>
     <script>
-      // Listen for OAuth messages from the proxy
-      window.addEventListener('message', (event) => {
-        const { type, token, error } = event.data || {};
-        if (type === 'OAUTH_SUCCESS') {
-          window.CMS.authenticate({ token });
-        } else if (type === 'OAUTH_ERROR') {
-          window.CMS.authError(error);
-        }
-      });
+        window.addEventListener('message', (event) => {
+            const { type, token, error } = event.data || {};
+            function tryAuth() {
+                if (!window.CMS) {
+                    return setTimeout(tryAuth, 50);
+                }
+                if (type === 'OAUTH_SUCCESS') {
+                    window.CMS.authenticate({ token });
+                } else if (type === 'OAUTH_ERROR') {
+                    window.CMS.authError(error);
+                }
+            }
+            tryAuth();
+        });
     </script>
     <script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
 </body>
