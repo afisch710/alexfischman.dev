@@ -7,6 +7,13 @@ exports.handler = async (event) => {
         const code = event.queryStringParameters?.code;
         const redirect_uri = process.env.REDIRECT_URI;
 
+        // ---------- Verbose debug logging ----------
+        console.log('Callback query:', event.queryStringParameters);
+        console.log('Cookie header:', event.headers?.cookie || event.headers?.Cookie);
+        console.log('Has client ID?', !!process.env.GITHUB_CLIENT_ID);
+        console.log('Has client secret?', !!process.env.GITHUB_CLIENT_SECRET);
+        // -------------------------------------------
+
         // 1. No code yet? Redirect user to GitHub for auth, setting state cookie via JS
         const generatedState = Math.random().toString(36).substring(2);
         if (!code) {
@@ -63,6 +70,7 @@ exports.handler = async (event) => {
             throw new Error(`Token exchange failed: ${tokenResponse.status} ${text}`);
         }
         const tokenData = await tokenResponse.json();
+        console.log('GitHub token response:', tokenData);
 
         if (tokenData.error || !tokenData.access_token) {
             throw new Error(
