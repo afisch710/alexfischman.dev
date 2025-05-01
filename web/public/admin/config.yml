@@ -1,11 +1,6 @@
 backend:
-  name: github
-  repo: afisch710/alexfischman.dev
-  branch: development
-  auth_scope: repo
-  base_url: https://alexfischman.dev/oauth
-  open_authoring: true
-  workflow: true
+  name: proxy
+  proxy_url: "/oauth/auth"
 
 publish_mode: editorial_workflow
 
