@@ -10,29 +10,6 @@
 </head>
 
 <body>
-    <script>
-        window.addEventListener('message', (event) => {
-            const { type, token, error } = event.data || {};
-            function tryAuth() {
-                if (!window.CMS) {
-                    return setTimeout(tryAuth, 50);
-                }
-                if (type === 'OAUTH_SUCCESS') {
-                    // Use Netlify CMS OAuth callback
-                    if (window.CMS.oauthCallback) {
-                        window.CMS.oauthCallback(token);
-                        window.location.reload();
-                    }
-                } else if (type === 'OAUTH_ERROR') {
-                    // Use Netlify CMS OAuth error callback
-                    if (window.CMS.oauthError) {
-                        window.CMS.oauthError(error);
-                    }
-                }
-            }
-            tryAuth();
-        });
-    </script>
     <script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
 </body>
 
