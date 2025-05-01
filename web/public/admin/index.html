@@ -18,9 +18,15 @@
                     return setTimeout(tryAuth, 50);
                 }
                 if (type === 'OAUTH_SUCCESS') {
-                    window.CMS.authenticate({ token });
+                    // Use Netlify CMS OAuth callback
+                    if (window.CMS.oauthCallback) {
+                        window.CMS.oauthCallback(token);
+                    }
                 } else if (type === 'OAUTH_ERROR') {
-                    window.CMS.authError(error);
+                    // Use Netlify CMS OAuth error callback
+                    if (window.CMS.oauthError) {
+                        window.CMS.oauthError(error);
+                    }
                 }
             }
             tryAuth();
