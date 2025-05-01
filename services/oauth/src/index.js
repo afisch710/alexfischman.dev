@@ -4,24 +4,37 @@ const { URLSearchParams } = require('url');
 
 exports.handler = async (event) => {
     try {
-        const code = event.queryStringParameters?.code;
+        const { code, state: returnedState } = event.queryStringParameters || {};
+        const cookieHeader = event.headers?.cookie || event.headers?.Cookie || '';
         const redirect_uri = process.env.REDIRECT_URI;
 
         // 1. No code yet? Redirect user to GitHub for auth
+        const generatedState = Math.random().toString(36).substring(2);
         if (!code) {
             const params = new URLSearchParams({
                 client_id: process.env.GITHUB_CLIENT_ID,
                 redirect_uri,
                 scope: 'repo',
-                state: Math.random().toString(36).substring(2) // CSRF protection
+                state: generatedState
             });
             return {
                 statusCode: 302,
                 headers: {
                     Location: `https://github.com/login/oauth/authorize?${params.toString()}`,
-                    'Cache-Control': 'no-store'
+                    'Cache-Control': 'no-store',
+                    'Set-Cookie': `oauth_state=${generatedState}; HttpOnly; Path=/; Secure; SameSite=Lax`
                 }
             };
+        }
+
+        // Validate OAuth state
+        const match = cookieHeader.match(/(?:^|; )oauth_state=([^;]+)/);
+        if (!match) {
+            throw new Error('Missing oauth_state cookie');
+        }
+        const savedState = match[1];
+        if (returnedState !== savedState) {
+            throw new Error('Invalid OAuth state');
         }
 
         // 2. Exchange code for an access token
@@ -30,7 +43,8 @@ exports.handler = async (event) => {
             client_id: process.env.GITHUB_CLIENT_ID,
             client_secret: process.env.GITHUB_CLIENT_SECRET,
             code,
-            redirect_uri
+            redirect_uri,
+            state: returnedState
         });
         const tokenResponse = await fetch(
             'https://github.com/login/oauth/access_token',
