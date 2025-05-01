@@ -50,7 +50,7 @@ Resources:
           - Sid: AllowGitHubActionsUpload
             Effect: Allow
             Principal:
-              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+              AWS: 'arn:aws:iam::561338195156:user/github-alexfischman.dev-dev-actions'
             Action:
               - s3:PutObject
               - s3:GetObject
