@@ -55,18 +55,45 @@ Resources:
               HTTPPort: 80
               HTTPSPort: 443
               OriginProtocolPolicy: http-only
+          - Id: OAuthApi
+            DomainName: !ImportValue 'alexfischman-dev-oauth-ApiEndpoint'
+            OriginPath:
+              Fn::Sub:
+                - '/${Stage}'
+                - Stage: !ImportValue alexfischman-dev-oauth-ApiStageName
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: https-only
         DefaultCacheBehavior:
           TargetOriginId: WebsiteOrigin
           ViewerProtocolPolicy: redirect-to-https
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6   # CachingOptimized
           OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf  # CORS-S3Origin
+        CacheBehaviors:
+          - PathPattern: '/oauth/*'
+            TargetOriginId: OAuthApi
+            ViewerProtocolPolicy: redirect-to-https
+            AllowedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+              - PUT
+              - POST
+              - PATCH
+              - DELETE
+            CachedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+            CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad  # CachingDisabled
+            OriginRequestPolicyId: b689b0a8-53d0-40ab-baf2-68738e2966ac  # AllViewerExceptHostHeader
         ViewerCertificate:
           AcmCertificateArn: !ImportValue alexfischman-dev:CertificateArn
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.2_2021
         PriceClass: PriceClass_100
         HttpVersion: http2
-        IPV6Enabled: true
 
 Outputs:
   BucketName:

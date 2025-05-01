@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: GitHub OAuth proxy for Decap CMS (Netlify CMS) backend
+
+Parameters:
+  OAuthClientId:
+    Type: String
+    Description: GitHub OAuth App Client ID
+  OAuthClientSecret:
+    Type: String
+    Description: GitHub OAuth App Client Secret
+  FunctionS3Key:
+    Type: String
+    Description: S3 object key (path) for the Lambda function ZIP (e.g. function.zip)
+  ArtifactBucketName:
+    Type: String
+    Description: Name of the existing S3 bucket for Lambda artifacts
+
+Resources:
+  OAuthProxyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GitHubOAuthProxy
+      CodeUri:
+        Bucket: !Ref ArtifactBucketName
+        Key: !Ref FunctionS3Key
+      Runtime: nodejs20.x
+      Handler: index.handler
+      Timeout: 10
+      Environment:
+        Variables:
+          GITHUB_CLIENT_ID: !Ref OAuthClientId
+          GITHUB_CLIENT_SECRET: !Ref OAuthClientSecret
+          REDIRECT_URI: !Sub 'https://${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com/prod/auth'
+      Events:
+        ProxyApi:
+          Type: Api
+          Properties:
+            Path: /auth
+            Method: ANY
+            RestApiId: !Ref OAuthProxyApi
+
+  OAuthProxyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: GitHubOAuthProxyApi
+      StageName: prod
+      EndpointConfiguration: REGIONAL
+      Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'Content-Type,X-API-Key'"
+        AllowOrigin: "'*'"
+      Throttle:
+        BurstLimit: 20
+        RateLimit: 10
+
+Outputs:
+  ProxyUrl:
+    Description: "The API Gateway URL of your OAuth proxy"
+    Value: !Sub 'https://${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com/prod/auth'
+    Export:
+      Name: !Sub '${AWS::StackName}-ProxyUrl'
+  
+  ApiId:
+    Description: "The API Gateway ID (for configuring the proxy in your main domain)"
+    Value: !Ref OAuthProxyApi
+    Export:
+      Name: !Sub '${AWS::StackName}-ApiId'
+  
+  ApiEndpoint:
+    Description: "The base URL of the API Gateway (for CloudFront origin)"
+    Value: !Sub '${OAuthProxyApi}.execute-api.${AWS::Region}.amazonaws.com'
+    Export:
+      Name: !Sub '${AWS::StackName}-ApiEndpoint'
+  
+  ApiStageName:
+    Description: "The API Gateway stage name (for CloudFront origin path)"
+    Value: prod
+    Export:
+      Name: !Sub '${AWS::StackName}-ApiStageName'
