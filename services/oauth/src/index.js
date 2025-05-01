@@ -25,19 +25,29 @@ exports.handler = async (event) => {
         }
 
         // 2. Exchange code for an access token
+        // Prepare URL-encoded body
+        const params = new URLSearchParams({
+            client_id: process.env.GITHUB_CLIENT_ID,
+            client_secret: process.env.GITHUB_CLIENT_SECRET,
+            code,
+            redirect_uri
+        });
         const tokenResponse = await fetch(
             'https://github.com/login/oauth/access_token',
             {
                 method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    client_id: process.env.GITHUB_CLIENT_ID,
-                    client_secret: process.env.GITHUB_CLIENT_SECRET,
-                    code,
-                    redirect_uri
-                })
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString()
             }
         );
+        // Fail on non-2xx
+        if (!tokenResponse.ok) {
+            const text = await tokenResponse.text();
+            throw new Error(`Token exchange failed: ${tokenResponse.status} ${text}`);
+        }
         const tokenData = await tokenResponse.json();
 
         if (tokenData.error || !tokenData.access_token) {
