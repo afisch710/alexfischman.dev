@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: S3 bucket for storing deployment packages and artifacts
+Description: S3 bucket for storing deployment packages and artifacts (for oauth)
 
 Resources:
   ArtifactBucket:
