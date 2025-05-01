@@ -57,10 +57,6 @@ Resources:
               OriginProtocolPolicy: http-only
           - Id: OAuthApi
             DomainName: !ImportValue 'alexfischman-dev-oauth-ApiEndpoint'
-            OriginPath:
-              Fn::Sub:
-                - '/${Stage}'
-                - Stage: !ImportValue alexfischman-dev-oauth-ApiStageName
             CustomOriginConfig:
               HTTPPort: 80
               HTTPSPort: 443
