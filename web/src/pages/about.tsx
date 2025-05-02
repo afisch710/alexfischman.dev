@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid2';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import aboutData from '@/data/about.json';
 // Keep the import but don't use it for now
 // import GithubProfile from '@/components/github/GithubProfile';
 
@@ -16,43 +17,43 @@ export default function About() {
         <>
             <Head>
                 {/* Primary Meta Tags */}
-                <title>About | Alex Fischman</title>
+                <title>{aboutData.title}</title>
                 <meta
                     name="description"
-                    content="Learn more about Alex Fischman."
+                    content={aboutData.description}
                 />
 
                 {/* Open Graph */}
                 <meta property="og:type" content="website" />
                 <meta
                     property="og:title"
-                    content="About | Alex Fischman"
+                    content={aboutData.title}
                 />
                 <meta
                     property="og:description"
-                    content="Learn more about Alex Fischman."
+                    content={aboutData.description}
                 />
                 <meta
                     property="og:url"
-                    content="https://www.alexfischman.dev/experience"
+                    content="https://www.alexfischman.dev/about"
                 />
                 <meta
                     property="og:image"
-                    content="https://www.alexfischman.dev/af_dark.png"
+                    content={`https://www.alexfischman.dev/${aboutData.ogImage}`}
                 />
 
                 {/* Twitter Card */}
                 <meta
                     name="twitter:title"
-                    content="About | Alex Fischman"
+                    content={aboutData.title}
                 />
                 <meta
                     name="twitter:description"
-                    content="Learn more about Alex Fischman."
+                    content={aboutData.description}
                 />
                 <meta
                     name="twitter:image"
-                    content="https://www.alexfischman.dev/af_dark.png"
+                    content={`https://www.alexfischman.dev/${aboutData.ogImage}`}
                 />
             </Head>
             <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -83,12 +84,11 @@ export default function About() {
                             <Typography variant="h4" component="h1" gutterBottom>
                                 Alex Fischman
                             </Typography>
-                            <Typography variant="body1" paragraph>
-                                I&apos;m a Senior Software Engineer with over a decade of experience at Microsoft, where I led the development of cross-device connectivity features (calling, messaging, notifications) used by millions. My work spans full-stack development, cloud architecture, and real-time data visualization.
-                            </Typography>
-                            <Typography variant="body1" paragraph>
-                                Outside of work, I&apos;m the founder of Smarter Weather LLC, passionate about building innovative weather applications with AI and GPU acceleration. I&apos;m also an avid weather enthusiast, coffee aficionado, and enjoy hiking, photography, and exploring new technologies.
-                            </Typography>
+                            {aboutData.content.map((paragraph, index) => (
+                                <Typography key={index} variant="body1" paragraph>
+                                    {paragraph}
+                                </Typography>
+                            ))}
                             <Box
                                 sx={{
                                     mt: 2,
@@ -100,14 +100,14 @@ export default function About() {
                                 }}
                             >
                                 <Link
-                                    href="mailto:afischman710@gmail.com"
+                                    href={`mailto:${aboutData.contact.email}`}
                                     sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
                                 >
                                     <EmailIcon fontSize="small" />
-                                    afischman710@gmail.com
+                                    {aboutData.contact.email}
                                 </Link>
                                 <Link
-                                    href="https://www.linkedin.com/in/afischman710"
+                                    href={aboutData.contact.linkedin}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
@@ -116,7 +116,7 @@ export default function About() {
                                     afischman710
                                 </Link>
                                 <Link
-                                    href="https://github.com/afisch710"
+                                    href={aboutData.contact.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}

@@ -4,6 +4,21 @@ declare module '*.json' {
 }
 
 // Specific declarations for our data files with relative paths
+declare module '../data/about.json' {
+  const value: {
+    title: string;
+    description: string;
+    ogImage: string;
+    content: string[];
+    contact: {
+      email: string;
+      linkedin: string;
+      github: string;
+    };
+  };
+  export default value;
+}
+
 declare module '../data/posts.json' {
   const value: Array<{
     title: string;
