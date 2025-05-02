@@ -30,13 +30,14 @@ jobs:
           npm install
 
       - name: Generate GitHub profile data
+        working-directory: ./web
         env:
           GITHUB_TOKEN: ${{ secrets.PROFILE_UPDATE_TOKEN }}
           GITHUB_USERNAME: afisch710
-          GITHUB_PROFILE_OUTPUT: web/src/data/github-profile.json
+          GITHUB_PROFILE_OUTPUT: src/data/github-profile.json
         run: |
-          chmod +x web/scripts/generate-github-profile.sh
-          cd web && ./scripts/generate-github-profile.sh
+          chmod +x scripts/generate-github-profile.sh
+          ./scripts/generate-github-profile.sh
 
       - name: Create new branch
         run: |
