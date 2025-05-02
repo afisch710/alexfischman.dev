@@ -1,0 +1,14 @@
+{
+    "title": "About | Alex Fischman",
+    "description": "Learn more about Alex Fischman.",
+    "ogImage": "af_dark.png",
+    "content": [
+        "I'm a Senior Software Engineer with over a decade of experience at Microsoft, where I led the development of cross-device connectivity features (calling, messaging, notifications) used by millions. My work spans full-stack development, cloud architecture, and real-time data visualization.",
+        "Outside of work, I'm the founder of Smarter Weather LLC, passionate about building innovative weather applications with AI and GPU acceleration. I'm also an avid weather enthusiast, coffee aficionado, and enjoy hiking, photography, and exploring new technologies."
+    ],
+    "contact": {
+        "email": "afischman710@gmail.com",
+        "linkedin": "https://www.linkedin.com/in/afischman710",
+        "github": "https://github.com/afisch710"
+    }
+}
