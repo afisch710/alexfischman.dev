@@ -58,13 +58,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PROFILE_UPDATE_TOKEN }}
         run: |
-          PR_NUMBER=$(gh pr create \
+          # Create the pull request and capture its URL
+          PR_URL=$(gh pr create \
             --title "chore: update GitHub profile data" \
             --body "Automated update of GitHub profile statistics" \
             --base development \
             --head "update/github-profile-$(date +%Y%m%d%H%M)" \
-            --label automated \
-            --json number --jq '.number')
+            --label automated)
+          echo "Pull request created at $PR_URL"
           
-          # Enable auto-merge
-          gh pr merge $PR_NUMBER --auto --squash
+          # Extract the PR number from the URL
+          PR_NUMBER="${PR_URL##*/}"
+          echo "Pull request number is $PR_NUMBER"
+          
+          # Enable auto-merge (squash) on the PR
+          gh pr merge "$PR_NUMBER" --auto --squash
