@@ -12,6 +12,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PROFILE_UPDATE_TOKEN }}
+
+      - name: Switch to development
+        run: |
+          git fetch origin development
+          git checkout development
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -32,24 +39,32 @@ jobs:
           chmod +x web/scripts/generate-github-profile.sh
           cd web && ./scripts/generate-github-profile.sh
 
-      - name: Configure AWS
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: Get bucket name from CloudFormation
-        id: get-bucket
+      - name: Create new branch
         run: |
-          BUCKET_NAME=$(aws cloudformation describe-stacks \
-            --stack-name alexfischman-dev-app \
-            --query 'Stacks[0].Outputs[?OutputKey==`BucketName`].OutputValue' \
-            --output text)
-          echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git checkout -b "update/github-profile-$(date +%Y%m%d%H%M)"
 
-      - name: Upload snapshot to S3
+      - name: Commit changes
         run: |
-          aws s3 cp web/src/data/github-profile.json s3://${{ steps.get-bucket.outputs.bucket_name }}/github-profile.json \
-            --content-type application/json \
-            --cache-control max-age=21600
+          git add web/src/data/github-profile.json
+          git diff --cached --quiet || git commit -m "chore: update GitHub profile data [skip ci]"
+
+      - name: Push changes
+        run: |
+          git push origin "update/github-profile-$(date +%Y%m%d%H%M)"
+
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROFILE_UPDATE_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr create \
+            --title "chore: update GitHub profile data" \
+            --body "Automated update of GitHub profile statistics" \
+            --base development \
+            --head "update/github-profile-$(date +%Y%m%d%H%M)" \
+            --label automated \
+            --json number --jq '.number')
+          
+          # Enable auto-merge
+          gh pr merge $PR_NUMBER --auto --squash
