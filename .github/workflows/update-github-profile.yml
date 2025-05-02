@@ -1,4 +1,3 @@
-# .github/workflows/update-github-profile.yml
 name: Refresh GitHub Profile Data
 
 on:
@@ -51,20 +50,21 @@ jobs:
           git diff --cached --quiet || git commit -m "chore: update GitHub profile data [skip ci]"
 
       - name: Check for changes
+        id: check_changes
         run: |
-          # Exit if no new commits relative to development branch
-          if git log development..HEAD --oneline | grep .; then
-            echo "Changes detected; proceeding with push and PR."
+          if git diff --quiet development..HEAD; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           else
-            echo "No changes detected; exiting workflow."
-            exit 0
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           git push origin "update/github-profile-$(date +%Y%m%d%H%M)"
 
       - name: Create Pull Request
+        if: steps.check_changes.outputs.has_changes == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.PROFILE_UPDATE_TOKEN }}
         run: |
