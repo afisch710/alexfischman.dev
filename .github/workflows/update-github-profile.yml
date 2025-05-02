@@ -48,7 +48,7 @@ jobs:
       - name: Commit changes
         run: |
           git add web/src/data/github-profile.json
-          git diff --cached --quiet || git commit -m "chore: update GitHub profile data [skip ci]"
+          git diff --cached --quiet || git commit -m "chore: update GitHub profile data"
 
       - name: Check for changes
         id: check_changes
