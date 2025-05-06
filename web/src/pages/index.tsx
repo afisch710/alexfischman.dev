@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
-import Head from 'next/head';
 import { Box, Typography, Container, Button, Fade, Zoom, TypographyProps, SxProps, Theme, alpha } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import NextLink from 'next/link';
@@ -12,6 +11,7 @@ import experiencesData from '@/data/experience.json';
 import ExperienceCard from '@/components/experience/ExperienceCard';
 import postsData from '@/data/posts.json';
 import GithubProfile from '@/components/github/GithubProfile';
+import CustomHead from '@/components/common/Head';
 
 // Track if intro has played in this SPA session
 let introPlayedInApp = false;
@@ -127,24 +127,12 @@ export default function Home({
 
     return (
         <>
-            <Head>
-                {/* Primary meta tags */}
-                <title>Alex Fischman | Senior Software Engineer & Founder</title>
-                <meta name="description" content="Blog, experience, and about me." />
-
-                {/* Open Graph / Facebook */}
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content="Alex Fischman | Senior Software Engineer & Founder" />
-                <meta property="og:description" content="Blog, experience, and about me." />
-                <meta property="og:url" content="https://www.alexfischman.dev/" />
-                <meta property="og:image" content="https://www.alexfischman.dev/af_dark.png" />
-
-                {/* Twitter */}
-                <meta name="twitter:title" content="Alex Fischman | Senior Software Engineer & Founder" />
-                <meta name="twitter:description" content="Blog, experience, and about me." />
-                <meta name="twitter:image" content="https://www.alexfischman.dev/af_dark.png" />
-            </Head>
-
+            <CustomHead
+                title="Alex Fischman | Senior Software Engineer & Founder"
+                description="Blog, experience, and about me."
+                ogImage="af_dark.png"
+                ogUrl="https://www.alexfischman.dev/"
+            />
             <Container maxWidth="lg" sx={{ py: { xs: 2, md: 4 } }}>
                 {/* Global CSS for animations */}
                 <style>{`

@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import Head from 'next/head';
 import { Box, Typography, Chip, IconButton, Collapse } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -7,6 +6,7 @@ import { GetStaticProps } from 'next';
 import type { Experience } from '../../types/experience';
 import experiencesData from '../../data/experience.json';
 import ExperienceCard from '../../components/experience/ExperienceCard';
+import CustomHead from '@/components/common/Head';
 
 export default function ExperiencePage({
     experiences,
@@ -77,37 +77,12 @@ export default function ExperiencePage({
 
     return (
         <>
-            <Head>
-                <title>Experience | Alex Fischman – Senior Software Engineer & Founder</title>
-                <meta
-                    name="description"
-                    content="Explore projects and professional experiences by Alex Fischman."
-                />
-                {/* Open Graph */}
-                <meta property="og:type" content="website" />
-                <meta
-                    property="og:title"
-                    content="Experience | Alex Fischman – Senior Software Engineer & Founder"
-                />
-                <meta
-                    property="og:description"
-                    content="Explore projects and professional experiences by Alex Fischman."
-                />
-                <meta property="og:url" content="https://www.alexfischman.dev/experience" />
-                <meta property="og:image" content="https://www.alexfischman.dev/af_dark.png" />
-                {/* Twitter Card */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:site" content="@your_twitter_handle" />
-                <meta
-                    name="twitter:title"
-                    content="Experience | Alex Fischman – Senior Software Engineer & Founder"
-                />
-                <meta
-                    name="twitter:description"
-                    content="Explore projects and professional experiences by Alex Fischman."
-                />
-                <meta property="twitter:image" content="https://www.alexfischman.dev/af_dark.png" />
-            </Head>
+            <CustomHead
+                title="Experience | Alex Fischman – Senior Software Engineer & Founder"
+                description="Explore projects and professional experiences by Alex Fischman."
+                ogImage="af_dark.png"
+                ogUrl="https://www.alexfischman.dev/experience"
+            />
             <Box sx={{ width: '100%', p: 4, pb: 8 }}>
                 {/* Header with title and filter toggle icon */}
                 <Box
