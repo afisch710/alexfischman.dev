@@ -1,12 +1,12 @@
 "use client";
 import React from 'react';
-import Head from 'next/head';
 import { Box, Typography, Container, Link, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import aboutData from '@/data/about.json';
+import CustomHead from '@/components/common/Head';
 // Keep the import but don't use it for now
 // import GithubProfile from '@/components/github/GithubProfile';
 
@@ -15,47 +15,12 @@ export default function About() {
 
     return (
         <>
-            <Head>
-                {/* Primary Meta Tags */}
-                <title>{aboutData.title}</title>
-                <meta
-                    name="description"
-                    content={aboutData.description}
-                />
-
-                {/* Open Graph */}
-                <meta property="og:type" content="website" />
-                <meta
-                    property="og:title"
-                    content={aboutData.title}
-                />
-                <meta
-                    property="og:description"
-                    content={aboutData.description}
-                />
-                <meta
-                    property="og:url"
-                    content="https://www.alexfischman.dev/about"
-                />
-                <meta
-                    property="og:image"
-                    content={`https://www.alexfischman.dev/${aboutData.ogImage}`}
-                />
-
-                {/* Twitter Card */}
-                <meta
-                    name="twitter:title"
-                    content={aboutData.title}
-                />
-                <meta
-                    name="twitter:description"
-                    content={aboutData.description}
-                />
-                <meta
-                    name="twitter:image"
-                    content={`https://www.alexfischman.dev/${aboutData.ogImage}`}
-                />
-            </Head>
+            <CustomHead
+                title={aboutData.title}
+                description={aboutData.description}
+                ogImage={aboutData.ogImage}
+                ogUrl="https://www.alexfischman.dev/about"
+            />
             <Container maxWidth="lg" sx={{ py: 4 }}>
                 <Paper
                     elevation={3}

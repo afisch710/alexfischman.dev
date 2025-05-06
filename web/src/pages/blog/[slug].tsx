@@ -1,10 +1,10 @@
 import React from 'react';
-import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Container } from '@mui/material';
 import BlogPost from '../../components/blog/BlogPost';
 import { Post } from '../../types/blog';
 import postsData from '../../data/posts.json';
+import CustomHead from '@/components/common/Head';
 
 interface BlogPostPageProps {
   post: Post;
@@ -13,13 +13,12 @@ interface BlogPostPageProps {
 export default function BlogPostPage({ post }: BlogPostPageProps) {
   return (
     <>
-      <Head>
-        <title key="title">{`${post.title} | Alex Fischman`}</title>
-        <meta key="description" name="description" content={post.description} />
-        <meta key="og:title" property="og:title" content={`${post.title} | Alex Fischman`} />
-        <meta key="og:description" property="og:description" content={post.description} />
-        <meta key="og:image" property="og:image" content={post.ogImage || '/af_dark.png'} />
-      </Head>
+      <CustomHead
+        title={`${post.title} | Alex Fischman`}
+        description={post.description}
+        ogImage={post.ogImage || 'af_dark.png'}
+        ogUrl={`https://www.alexfischman.dev/blog/${post.slug}`}
+      />
       <Container>
         <BlogPost post={post} />
       </Container>

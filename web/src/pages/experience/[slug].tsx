@@ -1,10 +1,10 @@
 import React from 'react';
-import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Container } from '@mui/material';
 import ExperiencePage from '@/components/experience/ExperiencePage';
 import type { Experience } from '../../types/experience';
 import experiencesData from '../../data/experience.json';
+import CustomHead from '@/components/common/Head';
 
 interface ExperienceSlugPageProps {
   experience: Experience;
@@ -13,13 +13,12 @@ interface ExperienceSlugPageProps {
 export default function ExperienceSlugPage({ experience }: ExperienceSlugPageProps) {
   return (
     <>
-      <Head>
-        <title key="title">{`${experience.title} | Alex Fischman`}</title>
-        <meta key="description" name="description" content={experience.description} />
-        <meta key="og:title" property="og:title" content={`${experience.title} | Alex Fischman`} />
-        <meta key="og:description" property="og:description" content={experience.description} />
-        <meta key="og:image" property="og:image" content={experience.ogImage || '/af_dark.png'} />
-      </Head>
+      <CustomHead
+        title={`${experience.title} | Alex Fischman`}
+        description={experience.description}
+        ogImage={experience.ogImage || 'af_dark.png'}
+        ogUrl={`https://www.alexfischman.dev/experience/${experience.slug}`}
+      />
       <Container>
         <ExperiencePage experience={experience} />
       </Container>
