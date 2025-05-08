@@ -1,6 +1,8 @@
 "use client";
-import React from 'react';
-import { Box, Typography, Container, Link, Paper } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Container, Link, Paper, Stack, Chip, useTheme, useMediaQuery, Fade, Zoom } from '@mui/material';
+import { alpha } from '@mui/material';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid2';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
@@ -11,7 +13,24 @@ import CustomHead from '@/components/common/Head';
 // import GithubProfile from '@/components/github/GithubProfile';
 
 export default function About() {
-    // Removed unused theme variable
+    const [professional, personal] = aboutData.content;
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const [showHeader, setShowHeader] = useState(false);
+    const [showContacts, setShowContacts] = useState(false);
+    const [showParagraphs, setShowParagraphs] = useState(false);
+
+    useEffect(() => {
+      setShowHeader(true);
+      const contactsTimer = setTimeout(() => setShowContacts(true), 200);
+      const paragraphsTimer = setTimeout(() => setShowParagraphs(true), 400);
+      return () => {
+        clearTimeout(contactsTimer);
+        clearTimeout(paragraphsTimer);
+      };
+    }, []);
 
     return (
         <>
@@ -30,68 +49,133 @@ export default function About() {
                         bgcolor: 'background.paper',
                     }}
                 >
-                    <Grid container spacing={4} alignItems="center">
-                        <Grid size={{ xs: 12, md: 4 }}>
+                    <Fade in={showHeader} timeout={500}>
+                      {isMobile ? (
+                        // Mobile layout
+                        <Stack direction="column" spacing={2} alignItems="flex-start" sx={{ mb: 2 }}>
+                            <Stack direction="row" spacing={2} alignItems="center">
+                                <Box
+                                    component="img"
+                                    src="/headshot.JPG"
+                                    alt="Alex Fischman"
+                                    sx={{
+                                        width: 140,
+                                        height: 140,
+                                        borderRadius: '50%',
+                                        objectFit: 'cover',
+                                    }}
+                                />
+                                <Stack direction="column" spacing={1}>
+                                    <Typography variant="h5" sx={{ pl: 1 }}>Alex Fischman</Typography>
+                                    <Chip label="Senior Software Engineer" color="primary" variant="outlined" size="small" />
+                                    <Chip label="Founder, Smarter Weather LLC" color="primary" variant="outlined" size="small" />
+                                    <Zoom in={showContacts} timeout={500} style={{ transitionDelay: '200ms' }}>
+                                      <Stack direction="row" justifyContent="flex-start" gap={4} sx={{ width: '100%', pl: 1 }}>
+                                          <Link
+                                              href={`mailto:${aboutData.contact.email}`}
+                                              sx={{ '&:hover': { color: 'primary.dark' } }}
+                                          >
+                                              <EmailIcon fontSize="medium" />
+                                          </Link>
+                                          <Link
+                                              href={aboutData.contact.linkedin}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              sx={{ '&:hover': { color: 'primary.dark' } }}
+                                          >
+                                              <LinkedInIcon fontSize="medium" />
+                                          </Link>
+                                          <Link
+                                              href={aboutData.contact.github}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              sx={{ '&:hover': { color: 'primary.dark' } }}
+                                          >
+                                              <GitHubIcon fontSize="medium" />
+                                          </Link>
+                                      </Stack>
+                                    </Zoom>
+                                </Stack>
+                            </Stack>
+                        </Stack>
+                      ) : (
+                        // Desktop layout
+                        <Stack direction="row" spacing={2} alignItems="flex-start" sx={{ mb: 4 }}>
                             <Box
                                 component="img"
-                                src="/af.svg"
+                                src="/headshot.JPG"
                                 alt="Alex Fischman"
                                 sx={{
-                                    width: { xs: 120, md: 200 },
-                                    height: { xs: 120, md: 200 },
+                                    width: 120,
+                                    height: 120,
                                     borderRadius: '50%',
-                                    display: 'block',
-                                    mx: { xs: 'auto', md: 0 },
+                                    objectFit: 'cover',
+                                    aspectRatio: '1',
                                 }}
                             />
-                        </Grid>
-                        <Grid size={{ xs: 12, md: 8 }}>
-                            <Typography variant="h4" component="h1" gutterBottom>
-                                Alex Fischman
-                            </Typography>
-                            {aboutData.content.map((paragraph, index) => (
-                                <Typography key={index} variant="body1" paragraph>
-                                    {paragraph}
+                            <Stack direction="column" spacing={2} sx={{ flex: 1 }}>
+                                <Typography variant="h4" component="h1">
+                                    Alex Fischman
                                 </Typography>
-                            ))}
-                            <Box
-                                sx={{
-                                    mt: 2,
-                                    display: 'flex',
-                                    flexDirection: { xs: 'column', sm: 'row' },
-                                    gap: 2,
-                                    alignItems: 'center',
-                                    justifyContent: { xs: 'center', md: 'flex-start' },
-                                }}
-                            >
-                                <Link
-                                    href={`mailto:${aboutData.contact.email}`}
-                                    sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
-                                >
-                                    <EmailIcon fontSize="small" />
-                                    {aboutData.contact.email}
-                                </Link>
-                                <Link
-                                    href={aboutData.contact.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
-                                >
-                                    <LinkedInIcon fontSize="small" />
-                                    afischman710
-                                </Link>
-                                <Link
-                                    href={aboutData.contact.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
-                                >
-                                    <GitHubIcon fontSize="small" />
-                                    afisch710
-                                </Link>
-                            </Box>
-                        </Grid>
-                    </Grid>
+                                <Stack direction="row" spacing={1} alignItems="center">
+                                    <Chip label="Senior Software Engineer" color="primary" variant="outlined" />
+                                    <Chip label="Founder, Smarter Weather LLC" color="primary" variant="outlined" />
+                                </Stack>
+                                <Zoom in={showContacts} timeout={500} style={{ transitionDelay: '200ms' }}>
+                                  <Stack direction="row" spacing={2}>
+                                      {/* Contact links */}
+                                      <Link href={`mailto:${aboutData.contact.email}`} sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, '&:hover': { color: 'primary.dark' } }}>
+                                          <EmailIcon fontSize="small" />
+                                          {aboutData.contact.email}
+                                      </Link>
+                                      <Link href={aboutData.contact.linkedin} target="_blank" rel="noopener noreferrer" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, '&:hover': { color: 'primary.dark' } }}>
+                                          <LinkedInIcon fontSize="small" />
+                                          afischman710
+                                      </Link>
+                                      <Link href={aboutData.contact.github} target="_blank" rel="noopener noreferrer" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, '&:hover': { color: 'primary.dark' } }}>
+                                          <GitHubIcon fontSize="small" />
+                                          afisch710
+                                      </Link>
+                                  </Stack>
+                                </Zoom>
+                            </Stack>
+                        </Stack>
+                      )}
+                    </Fade>
+                    <Divider sx={{
+                        bgcolor: theme => alpha(theme.palette.text.primary, 0.4),
+                        height: '1px',
+                        my: { xs: 1, md: 2 },
+                    }} />
+                    <Fade in={showParagraphs} timeout={500} style={{ transitionDelay: '400ms' }}>
+                      <Grid container spacing={4} sx={{ mt: 2 }}>
+                          <Grid size={{ xs: 12 }}>
+                              <Typography
+                                  variant="body2"
+                                  component="p"
+                                  sx={{
+                                      mb: 3,
+                                      lineHeight: 1.8,
+                                      letterSpacing: '0.2px',
+                                  }}
+                              >
+                                  {professional}
+                              </Typography>
+                              <Divider sx={{ my: 4 }} />
+                              <Typography
+                                  variant="body2"
+                                  component="p"
+                                  sx={{
+                                      mb: 3,
+                                      lineHeight: 1.8,
+                                      letterSpacing: '0.2px',
+                                  }}
+                              >
+                                  {personal}
+                              </Typography>
+                          </Grid>
+                      </Grid>
+                    </Fade>
                 </Paper>
 
                 {/* GitHub profile section removed for now, will be refactored later */}
