@@ -152,6 +152,9 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
                     <GitHubIcon />
                     <Typography variant="h6">GitHub Activity</Typography>
                 </Box>
+                <Typography variant="caption" color="text.secondary" gutterBottom>
+                  Excludes contributions made at Microsoft
+                </Typography>
                 <Divider sx={{ mb: 2, bgcolor: (theme) => alpha(theme.palette.text.primary, 0.2) }} />
 
                 <Box
