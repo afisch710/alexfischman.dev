@@ -12,6 +12,7 @@ import ExperienceCard from '@/components/experience/ExperienceCard';
 import postsData from '@/data/posts.json';
 import GithubProfile from '@/components/github/GithubProfile';
 import CustomHead from '@/components/common/Head';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 // Track if intro has played in this SPA session
 let introPlayedInApp = false;
@@ -295,19 +296,30 @@ export default function Home({
                 {/* Highlights Section */}
                 <Fade in={highlightsVisible} timeout={500} onEntered={() => setBlogVisible(true)} unmountOnExit>
                     <Box sx={{ mb: { xs: 4, md: 5 } }}>
-                        <Typography 
-                            variant="h4" 
-                            component="h2" 
-                            gutterBottom 
-                            sx={{ 
-                                textAlign: { xs: 'center', md: 'left' },
-                                fontWeight: 600,
-                                mb: 2,
-                                color: 'text.primary',
-                            }}
-                        >
-                            Highlights
-                        </Typography>
+                        <Box sx={{ mb: 4 }}>
+                            <Typography 
+                                variant="h3" 
+                                component="h2" 
+                                sx={{ 
+                                    textAlign: { xs: 'center', md: 'left' },
+                                    fontWeight: 700,
+                                    color: 'text.primary',
+                                    mb: 1,
+                                }}
+                            >
+                                Experience
+                            </Typography>
+                            <Typography 
+                                variant="subtitle1" 
+                                sx={{ 
+                                    textAlign: { xs: 'center', md: 'left' },
+                                    color: 'text.secondary',
+                                    maxWidth: '600px',
+                                }}
+                            >
+                                Key projects and roles that have shaped my journey in tech
+                            </Typography>
+                        </Box>
                         <Grid container spacing={2} alignItems="stretch">
                             {experiences.slice(0, 3).map((exp, index) => (
                                 <Grid size={{ xs: 12, md: 4 }} key={index}>
@@ -315,9 +327,30 @@ export default function Home({
                                 </Grid>
                             ))}
                         </Grid>
-                        <Button component={NextLink} href="/experience" variant="outlined" color="primary" sx={{ mt: 3 }}>
-                            See More
-                        </Button>
+                        <Box sx={{ mt: 3, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                            <Button 
+                                component={NextLink} 
+                                href="/experience" 
+                                variant="outlined" 
+                                color="primary"
+                                endIcon={<ArrowForwardIosIcon />}
+                                sx={{
+                                    px: { xs: 2, md: 4 },
+                                    py: { xs: 0.75, md: 1.5 },
+                                    fontSize: { xs: '0.8125rem', md: '1rem' },
+                                    fontWeight: 600,
+                                    borderRadius: 2,
+                                    minWidth: { xs: 'auto', md: '200px' },
+                                    '&:hover': {
+                                        transform: 'translateY(-2px)',
+                                        boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
+                                    },
+                                    transition: 'all 0.3s ease',
+                                }}
+                            >
+                                View All Experience
+                            </Button>
+                        </Box>
                     </Box>
                 </Fade>
 
@@ -327,39 +360,85 @@ export default function Home({
                     setGithubVisible(true);
                 }}>
                     <Box sx={{ mb: { xs: 4, md: 5 } }}>
-                        <Typography 
-                            variant="h4" 
-                            component="h2" 
-                            gutterBottom 
-                            sx={{ 
-                                textAlign: { xs: 'center', md: 'left' },
-                                fontWeight: 600,
-                                mb: 3,
-                                color: 'text.primary',
-                            }}
-                        >
-                            Featured Blog Post
-                        </Typography>
+                        <Box sx={{ mb: 4 }}>
+                            <Typography 
+                                variant="h3" 
+                                component="h2" 
+                                sx={{ 
+                                    textAlign: { xs: 'center', md: 'left' },
+                                    fontWeight: 700,
+                                    color: 'text.primary',
+                                    mb: 1,
+                                }}
+                            >
+                                Writing
+                            </Typography>
+                            <Typography 
+                                variant="subtitle1" 
+                                sx={{ 
+                                    textAlign: { xs: 'center', md: 'left' },
+                                    color: 'text.secondary',
+                                    maxWidth: '600px',
+                                }}
+                            >
+                                Thoughts on software engineering, AI, and building products
+                            </Typography>
+                        </Box>
                         <BlogPreview post={featured} />
+                        <Box sx={{ mt: 3, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                            <Button 
+                                component={NextLink} 
+                                href="/blog" 
+                                variant="outlined" 
+                                color="primary"
+                                endIcon={<ArrowForwardIosIcon />}
+                                sx={{
+                                    px: { xs: 2, md: 4 },
+                                    py: { xs: 0.75, md: 1.5 },
+                                    fontSize: { xs: '0.8125rem', md: '1rem' },
+                                    fontWeight: 600,
+                                    borderRadius: 2,
+                                    minWidth: { xs: 'auto', md: '200px' },
+                                    '&:hover': {
+                                        transform: 'translateY(-2px)',
+                                        boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
+                                    },
+                                    transition: 'all 0.3s ease',
+                                }}
+                            >
+                                Read All Posts
+                            </Button>
+                        </Box>
                     </Box>
                 </Fade>
 
                 {/* GitHub Activity Section */}
                 <Fade in={githubVisible} timeout={500} unmountOnExit>
                     <Box sx={{ mb: { xs: 4, md: 5 } }}>
-                        <Typography 
-                            variant="h4" 
-                            component="h2" 
-                            gutterBottom 
-                            sx={{ 
-                                textAlign: { xs: 'center', md: 'left' },
-                                fontWeight: 600,
-                                mb: 3,
-                                color: 'text.primary',
-                            }}
-                        >
-                            Activity
-                        </Typography>
+                        <Box sx={{ mb: 4 }}>
+                            <Typography 
+                                variant="h3" 
+                                component="h2" 
+                                sx={{ 
+                                    textAlign: { xs: 'center', md: 'left' },
+                                    fontWeight: 700,
+                                    color: 'text.primary',
+                                    mb: 1,
+                                }}
+                            >
+                                Open Source
+                            </Typography>
+                            <Typography 
+                                variant="subtitle1" 
+                                sx={{ 
+                                    textAlign: { xs: 'center', md: 'left' },
+                                    color: 'text.secondary',
+                                    maxWidth: '600px',
+                                }}
+                            >
+                                Recent contributions and side projects
+                            </Typography>
+                        </Box>
                         <GithubProfile username="alexfischman" />
                     </Box>
                 </Fade>

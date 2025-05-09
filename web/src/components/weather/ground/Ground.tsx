@@ -260,6 +260,7 @@ export default function Ground({ weather, season }: GroundProps) {
                     height: "100%",
                     zIndex: -2,
                     transition: "background-color 2s ease",
+                    opacity: 0.7,
                 }}
             >
                 <Grass

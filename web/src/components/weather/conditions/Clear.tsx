@@ -13,8 +13,8 @@ export default function Clear() {
                 width: "100%",
                 height: "100%",
                 zIndex: -4,
-                background: "linear-gradient(180deg, #a1c4fd, #c2e9fb)", // Clear sky
-                opacity: 1,
+                background: "linear-gradient(180deg, #7ba7e0, #a1c4fd)", // Darker, more muted sky gradient
+                opacity: 0.9, // Slightly reduce opacity to blend better
                 transition: "opacity 2s ease-in-out",
             }}
         />
