@@ -426,7 +426,7 @@ export default function Home({
                                     mb: 1,
                                 }}
                             >
-                                Open Source
+                                Activity
                             </Typography>
                             <Typography 
                                 variant="subtitle1" 
@@ -436,7 +436,7 @@ export default function Home({
                                     maxWidth: '600px',
                                 }}
                             >
-                                Recent contributions and side projects
+                                Recent contributions, projects, and more
                             </Typography>
                         </Box>
                         <GithubProfile username="alexfischman" />
