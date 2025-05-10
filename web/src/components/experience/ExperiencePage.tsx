@@ -12,13 +12,8 @@ import {
 import Grid from '@mui/material/Grid2';
 import { Experience } from '@/types/experience';
 import LinkPreview from '../common/LinkPreview';
-
-interface Artifact {
-    url: string;
-    title?: string;
-    description?: string;
-    image?: string;
-}
+import ImagePreview from '../common/ImagePreview';
+import type { Artifact } from '@/types/experience';
 
 interface ExperiencePageProps {
     experience: Experience;
@@ -55,7 +50,7 @@ export default function ExperiencePage({ experience }: ExperiencePageProps) {
                         <Chip key={index} label={tag} size="small" />
                     ))}
                 </Box>
-                <Typography variant="body1" paragraph sx={{ lineHeight: 1.6 }}>
+                <Typography variant="body1" component="p" sx={{ lineHeight: 1.6, whiteSpace: 'pre-line' }}>
                     {experience.description}
                 </Typography>
                 {experience.artifacts && experience.artifacts.length > 0 && (
@@ -63,14 +58,23 @@ export default function ExperiencePage({ experience }: ExperiencePageProps) {
                         <Grid container spacing={2}>
                             {experience.artifacts.map((artifact, index) => {
                                 const artifactObj: Artifact = typeof artifact === "string" ? { url: artifact } : artifact;
+                                const isImageOnly = 'image' in artifactObj && !('url' in artifactObj);
                                 return (
                                     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index} sx={{ height: 300 }}>
-                                        <LinkPreview
-                                            url={artifactObj.url}
-                                            title={artifactObj.title}
-                                            description={artifactObj.description}
-                                            image={artifactObj.image}
-                                        />
+                                        {'url' in artifactObj ? (
+                                            <LinkPreview
+                                                url={artifactObj.url}
+                                                title={artifactObj.title}
+                                                description={artifactObj.description}
+                                                image={artifactObj.image}
+                                            />
+                                        ) : isImageOnly ? (
+                                            <ImagePreview
+                                                image={artifactObj.image}
+                                                title={artifactObj.title}
+                                                description={artifactObj.description}
+                                            />
+                                        ) : null}
                                     </Grid>
                                 );
                             })}

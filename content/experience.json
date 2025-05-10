@@ -335,5 +335,44 @@
         "artifacts": [
             "https://alexfischman.dev"
         ]
+    },
+    {
+        "title": "Spatial Weather",
+        "company": "Smarter Weather",
+        "team": "",
+        "tags": [
+            "AWS",
+            "Docker",
+            "System Design",
+            "API Development",
+            "Microservice",
+            "Github Actions",
+            "Cloudformation",
+            "Lambda",
+            "S3",
+            "DevOps",
+            "Python",
+            "Bash",
+            "Dockerfile",
+            "Big Data",
+            "Real Time Data",
+            "PostGIS",
+            "PostgreSQL",
+            "AWS RDS",
+            "Liquibase",
+            "AWS VPC",
+            "AWS SNS",
+            "Database",
+            "SQL",
+            "GRIB2",
+            "Geospatial",
+            "GIS",
+            "Meteorology"
+        ],
+        "priority": 1,
+        "description": "The Spatial Weather System is a sophisticated cloud-based platform that processes and serves meteorological data through a secure, scalable infrastructure. At its core, the system fetches GRIB2 weather data on a fixed interval, processes it into a geospatial format, and makes it available for efficient querying by location through a RESTful API.\n\nThe data pipeline begins with automated ingestion of weather data into a temporary S3 bucket, which triggers a processing Lambda function that converts the GRIB2 data into GeoTIFF format while reprojecting it to the WGS84 coordinate system. The processed data is stored in a PostgreSQL database enhanced with PostGIS extensions, enabling powerful geospatial queries and analysis. Docker is used extensively throughout the development and deployment lifecycle, ensuring consistent environments for both production and testing, and simplifying the management of dependencies and services such as GDAL and PostGIS.\n\nThe database is hosted within a private AWS VPC, ensuring data security while maintaining high availability. The system employs IAM authentication for database access and implements comprehensive security measures, including API key authentication, rate limiting, and CORS policies. Database schema changes are managed through Liquibase, providing version control and automated deployment capabilities. The platform exposes its functionality through a RESTful API built with API Gateway and Lambda functions, allowing clients to query weather data based on geographic coordinates and time ranges. The system includes automated maintenance tasks, data lifecycle management, and comprehensive monitoring through CloudWatch.\n\nThis architecture demonstrates a modern approach to handling geospatial data, combining cloud-native services, containerization with Docker, and specialized geospatial tools to create a robust, secure, and scalable weather data platform.",
+        "artifacts": [
+            "/experience/artifacts/images/spatial_weather.png"
+        ]
     }
 ]

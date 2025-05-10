@@ -14,6 +14,15 @@ function generateSlug(title: string): string {
 
 async function fetchMetadata(url: string) {
   try {
+    // Check if the URL is a local image path
+    if (url.startsWith('/')) {
+      return {
+        title: "",
+        description: "",
+        image: url
+      };
+    }
+
     const data = await getLinkPreview(url);
     return {
       title: data.title || "",
@@ -47,25 +56,38 @@ async function main() {
       exp.artifacts = [];
     }
 
-    // Ensure each artifact is an object with at least a 'url' property.
-    exp.artifacts = exp.artifacts.map(a => typeof a === "string" ? { url: a } : a);
+    // Process artifacts
+    const processedArtifacts = [];
+    
+    for (const artifact of exp.artifacts) {
+      if (typeof artifact === "string") {
+        // If it's a string, it could be a URL or a local image path
+        const meta = await fetchMetadata(artifact);
+        processedArtifacts.push({
+          url: artifact.startsWith('/') ? undefined : artifact,
+          ...meta
+        });
+      } else if (typeof artifact === "object") {
+        // If it's already an object, preserve its structure
+        if (artifact.image && !artifact.url) {
+          // If it has an image but no URL, it's an image-only artifact
+          processedArtifacts.push(artifact);
+        } else if (artifact.url) {
+          // If it has a URL, fetch metadata
+          const meta = await fetchMetadata(artifact.url);
+          processedArtifacts.push({
+            ...artifact,
+            ...meta
+          });
+        }
+      }
+    }
+
+    exp.artifacts = processedArtifacts;
 
     // Generate slug from title if missing.
     if (!exp.slug) {
       exp.slug = generateSlug(exp.title);
-    }
-
-    // Fetch metadata for each artifact URL.
-    for (let i = 0; i < exp.artifacts.length; i++) {
-      const artifact = exp.artifacts[i];
-      if (artifact.url) {
-        const meta = await fetchMetadata(artifact.url);
-        // Merge the fetched metadata into the artifact object.
-        exp.artifacts[i] = {
-          ...artifact,
-          ...meta
-        };
-      }
     }
   }
 
