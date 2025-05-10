@@ -5,7 +5,6 @@ import {
     CardActionArea,
     CardContent,
     Typography,
-    Box,
 } from "@mui/material";
 import { Experience } from "../../types/experience";
 import TagClamp from "../common/TagClamp";

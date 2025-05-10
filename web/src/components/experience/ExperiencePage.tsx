@@ -13,13 +13,7 @@ import Grid from '@mui/material/Grid2';
 import { Experience } from '@/types/experience';
 import LinkPreview from '../common/LinkPreview';
 import ImagePreview from '../common/ImagePreview';
-
-interface Artifact {
-    url: string;
-    title?: string;
-    description?: string;
-    image?: string;
-}
+import type { Artifact } from '@/types/experience';
 
 interface ExperiencePageProps {
     experience: Experience;
@@ -64,10 +58,10 @@ export default function ExperiencePage({ experience }: ExperiencePageProps) {
                         <Grid container spacing={2}>
                             {experience.artifacts.map((artifact, index) => {
                                 const artifactObj: Artifact = typeof artifact === "string" ? { url: artifact } : artifact;
-                                const isImageOnly = !artifactObj.url && artifactObj.image;
+                                const isImageOnly = 'image' in artifactObj && !('url' in artifactObj);
                                 return (
                                     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index} sx={{ height: 300 }}>
-                                        {artifactObj.url ? (
+                                        {'url' in artifactObj ? (
                                             <LinkPreview
                                                 url={artifactObj.url}
                                                 title={artifactObj.title}

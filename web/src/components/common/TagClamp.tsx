@@ -31,7 +31,7 @@ export default function TagClamp({ tags, maxLines = 2, containerWidth = 300, chi
     const chipGap = 8; // px, gap between chips
 
     const { visibleTags, hiddenCount } = useMemo(() => {
-        let lines: number[][] = [[]];
+        const lines: number[][] = [[]];
         let currentLineWidth = 0;
         let currentLine = 0;
         let i = 0;
@@ -47,13 +47,13 @@ export default function TagClamp({ tags, maxLines = 2, containerWidth = 300, chi
             lines[currentLine].push(i);
             currentLineWidth += tagWidth + chipGap;
         }
-        let visibleTags = lines.flat().map(idx => tags[idx]);
+        const visibleTags = lines.flat().map(idx => tags[idx]);
         let hiddenCount = tags.length - visibleTags.length;
         if (hiddenCount > 0) {
             let plusChipWidth = Math.ceil(measureTextWidth(`+${hiddenCount}`, font)) + chipHorizontalPadding;
             while (visibleTags.length > 0) {
-                let lastLine = lines[lines.length - 1].map(idx => tags[idx]);
-                let lastLineWidth = lastLine.reduce((sum, tag) => sum + Math.ceil(measureTextWidth(tag, font)) + chipHorizontalPadding + chipGap, 0);
+                const lastLine = lines[lines.length - 1].map(idx => tags[idx]);
+                const lastLineWidth = lastLine.reduce((sum, tag) => sum + Math.ceil(measureTextWidth(tag, font)) + chipHorizontalPadding + chipGap, 0);
                 if (lastLineWidth + plusChipWidth <= containerWidth) break;
                 visibleTags.pop();
                 lines[lines.length - 1].pop();
