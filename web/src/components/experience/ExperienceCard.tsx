@@ -5,10 +5,10 @@ import {
     CardActionArea,
     CardContent,
     Typography,
-    Chip,
     Box,
 } from "@mui/material";
 import { Experience } from "../../types/experience";
+import TagClamp from "../common/TagClamp";
 
 interface ExperienceCardProps {
     experience: Experience;
@@ -53,18 +53,10 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
                             {experience.title}
                         </Typography>
                         <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                            {experience.company} {experience.team && `| ${experience.team}`}
+                            {experience.company}
+                            {experience.team && experience.team.trim() !== '' && ` | ${experience.team}`}
                         </Typography>
-                        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 1 }}>
-                            {experience.tags.map((tag, index) => (
-                                <Chip
-                                    key={index}
-                                    label={tag}
-                                    size="small"
-                                    sx={{ borderRadius: "8px" }}
-                                />
-                            ))}
-                        </Box>
+                        <TagClamp tags={experience.tags} maxLines={3} />
                     </CardContent>
                 </CardActionArea>
             </Card>
