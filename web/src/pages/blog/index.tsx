@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { GetStaticProps } from 'next';
 import type { Post } from '../../types/blog';
 import postsData from '../../data/posts.json';
