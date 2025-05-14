@@ -19,7 +19,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         ogImage={post.ogImage || 'af_dark.png'}
         ogUrl={`https://www.alexfischman.dev/blog/${post.slug}`}
       />
-      <Container>
+      <Container sx={{ p: 0 }}>
         <BlogPost post={post} />
       </Container>
     </>

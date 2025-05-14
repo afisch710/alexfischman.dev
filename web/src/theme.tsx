@@ -84,4 +84,9 @@ const theme = createTheme({
     },
 });
 
+export const customMaxWidth = {
+    mobile: '95vw',
+    desktop: '1200px',
+};
+
 export default theme;
