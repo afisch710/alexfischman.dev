@@ -91,7 +91,7 @@ export default function ExperiencePage({
                     alignItems="center"
                     mb={2}
                 >
-                    <Typography variant="h3">Experience</Typography>
+                    {/* <Box sx={{ flexGrow: 1 }} /> */}
                     <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
                         <IconButton
                             onClick={handleFilterClick}

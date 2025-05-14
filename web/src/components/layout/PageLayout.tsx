@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { Box, Tabs, Tab, Stack } from "@mui/material";
+import { Box, Tabs, Tab, Stack, Typography, Fade, keyframes } from "@mui/material";
 import { IconButton, Drawer, List, ListItemButton, ListItemText, useTheme, useMediaQuery } from "@mui/material";
 import WeatherBackground from "../weather/WeatherBackground";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import { customMaxWidth } from '../../theme';
 
 const tabRoutes = ["", "blog", "experience", "about"];
+const tabNames = ["", "Blog", "Experience", "About Me"];
 
 export default function PageLayout({
     children,
@@ -127,6 +128,32 @@ export default function PageLayout({
                             sx={{ height: 40 }}
                         />
                     </Box>
+                    {isMobile && (
+                        <Fade in={true} key={selectedTab} timeout={500}>
+                            <Typography 
+                                variant="h6" 
+                                sx={{ 
+                                    color: 'text.secondary',
+                                    animation: `${keyframes`
+                                        0% {
+                                            transform: scale(1.1);
+                                            opacity: 0;
+                                        }
+                                        20% {
+                                            transform: scale(1.1);
+                                            opacity: 1;
+                                        }
+                                        100% {
+                                            transform: scale(1);
+                                            opacity: 1;
+                                        }
+                                    `} 1.5s ease-out forwards`
+                                }}
+                            >
+                                {tabNames[selectedTab]}
+                            </Typography>
+                        </Fade>
+                    )}
                     {/* Mobile menu or desktop tabs */}
                     {isMobile ? (
                         <IconButton
