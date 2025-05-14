@@ -18,21 +18,27 @@ export default function BlogPost({ post }: BlogPostProps) {
                 <Button component={NextLink} href="/blog" variant="outlined" sx={{ mb: 4 }}>
                     ← Back to Blog
                 </Button>
-                <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: "bold" }}>
+                <Typography variant="h1" component="h1" gutterBottom sx={{ fontWeight: 900, fontSize: { xs: '2.5rem', md: '4rem' }, mb: 2 }}>
                     {post.title}
                 </Typography>
-                <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                    {new Date(post.date).toLocaleDateString(undefined, {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                    })}
+                <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 700, color: 'text.primary', mb: 3 }}>
+                    {post.description}
                 </Typography>
-                {post.description && (
-                    <Typography variant="h5" paragraph sx={{ mt: 2 }}>
-                        {post.description}
-                    </Typography>
-                )}
+                {/* Author Section */}
+                <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 4 }}>
+                    <Box component="img" src="/headshot.JPG" alt="Author headshot" sx={{ width: 56, height: 56, borderRadius: '50%', mr: 2, border: '2px solid', borderColor: 'divider' }} />
+                    <Box>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>Alex Fischman</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                            {`published ${formatPublishTime(post.date)}`}
+                        </Typography>
+                        <Box sx={{ mt: 1, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                            {post.tags.map((tag) => (
+                                <Box key={tag} sx={{ bgcolor: 'grey.100', px: 1.5, py: 0.5, borderRadius: 1, fontSize: '0.85rem', fontWeight: 500, color: 'text.secondary', display: 'inline-block' }}>{tag}</Box>
+                            ))}
+                        </Box>
+                    </Box>
+                </Box>
                 <Divider sx={{ my: 4 }} />
                 <Box sx={{ "& img": { maxWidth: "100%", height: "auto", borderRadius: 2 }, "& pre": { overflowX: "auto" } }}>
                     <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
@@ -48,13 +54,6 @@ export default function BlogPost({ post }: BlogPostProps) {
                                 paragraph
                                 sx={{
                                     lineHeight: 1.7,
-                                    '&::first-letter': {
-                                        fontSize: '3rem',
-                                        fontWeight: 'bold',
-                                        float: 'left',
-                                        mr: 1,
-                                        lineHeight: 1,
-                                    },
                                 }}
                                 {...props}
                             />
@@ -105,4 +104,20 @@ export default function BlogPost({ post }: BlogPostProps) {
             </Fab>
         </Container>
     );
+}
+
+function formatPublishTime(dateString: string) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    if (diffHours < 24) {
+        return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+    } else {
+        return date.toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+    }
 }

@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid2';
 import NextLink from 'next/link';
 import { GetStaticProps } from 'next';
 import type { Post } from "../types/blog";
-import BlogPreview from "../components/blog/BlogPreview";
+import BlogCard from "../components/blog/BlogCard";
 import type { Experience } from '@/types/experience';
 import experiencesData from '@/data/experience.json';
 import ExperienceCard from '@/components/experience/ExperienceCard';
@@ -384,7 +384,7 @@ export default function Home({
                                 Thoughts on software engineering, AI, and building products
                             </Typography>
                         </Box>
-                        <BlogPreview post={featured} />
+                        <BlogCard post={featured} />
                         <Box sx={{ mt: 3, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
                             <Button 
                                 component={NextLink} 

@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 import { GetStaticProps } from 'next';
 import type { Post } from '../../types/blog';
 import postsData from '../../data/posts.json';
-import BlogPreview from '@/components/blog/BlogPreview';
+import BlogCard from '@/components/blog/BlogCard';
 import CustomHead from '@/components/common/Head';
 
 export default function BlogIndex({ posts }: { posts: Post[] }) {
@@ -22,7 +22,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                         Blog
                     </Typography>
                     {posts.map(post => (
-                        <BlogPreview key={post.slug} post={post} />
+                        <BlogCard key={post.slug} post={post} />
                     ))}
                 </>
             </Box>
