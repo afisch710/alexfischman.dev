@@ -18,9 +18,6 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
             />
             <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
                 <>
-                    <Typography variant="h3" gutterBottom>
-                        Blog
-                    </Typography>
                     {posts.map(post => (
                         <BlogCard key={post.slug} post={post} />
                     ))}
@@ -31,6 +28,6 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
 }
 
 export const getStaticProps: GetStaticProps<{ posts: Post[] }> = async () => {
-  const posts: Post[] = postsData;
-  return { props: { posts } };
+    const posts: Post[] = postsData;
+    return { props: { posts } };
 };
