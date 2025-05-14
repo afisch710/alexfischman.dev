@@ -6,6 +6,7 @@ import WeatherBackground from "../weather/WeatherBackground";
 import { usePathname, useRouter } from "next/navigation";
 import MenuIcon from "@mui/icons-material/Menu";
 import Footer from "./Footer";
+import { customMaxWidth } from '../../theme';
 
 const tabRoutes = ["", "blog", "experience", "about"];
 
@@ -64,6 +65,7 @@ export default function PageLayout({
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const maxWidth = isMobile ? customMaxWidth.mobile : customMaxWidth.desktop;
 
     return (
         <Box
@@ -174,7 +176,6 @@ export default function PageLayout({
                 <Box
                     sx={{
                         flex: 1,
-                        width: '100%',
                         overscrollBehaviorY: 'none',
                         overflowY: "auto",
                         display: "flex",
@@ -185,8 +186,8 @@ export default function PageLayout({
                     <Box
                         ref={contentRef}
                         sx={{
-                            width: { xs: "95%", md: "85%" },
-                            maxWidth: "1200px",
+                            width: '100%',
+                            maxWidth,
                             mx: "auto",
                             pb: 3, // Add padding at the bottom of content
                             flex: 1,
@@ -194,7 +195,7 @@ export default function PageLayout({
                             flexDirection: "column",
                         }}
                     >
-                        <Box sx={{ flex: 1 }}>
+                        <Box sx={{ flex: 1, pt: 2, pb: 4 }}>
                             {children}
                         </Box>
 

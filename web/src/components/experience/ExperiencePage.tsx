@@ -27,7 +27,7 @@ export default function ExperiencePage({ experience }: ExperiencePageProps) {
     }
 
     return (
-        <Container sx={{ py: 4 }}>
+        <Container sx={{ p: 0 }}>
             <Paper
                 elevation={3}
                 sx={{

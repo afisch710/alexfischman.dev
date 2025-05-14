@@ -19,7 +19,7 @@ export default function ExperienceSlugPage({ experience }: ExperienceSlugPagePro
         ogImage={experience.ogImage || 'af_dark.png'}
         ogUrl={`https://www.alexfischman.dev/experience/${experience.slug}`}
       />
-      <Container>
+      <Container sx={{ p: 0 }}>
         <ExperiencePage experience={experience} />
       </Container>
     </>

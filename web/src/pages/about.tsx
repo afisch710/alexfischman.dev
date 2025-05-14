@@ -40,7 +40,7 @@ export default function About() {
                 ogImage={aboutData.ogImage}
                 ogUrl="https://www.alexfischman.dev/about"
             />
-            <Container maxWidth="lg" sx={{ py: 4 }}>
+            <Container maxWidth="lg" sx={{ p: 0 }}>
                 <Paper
                     elevation={3}
                     sx={{

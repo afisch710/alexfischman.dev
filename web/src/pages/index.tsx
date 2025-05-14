@@ -134,7 +134,7 @@ export default function Home({
                 ogImage="af_dark.png"
                 ogUrl="https://www.alexfischman.dev/"
             />
-            <Container maxWidth="lg" sx={{ py: { xs: 2, md: 4 } }}>
+            <Container sx={{ p: 0 }}>
                 {/* Global CSS for animations */}
                 <style>{`
           @keyframes fadeIn {

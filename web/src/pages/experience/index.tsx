@@ -83,7 +83,7 @@ export default function ExperiencePage({
                 ogImage="af_dark.png"
                 ogUrl="https://www.alexfischman.dev/experience"
             />
-            <Box sx={{ width: '100%', p: 4, pb: 8 }}>
+            <Box sx={{ width: '100%', p: 0 }}>
                 {/* Header with title and filter toggle icon */}
                 <Box
                     display="flex"

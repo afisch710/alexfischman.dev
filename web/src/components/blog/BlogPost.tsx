@@ -13,7 +13,7 @@ interface BlogPostProps {
 
 export default function BlogPost({ post }: BlogPostProps) {
     return (
-        <Container sx={{ py: 6 }}>
+        <Container sx={{ p: 0 }}>
             <Paper elevation={3} sx={{ p: { xs: 3, md: 6 }, borderRadius: 3, bgcolor: 'background.paper' }}>
                 <Button component={NextLink} href="/blog" variant="outlined" sx={{ mb: 4 }}>
                     ← Back to Blog
