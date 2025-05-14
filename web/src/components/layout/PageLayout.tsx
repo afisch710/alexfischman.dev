@@ -186,8 +186,8 @@ export default function PageLayout({
                     <Box
                         ref={contentRef}
                         sx={{
-                            width: { xs: "95%", md: "85%" },
-                            maxWidth: "1200px",
+                            width: '100%',
+                            maxWidth,
                             mx: "auto",
                             pb: 3, // Add padding at the bottom of content
                             flex: 1,

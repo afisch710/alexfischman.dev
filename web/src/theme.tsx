@@ -29,6 +29,24 @@ const theme = createTheme({
                 },
             },
         },
+        MuiContainer: {
+            defaultProps: {
+                maxWidth: false,
+            },
+            styleOverrides: {
+                root: ({ theme }) => ({
+                    maxWidth: '1400px',
+                    width: '100%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                    [theme.breakpoints.down('sm')]: {
+                        maxWidth: '95vw',
+                    },
+                }),
+            },
+        },
     },
     typography: {
         fontFamily: roboto.style.fontFamily,
