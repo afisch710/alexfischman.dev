@@ -1,5 +1,5 @@
 {
-  "totalContributions": 3055,
+  "totalContributions": 2942,
   "monthlyContributions": {
     "2024-05": 0,
     "2024-06": 152,
@@ -13,41 +13,36 @@
     "2025-02": 305,
     "2025-03": 72,
     "2025-04": 253,
-    "2025-05": 174
+    "2025-05": 176
   },
-  "commitContributions": 1552,
-  "issueContributions": 733,
-  "prContributions": 764,
+  "commitContributions": 1493,
+  "issueContributions": 711,
+  "prContributions": 732,
   "prReviewContributions": 3,
   "followersCount": 2,
   "followingCount": 0,
   "starredCount": 8,
   "reposContributedToCount": 3,
   "languageCount": {
-    "JavaScript": 974241,
-    "CSS": 119553,
-    "HTML": 20716,
+    "message": "0We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.",
     "TypeScript": 246123,
-    "Shell": 43889,
-    "Java": 1556320,
-    "PowerShell": 357,
-    "Ruby": 138907,
-    "Python": 363659,
-    "Lua": 12170,
-    "Dockerfile": 5011,
-    "Swift": 807143,
+    "Shell": 3427,
+    "CSS": 3752,
+    "JavaScript": 228490,
+    "Java": 84481,
+    "Python": 23250,
+    "HTML": 2117,
+    "Swift": 441245,
     "Makefile": 39207,
-    "Objective-C": 3410675,
-    "C++": 6116,
+    "Objective-C": 21266,
+    "Ruby": 3326,
+    "C++": 538,
     "Gherkin": 361,
-    "Groff": 1,
-    "Kotlin": 17412,
-    "CoffeeScript": 1109,
-    "C": 12450
+    "Groff": 1
   },
   "workflows": {
-    "total": 5786,
-    "success": 2870,
-    "failure": 357
+    "total": 5444,
+    "success": 2486,
+    "failure": 41
   }
 }
