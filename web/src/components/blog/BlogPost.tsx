@@ -64,7 +64,8 @@ export default function BlogPost({ post }: BlogPostProps) {
                             </MuiLink>
                         ),
                         code: ({ inline, children, ...props }: { inline?: boolean; children?: React.ReactNode; [key: string]: any }) =>
-                            inline ? (
+                            // Fallback: treat as inline unless we explicitly detect a block (multiple lines)
+                            (inline ?? !String(children).includes('\n')) ? (
                                 <Box
                                     component="code"
                                     sx={{ bgcolor: 'action.hover', px: 0.5, borderRadius: 1, fontFamily: 'monospace' }}
@@ -73,11 +74,13 @@ export default function BlogPost({ post }: BlogPostProps) {
                                     {children}
                                 </Box>
                             ) : (
-                                <Paper elevation={1} sx={{ p: 2, my: 2, overflowX: 'auto' }} {...props}>
-                                    <Box component="pre" sx={{ m: 0, fontFamily: 'monospace' }}>
-                                        {children}
-                                    </Box>
-                                </Paper>
+                                <Box
+                                    component="pre"
+                                    sx={{ bgcolor: 'action.hover', p: 2, my: 2, borderRadius: 1, overflowX: 'auto', fontFamily: 'monospace' }}
+                                    {...props}
+                                >
+                                    {children}
+                                </Box>
                             ),
                         blockquote: ({ children }) => (
                             <Box sx={{ borderLeft: 4, borderColor: 'divider', pl: 2, my: 3 }}>
