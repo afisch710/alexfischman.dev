@@ -25,7 +25,13 @@ const posts = filenames
       body: content,
       ogImage: data.thumbnail || null,
       tags: data.tags || [],
-      draft: data.draft || false,
+      draft: (() => {
+        if (typeof data.draft === 'boolean') return data.draft;
+        if (typeof data.draft === 'string') {
+          return data.draft.toLowerCase() === 'true';
+        }
+        return false;
+      })(),
     };
   })
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

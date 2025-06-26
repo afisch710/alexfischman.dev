@@ -2,7 +2,7 @@
 title: "How I Built alexfischman.dev"
 date: "2025-06-26T12:00:00Z"
 description: "A technical breakdown of my portfolio site’s architecture using Next.js, AWS, and static generation."
-draft: "true"
+draft: true
 ---
 
 ## Project Goals and Philosophy
