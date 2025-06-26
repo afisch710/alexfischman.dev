@@ -13,7 +13,13 @@ const posts = filenames
     const { data, content } = matter(fileContents);
     return {
       title: data.title,
-      date: data.date,
+      date: (() => {
+        if (typeof data.date === 'string') {
+          const hasTz = /[Zz]|[+-]\d{2}:?\d{2}$/.test(data.date);
+          return hasTz ? data.date : `${data.date}Z`;
+        }
+        return data.date;
+      })(),
       description: data.description,
       slug: filename.replace(/\.md$/, ""),
       body: content,
