@@ -18,9 +18,11 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
             />
             <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
                 <>
-                    {posts.map(post => (
-                        <BlogCard key={post.slug} post={post} />
-                    ))}
+                    {posts
+                        .filter(post => !post.draft)
+                        .map(post => (
+                            <BlogCard key={post.slug} post={post} />
+                        ))}
                 </>
             </Box>
         </>

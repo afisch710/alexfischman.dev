@@ -22,7 +22,6 @@ const posts = filenames
       draft: data.draft || false,
     };
   })
-  .filter((post) => !post.draft)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 fs.writeFileSync(
