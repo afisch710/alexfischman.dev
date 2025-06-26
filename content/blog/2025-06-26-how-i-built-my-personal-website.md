@@ -1,0 +1,68 @@
+---
+title: "How I Built alexfischman.dev"
+date: "2025-06-26T12:00:00Z"
+description: "A technical breakdown of my portfolio site’s architecture using Next.js, AWS, and static generation."
+draft: true
+---
+
+## Project Goals and Philosophy
+
+When I set out to build **alexfischman.dev**, my goal was clear: I wanted a portfolio site that was fast, inexpensive to host, fully static, and easy to scale as my needs evolved. Over the years, I’ve learned that simplicity and reliability often trump complexity, especially for personal projects. So in this post, I’ll walk you through how I built the site, from the frontend stack choices to the AWS infrastructure and deployment workflow, sharing the reasons behind each decision.
+
+## Frontend Stack and Design Decisions
+
+Starting with the frontend, I chose **Next.js 15.2** with the Pages Router because it strikes a great balance between developer experience and performance. Next.js’s static generation capabilities fit perfectly with my goal of a fully static site—no server-side rendering at runtime, just pure static files served globally. Alongside Next.js, I used **React 19** and **TypeScript 5** to keep the codebase modern and type-safe.
+
+For styling, I went with **Material-UI v6** combined with emotion for CSS-in-JS, which gives me flexibility and a consistent design system out of the box. To add some polish and smooth interactions, I integrated **Framer Motion** for animations. When it came to content rendering, I rely on **Gray Matter** to parse markdown frontmatter and **react-markdown** to render the markdown posts. This setup lets me write blog content in markdown files, keeping things simple and portable.
+
+I use `yarn` as my package manager because it’s reliable and fast, and I commit the lockfile to ensure reproducible installs across machines and CI environments.
+
+## Static Generation: Keeping It Fast and Simple
+
+One of the core architectural choices I made was to build the site as a pure static export. This means everything is generated at build time—there’s no server rendering or API calls happening when a user visits the site. I leverage Next.js’s `getStaticProps` and `getStaticPaths` to generate all the pages I need, including dynamic routes like blog post slugs. After running `next export`, I run a custom post-build script that restructures the output for S3 hosting. Specifically, it converts files like `page.html` into `page/index.html`, which helps with trailing slash behavior and refreshes when served from S3.
+
+The pages that are statically generated include the homepage (`/`), the blog index (`/blog`), individual blog posts (`/blog/[slug]`), the experience overview (`/experience`), and detailed experience pages (`/experience/[slug]`). Even though the pages hydrate with client-side interactivity using React’s `'use client'` directive, there’s absolutely no runtime server-side rendering involved, which keeps hosting costs minimal and performance snappy.
+
+## How I Manage Content
+
+Speaking of content, I keep all of it in a `content/` folder. This includes `about.json`, `experience.json`, and markdown files for blog posts under `blog/*.md`. Before building the site, I run a `yarn prebuild` script that executes TypeScript utilities to convert this raw content into JSON files that the app consumes. For example, `generate-posts.ts` produces `src/data/posts.json`, and similarly for experience and about data. This approach keeps my content entirely git-based and CMS-free, which I appreciate for its simplicity and version control benefits.
+
+## Codebase Structure
+
+In terms of project structure, I organize the codebase like this: UI components live in `src/components/`, Next.js page components are in `src/pages/`, static assets like images and icons go into `public/`, CI utilities and scripts are in `scripts/`, and the final static site output lands in `out/`. This separation keeps things clean and maintainable.
+
+## Infrastructure as Code: Deploying to AWS
+
+On the infrastructure side, I manage everything with **AWS CloudFormation** using YAML templates. Hosting a static site on AWS is straightforward but requires some setup. I use **S3** buckets for static file hosting, enabling SSE-S3 encryption for data at rest. In front of S3, I place **CloudFront** as a CDN to ensure fast global delivery, with TLS enabled for secure HTTPS connections. DNS is managed via **Route 53**, and I have CloudFormation stacks for the ACM TLS certificate, DNS zones and records, and the main static site infrastructure including S3 and CloudFront.
+
+CloudFront is configured with aliases for both `alexfischman.dev` and `www.alexfischman.dev`, so users can reach the site via either domain seamlessly.
+
+## Deployment & CI/CD
+
+The entire site and its supporting AWS infrastructure are deployed automatically through GitHub Actions.  
+My day-to-day flow is:
+
+1. Open a GitHub Issue → create a feature branch `issue/123-some-feature`.  
+2. Push commits and open a Pull Request back to `development`.  
+3. **CI validation runs automatically**:  
+   • `web-ci.yml` lints, type-checks, builds, and validates the Next.js export.  
+   • `*-ci.yml` workflows (`cert-ci`, `dns-zone-ci`, `dns-records-ci`) lint and validate each CloudFormation template that changed in the PR.  
+   The PR cannot be merged until every check passes.  
+4. Merge → `development` → **CD kicks in**:  
+   • `web-cd.yml` rebuilds the site, runs the post-build HTML restructuring script, then  
+     – deploys/updates the CloudFormation stack `alexfischman-dev-app`,  
+     – syncs the static files in `web/out/` to the S3 bucket exported by that stack,  
+     – invalidates the CloudFront distribution so the new build goes live.  
+   • If any infrastructure template changed, its matching `*-cd.yml` workflow (`cert-cd`, `dns-zone-cd`, `dns-records-cd`) runs `aws cloudformation deploy` to update that stack.
+
+Therefore, shipping a change is as simple as merging the PR; everything else—from static export to CDN cache-bust—is handled by the pipelines.
+
+## Security and Cost Efficiency
+
+Security and cost considerations were important to me. The site uses TLS 1.2 via ACM and CloudFront, ensuring secure HTTPS connections. The S3 bucket is public read-only and encrypted at rest with SSE-S3. CloudFront enforces HTTPS through its policies. On the cost side, this setup is very economical: there are no compute resources like Lambda or EC2 running, storage on S3 is minimal since the site is static, and CloudFront is configured with PriceClass_100 to limit costs to US and EU regions.
+
+## Looking Forward
+
+Looking forward, I’m happy with this lean and stable architecture, but there’s room to grow. I’m considering adding serverless APIs with Lambda and API Gateway, or using Lambda@Edge for personalization or authentication. Eventually, I might migrate to the Next.js App Router while keeping static export, and add CI/CD pipelines and monitoring to improve reliability.
+
+Thanks for reading! If you’re curious about how it all works under the hood, feel free to explore the repo or reach out. I’m always happy to share what I’ve learned along the way.
