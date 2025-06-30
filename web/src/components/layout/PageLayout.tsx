@@ -237,7 +237,7 @@ export default function PageLayout({
                     onClose={() => setMobileNavOpen(false)}
                     PaperProps={{
                         sx: {
-                            backgroundColor: 'rgba(50,50,50,0.75)',
+                            backgroundColor: 'rgba(50,50,50,0.95)',
                         }
                     }}
                     BackdropProps={{
