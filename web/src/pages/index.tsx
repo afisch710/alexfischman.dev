@@ -449,5 +449,5 @@ export default function Home({
 export const getStaticProps: GetStaticProps<{ featured: Post; experiences: Experience[] }> = async () => {
   const posts: Post[] = postsData;
   const experiences: Experience[] = [...experiencesData].sort((a, b) => a.priority - b.priority);
-  return { props: { featured: posts[0], experiences } };
+  return { props: { featured: posts.filter(post => !post.draft)[0], experiences } };
 };
