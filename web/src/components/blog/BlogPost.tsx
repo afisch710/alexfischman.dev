@@ -26,9 +26,41 @@ export default function BlogPost({ post }: BlogPostProps) {
                 </Typography>
                 {/* Author Section */}
                 <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 4 }}>
-                    <Box component="img" src="/headshot.JPG" alt="Author headshot" sx={{ width: 56, height: 56, borderRadius: '50%', mr: 2, border: '2px solid', borderColor: 'divider' }} />
+                    {/* Author headshot now links to the About page */}
+                    <Box
+                        component={NextLink}
+                        href="/about/"
+                        sx={{ display: 'inline-block', mr: 2 }}
+                    >
+                        <Box
+                            component="img"
+                            src="/headshot.JPG"
+                            alt="Author headshot"
+                            sx={{
+                                width: 56,
+                                height: 56,
+                                borderRadius: '50%',
+                                border: '2px solid',
+                                borderColor: 'divider',
+                                cursor: 'pointer',
+                            }}
+                        />
+                    </Box>
                     <Box>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>Alex Fischman</Typography>
+                        {/* Author name now links to the About page */}
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                            <MuiLink
+                                component={NextLink}
+                                href="/about/"
+                                underline="hover"
+                                sx={{
+                                    color: 'inherit',
+                                    textDecoration: 'none',
+                                }}
+                            >
+                                Alex Fischman
+                            </MuiLink>
+                        </Typography>
                         <Typography variant="caption" color="text.secondary">
                             {`published ${formatPublishTime(post.date)}`}
                         </Typography>
