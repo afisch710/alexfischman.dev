@@ -12,7 +12,6 @@ import ExperienceCard from '@/components/experience/ExperienceCard';
 import postsData from '@/data/posts.json';
 import GithubProfile from '@/components/github/GithubProfile';
 import CustomHead from '@/components/common/Head';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 // Track if intro has played in this SPA session
 let introPlayedInApp = false;
@@ -296,25 +295,32 @@ export default function Home({
                 {/* Highlights Section */}
                 <Fade in={highlightsVisible} timeout={500} onEntered={() => setBlogVisible(true)} unmountOnExit>
                     <Box sx={{ mb: { xs: 4, md: 5 } }}>
-                        <Box sx={{ mb: 4 }}>
+                        <Box sx={{ mb: 4, textAlign: { xs: 'center', md: 'left' } }}>
                             <Typography 
                                 variant="h3" 
-                                component="h2" 
+                                component={NextLink}
+                                href="/experience"
                                 sx={{ 
-                                    textAlign: { xs: 'center', md: 'left' },
+                                    display: 'inline-block',
                                     fontWeight: 700,
                                     color: 'text.primary',
                                     mb: 1,
+                                    textDecoration: 'none',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                        fontSize: '1.85rem',
+                                    },
+                                    transition: 'font-size 0.3s ease',
                                 }}
                             >
-                                Experience
+                                Experience →
                             </Typography>
                             <Typography 
                                 variant="subtitle1" 
                                 sx={{ 
-                                    textAlign: { xs: 'center', md: 'left' },
                                     color: 'text.secondary',
                                     maxWidth: '600px',
+                                    mx: { xs: 'auto', md: 0 },
                                 }}
                             >
                                 Key projects and roles that have shaped my journey in tech
@@ -327,30 +333,6 @@ export default function Home({
                                 </Grid>
                             ))}
                         </Grid>
-                        <Box sx={{ mt: 3, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-                            <Button 
-                                component={NextLink} 
-                                href="/experience" 
-                                variant="outlined" 
-                                color="primary"
-                                endIcon={<ArrowForwardIosIcon />}
-                                sx={{
-                                    px: { xs: 2, md: 4 },
-                                    py: { xs: 0.75, md: 1.5 },
-                                    fontSize: { xs: '0.8125rem', md: '1rem' },
-                                    fontWeight: 600,
-                                    borderRadius: 2,
-                                    minWidth: { xs: 'auto', md: '200px' },
-                                    '&:hover': {
-                                        transform: 'translateY(-2px)',
-                                        boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
-                                    },
-                                    transition: 'all 0.3s ease',
-                                }}
-                            >
-                                View All Experience
-                            </Button>
-                        </Box>
                     </Box>
                 </Fade>
 
@@ -360,83 +342,75 @@ export default function Home({
                     setGithubVisible(true);
                 }}>
                     <Box sx={{ mb: { xs: 4, md: 5 } }}>
-                        <Box sx={{ mb: 4 }}>
+                        <Box sx={{ mb: 4, textAlign: { xs: 'center', md: 'left' } }}>
                             <Typography 
                                 variant="h3" 
-                                component="h2" 
+                                component={NextLink}
+                                href="/blog"
                                 sx={{ 
-                                    textAlign: { xs: 'center', md: 'left' },
+                                    display: 'inline-block',
                                     fontWeight: 700,
                                     color: 'text.primary',
                                     mb: 1,
+                                    textDecoration: 'none',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                        fontSize: '1.85rem',
+                                    },
+                                    transition: 'font-size 0.3s ease',
                                 }}
                             >
-                                Writing
+                                Blog →
                             </Typography>
                             <Typography 
                                 variant="subtitle1" 
                                 sx={{ 
-                                    textAlign: { xs: 'center', md: 'left' },
                                     color: 'text.secondary',
                                     maxWidth: '600px',
+                                    mx: { xs: 'auto', md: 0 },
                                 }}
                             >
                                 Thoughts on software engineering, AI, and building products
                             </Typography>
                         </Box>
                         <BlogCard post={featured} />
-                        <Box sx={{ mt: 3, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-                            <Button 
-                                component={NextLink} 
-                                href="/blog" 
-                                variant="outlined" 
-                                color="primary"
-                                endIcon={<ArrowForwardIosIcon />}
-                                sx={{
-                                    px: { xs: 2, md: 4 },
-                                    py: { xs: 0.75, md: 1.5 },
-                                    fontSize: { xs: '0.8125rem', md: '1rem' },
-                                    fontWeight: 600,
-                                    borderRadius: 2,
-                                    minWidth: { xs: 'auto', md: '200px' },
-                                    '&:hover': {
-                                        transform: 'translateY(-2px)',
-                                        boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
-                                    },
-                                    transition: 'all 0.3s ease',
-                                }}
-                            >
-                                Read All Posts
-                            </Button>
-                        </Box>
                     </Box>
                 </Fade>
 
                 {/* GitHub Activity Section */}
                 <Fade in={githubVisible} timeout={500} unmountOnExit>
                     <Box sx={{ mb: { xs: 4, md: 5 } }}>
-                        <Box sx={{ mb: 4 }}>
+                        <Box sx={{ mb: 4, textAlign: { xs: 'center', md: 'left' } }}>
                             <Typography 
                                 variant="h3" 
-                                component="h2" 
+                                component="a"
+                                href="https://github.com/afisch710"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 sx={{ 
-                                    textAlign: { xs: 'center', md: 'left' },
+                                    display: 'inline-block',
                                     fontWeight: 700,
                                     color: 'text.primary',
                                     mb: 1,
+                                    textDecoration: 'none',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                        fontSize: '1.85rem',
+                                    },
+                                    transition: 'font-size 0.3s ease',
                                 }}
                             >
-                                Activity
+                                Activity →
                             </Typography>
                             <Typography 
                                 variant="subtitle1" 
                                 sx={{ 
-                                    textAlign: { xs: 'center', md: 'left' },
                                     color: 'text.secondary',
                                     maxWidth: '600px',
+                                    mx: { xs: 'auto', md: 0 },
                                 }}
                             >
-                                Recent contributions, projects, and more
+                                Recent GitHub contributions, projects, and more (excludes Microsoft work)
                             </Typography>
                         </Box>
                         <GithubProfile username="alexfischman" />
