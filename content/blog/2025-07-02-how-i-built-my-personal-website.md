@@ -1,6 +1,6 @@
 ---
 title: "How I Built alexfischman.dev"
-date: "2025-07-02T17:00:00Z"
+date: "2025-07-02T19:00:00Z"
 description: "A technical breakdown of my website intertwined with lessons I've learned along the way"
 tags: ["web-development", "nextjs", "aws", "typescript", "static-site-generation", "ci-cd", "personal-project", "tech-stack"]
 draft: false
