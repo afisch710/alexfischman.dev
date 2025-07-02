@@ -9,13 +9,13 @@ const theme = createTheme({
             'secondary': '#bbb',
         },
         primary: {
-            main: '#2196F3', // Light blue accent color matching standard hyperlinks
+            main: '#fff',
         },
         background: {
             paper: 'rgba(0,0,0,0.25)',
         },
         secondary: {
-            main: '#555',
+            main: '#2196F3', // Light blue accent color for links
         },
     },
     components: {
