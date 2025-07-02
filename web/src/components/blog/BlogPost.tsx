@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import NextLink from "next/link";
-import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Fab, Snackbar, Chip } from "@mui/material";
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Snackbar, Chip } from "@mui/material";
 import ShareIcon from '@mui/icons-material/Share';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ReactMarkdown from "react-markdown";
@@ -165,14 +164,6 @@ export default function BlogPost({ post }: BlogPostProps) {
                     </ReactMarkdown>
                 </Box>
             </Paper>
-            <Fab
-                size="small"
-                aria-label="scroll back to top"
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                sx={{ position: 'fixed', bottom: 24, right: 24 }}
-            >
-                <KeyboardArrowUpIcon />
-            </Fab>
             <Snackbar
                 open={showCopySuccess}
                 autoHideDuration={2000}
