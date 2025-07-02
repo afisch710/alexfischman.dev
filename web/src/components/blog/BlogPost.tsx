@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import NextLink from "next/link";
-import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Fab } from "@mui/material";
+import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Fab, Snackbar } from "@mui/material";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import ShareIcon from '@mui/icons-material/Share';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Post } from "../../types/blog";
@@ -12,12 +14,34 @@ interface BlogPostProps {
 }
 
 export default function BlogPost({ post }: BlogPostProps) {
+    const [showCopySuccess, setShowCopySuccess] = useState(false);
+
+    const handleShare = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            setShowCopySuccess(true);
+        } catch (err) {
+            console.error('Failed to copy URL:', err);
+        }
+    };
+
     return (
         <Container sx={{ p: 0 }}>
             <Paper elevation={3} sx={{ p: { xs: 3, md: 6 }, borderRadius: 3, bgcolor: 'background.paper' }}>
-                <Button component={NextLink} href="/blog" variant="outlined" sx={{ mb: 4 }}>
-                    ← Back to Blog
-                </Button>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+                    <Button component={NextLink} href="/blog" variant="outlined" startIcon={<ArrowBackIcon />} sx={{ textTransform: "none" }}>
+                        All Posts
+                    </Button>
+                    <Button 
+                        onClick={handleShare}
+                        variant="outlined"
+                        startIcon={<ShareIcon />}
+                        aria-label="Share post"
+                        sx={{ textTransform: "none" }}
+                    >
+                        Share
+                    </Button>
+                </Box>
                 <Typography variant="h1" component="h1" gutterBottom sx={{ fontWeight: 900, fontSize: { xs: '2.5rem', md: '4rem' }, mb: 2 }}>
                     {post.title}
                 </Typography>
@@ -146,6 +170,13 @@ export default function BlogPost({ post }: BlogPostProps) {
             >
                 <KeyboardArrowUpIcon />
             </Fab>
+            <Snackbar
+                open={showCopySuccess}
+                autoHideDuration={2000}
+                onClose={() => setShowCopySuccess(false)}
+                message="URL copied to clipboard!"
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            />
         </Container>
     );
 }
