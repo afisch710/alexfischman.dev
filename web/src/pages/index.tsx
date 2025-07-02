@@ -241,8 +241,8 @@ export default function Home({
                                 <Button
                                     ref={skipBtnRef}
                                     autoFocus={false}
-                                    variant="contained"
-                                    color="secondary"
+                                    variant="outlined"
+                                    color="primary"
                                     onClick={skipAll}
                                     sx={{
                                         animation: 'pulse 2s ease-in-out infinite',
