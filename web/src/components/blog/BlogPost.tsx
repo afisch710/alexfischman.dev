@@ -97,7 +97,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                                 rel="noopener noreferrer" 
                                 underline="hover"
                                 sx={{ 
-                                    color: 'primary.main',
+                                    color: 'secondary.main',
                                     fontWeight: 500
                                 }}
                             >
