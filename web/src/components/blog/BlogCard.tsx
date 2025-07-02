@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { Card, CardActionArea, CardContent, Typography, Box, Button, Chip } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography, Box, Button } from "@mui/material";
 import { Post } from "../../types/blog";
+import TagClamp from "../common/TagClamp";
 
 interface BlogCardProps {
   post: Post;
@@ -32,10 +33,8 @@ export default function BlogCard({ post }: BlogCardProps) {
           <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: 'text.primary', mb: 2 }}>
             {post.description}
           </Typography>
-          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
-            {post.tags.map((tag) => (
-              <Chip key={tag} label={tag} size="small" sx={{ borderRadius: '8px' }} />
-            ))}
+          <Box sx={{ mb: 2 }}>
+            <TagClamp tags={post.tags} maxLines={2} containerWidth={400} />
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Button variant="outlined" sx={{ textTransform: "none", color: "primary.main" }}>

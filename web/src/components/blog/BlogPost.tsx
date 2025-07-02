@@ -49,50 +49,53 @@ export default function BlogPost({ post }: BlogPostProps) {
                     {post.description}
                 </Typography>
                 {/* Author Section */}
-                <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 4 }}>
-                    {/* Author headshot now links to the About page */}
-                    <Box
-                        component={NextLink}
-                        href="/about/"
-                        sx={{ display: 'inline-block', mr: 2 }}
-                    >
+                <Box sx={{ mt: 2, mb: 4 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                        {/* Author headshot now links to the About page */}
                         <Box
-                            component="img"
-                            src="/headshot.JPG"
-                            alt="Author headshot"
-                            sx={{
-                                width: 56,
-                                height: 56,
-                                borderRadius: '50%',
-                                border: '2px solid',
-                                borderColor: 'divider',
-                                cursor: 'pointer',
-                            }}
-                        />
-                    </Box>
-                    <Box>
-                        {/* Author name now links to the About page */}
-                        <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                            <MuiLink
-                                component={NextLink}
-                                href="/about/"
-                                underline="hover"
+                            component={NextLink}
+                            href="/about/"
+                            sx={{ display: 'inline-block', mr: 2 }}
+                        >
+                            <Box
+                                component="img"
+                                src="/headshot.JPG"
+                                alt="Author headshot"
                                 sx={{
-                                    color: 'inherit',
-                                    textDecoration: 'none',
+                                    width: 56,
+                                    height: 56,
+                                    borderRadius: '50%',
+                                    border: '2px solid',
+                                    borderColor: 'divider',
+                                    cursor: 'pointer',
                                 }}
-                            >
-                                Alex Fischman
-                            </MuiLink>
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                            {`published ${formatPublishTime(post.date)}`}
-                        </Typography>
-                        <Box sx={{ mt: 1, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                            {post.tags.map((tag) => (
-                                <Chip key={tag} label={tag} size="small" sx={{ borderRadius: '8px' }} />
-                            ))}
+                            />
                         </Box>
+                        <Box>
+                            {/* Author name now links to the About page */}
+                            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                                <MuiLink
+                                    component={NextLink}
+                                    href="/about/"
+                                    underline="hover"
+                                    sx={{
+                                        color: 'inherit',
+                                        textDecoration: 'none',
+                                    }}
+                                >
+                                    Alex Fischman
+                                </MuiLink>
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary">
+                                {`published ${formatPublishTime(post.date)}`}
+                            </Typography>
+                        </Box>
+                    </Box>
+                    {/* Tags shown as separate row for all screen sizes */}
+                    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                        {post.tags.map((tag) => (
+                            <Chip key={tag} label={tag} size="small" sx={{ borderRadius: '8px' }} />
+                        ))}
                     </Box>
                 </Box>
                 <Divider sx={{ my: 4 }} />
