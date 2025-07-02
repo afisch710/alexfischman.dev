@@ -28,7 +28,7 @@ To reiterate my requirements for this website:
 
 Fast, cheap and scalable may have been an oxymoron in days past, but a lot of smart people have spent a lot of time delivering solutions that marry these together in the form of the cloud. I openly admit that **AWS** is the most developer friendly (in my opinion) and it is my platform of choice when investing in new projects/ventures.
 
-Delving into the AWS world's vast catalog of services and my own past experience, my go to choice for a fast, cheap and scalalbe web experience is to statically host a site in **S3** and leverage **Cloudfront** as a CDN. This can totally eliminate the need for cloud compute while providing low latent access to your content worldwide.
+Delving into the AWS world's vast catalog of services and my own past experience, my go to choice for a fast, cheap and scalable web experience is to statically host a site in **S3** and leverage **Cloudfront** as a CDN. This can totally eliminate the need for cloud compute while providing low latency access to your content worldwide.
 
 Reliability and maintainability typically are a balance between adopting mature frameworks/technologies and then developing atop them with a proper technical design. My go-to's here are **Next.js (React.js) and TypeScript**. It's a widely supported stack that I am very familiar with.
 
@@ -40,7 +40,7 @@ I find **Next.js** and the Pages router to be a great balance of developer exper
 
 As you may know, Next.js is a **React** framework. The React library provides an excellent abstraction for view-centric development and is a well established and supported at this point.
 
-Truth be told, this was my first time using **TypeScript** extensively in a large project. My rationale for doing so was primarily to enable a type-safe and modern codebase, and secondarily to start growing these muscles and broaden my experience. I was pleasantly surprised with the language and it has a bright future ahead of it as a new native compiler (Go-based) is in active development and will offer 10x compilation times.
+Truth be told, this was my first time using **TypeScript** extensively in a large project. My rationale for doing so was primarily to enable a type-safe and modern codebase, and secondarily to start growing these muscles and broaden my experience. I was pleasantly surprised with the language and it has a bright future ahead of it, as a new native compiler (Go-based) is in active development and will offer 10x faster compilation times.
 
 I historically have been a fan of Google's **Material Design** language and appreciate it's sleek and modern look and feel. That led me to leveraging **Material-UI v6**, the open-source React implementation of Material Design. I have past experience with this and will continue to advocate it is a good choice to build a consistent and pleasant Web UX in a simple manner.
 
@@ -48,11 +48,11 @@ I bundle in the Emotion library and Framer Motion library for some added animati
 
 ### Blog Stack
 
-When it comes to my blog, I initially was a little unsure of what route to go. Yes I am a developer, but I don't have much interest in the overhead of building new React components for every blog post. I hope to establish a somewhat regular posting cadence and would prefer a lighterweight way to write a blog post and publish it.
+When it comes to my blog, I initially was a little unsure of what route to go. Yes I am a developer, but I don't have much interest in the overhead of building new React components for every blog post. I hope to establish a somewhat regular posting cadence and would prefer a lightweight way to write a blog post and publish it.
 
 I equally didn't have a lot of interest in building out my own micro-service supported backend to host and serve content. It would have been a reinvention of many wheels and my time could be better spent elsewhere.
 
-I did look at out of box solutions such as Netlify which would enable content storage in Github wrapped in some nice UX for management. Through prototyping though I discovered it felt a bit clunky and also a bit unnecessary for me. For a multi-authored blog full of non-developer writers, it is a good solution. But as the sole author of this and as a developer, it's a lot of overhead.
+I did look at out-of-the-box solutions such as Netlify which would enable content storage in Github wrapped in some nice UX for management. Through prototyping though I discovered it felt a bit clunky and also a bit unnecessary for me. For a multi-authored blog full of non-developer writers, it is a good solution. But as the sole author of this and as a developer, it's a lot of overhead.
 
 I found myself in search of a lightweight, git-managed, developer-friendly solution that doesn't fully exist in the wild so I decided to have a little fun and craft my own.
 
@@ -62,7 +62,7 @@ Bingo, a stylable, repository stored, low overhead means for authoring blog post
 
 ### Package Management
 
-Sometimes it can feel like there are more **software package managers** in the world there are people. I've never actually counted them both up and compared, but I assume it's coin flip for which is the winner.
+Sometimes it can feel like there are more **software package managers** in the world than there are people. I've never actually counted them both up and compared, but I assume it's coin flip for which is the winner.
 
 I'm using `yarn` as my package manager because it’s reliable and fast and it works. Also I chose it because I chose it and I hope you can live with that. Jokes aside, package management is a crucial piece of software solutions and it enables leveraging many open-source libraries that can save you so much time. Get familiar with a manager and learn to use it rather than re-invent the wheel whenever you need to roll.
 
@@ -82,7 +82,7 @@ This setup gives me the best of both worlds. Clean, scalable URLs and fast, cach
 
 Someone talking about the AI boom may forget to mention Amazon (sorry that was mean), but when it comes to this tech stack I promise I didn't forget Amazon and AWS. If you've gotten this far, welcome to the cloud.
 
-I've touched on it a bit already, but I've intentionally designed out and avoided any complex backend for this website. There truly isn't a need and I try to default to the KISS principle as often as possible. KISS being keep it simple, stupid. If you haven't heard of that, it's a design principle coined by the US Navy in the 1960s and is nowly widely/wisely adopted in tech. There's no need to overcomplicate something that's not complicated.
+I've touched on it a bit already, but I've intentionally designed out and avoided any complex backend for this website. There truly isn't a need and I try to default to the KISS principle as often as possible. KISS being keep it simple, stupid. If you haven't heard of that, it's a design principle coined by the US Navy in the 1960s and is now widely/wisely adopted in tech. There's no need to overcomplicate something that's not complicated.
 
 #### S3 + Cloudfront
 So when it comes to this website's backend, it's rather simple. The build-generated HTML is stored in an S3 bucket that's configured for website hosting. In front of that, there's a Cloudfront distribution which acts as my global CDN (content delivery network) to cache and deliver content quickly.
@@ -109,7 +109,7 @@ Congratulations, you made it out of the tech stack doldrums and onto what this l
 
 ### Discipline, Discipline, Discipline
 
-It's so much easier to reach your destination when you love the journey. Sure it's cliche but it's absolutely true in terms of your software development journey. Take the time to define your processes. Reflect on what tedious tasks you may have in those processes and then invest in automating them. Apply discipline to your project, and then apply discipline to applying discpline to all your projects. There may be pain at first but soon you'll reach that runner's high and truly be off to the races and towards your finish line.
+It's so much easier to reach your destination when you love the journey. Sure it's cliche but it's absolutely true in terms of your software development journey. Take the time to define your processes. Reflect on what tedious tasks you may have in those processes and then invest in automating them. Apply discipline to your project, and then apply discipline to applying discipline to all your projects. There may be pain at first but soon you'll reach that runner's high and truly be off to the races and towards your finish line.
 
 Yes, I really tried hard to pull your attention back in because I truly believe this is so important, and that you absorb what this discipline actually looks like in software development. Here we go.
 
@@ -149,16 +149,16 @@ My primary CI pipeline is [web-ci](https://github.com/afisch710/alexfischman.dev
 
 ### Continuous Delivery (CD)
 
-CD pipelines are responsible for automating the process to release/deploy code. This is another extremely important workflow as it guarantees replicable and stable deployment processes for updating your product.
+CD pipelines are responsible for automating the process to release/deploy code. This is another extremely important workflow as it guarantees reproducible and stable deployment processes for updating your product.
 
 For me, my CD pipeline is [web-cd](https://github.com/afisch710/alexfischman.dev/blob/development/.github/workflows/web-cd.yml). Once a PR merges, this is automatically triggered to deploy my change to become live on this website. This entails:
 1. Building the application which generates all the static HTML we've previously discussed
 2. Post build processing that organizes and cleans up the build output and getting into a state that's ready for deployment
-3. Deploying the AWS Cloudformation stack to ensure all IaC changes for this website are immediately updated in AWS
+3. Deploying the AWS CloudFormation stack to ensure all IaC changes for this website are immediately updated in AWS
 4. Uploading the prepared build output (from step 2) to the S3 bucket which hosts this website statically
-5. Invalidating the Cloudfront CDN to ensure no old files are leftover that would not reflect the new change
+5. Invalidating the CloudFront CDN to ensure no old files are leftover that would not reflect the new change
 
-Additionally I have a couple CI/CD pipelines for the other IaC defined resources to ensure changes to them are protected and automated as well.
+Additionally, I have a couple CI/CD pipelines for the other IaC defined resources to ensure changes to them are protected and automated as well.
 
 ### The Result
 
@@ -170,7 +170,7 @@ If you are a developer, I hope you are utilizing every AI developer-assisting to
 
 Given that disclaimer, I have been and continue to be a strong strong advocate of tools like **Cursor** and **ChatGPT** for development. I was an early adopter of this technology and over the last 1-2+ years the progress being made that I witness firsthand daily is out of this world. I do enjoy testing the limits of artificial intelligence and how it can supplement my life, and particularly when it comes to software engineering it feels as if those limits are expanding as quickly as the universe is.
 
-There are sizable portions of this codebase that I have co-developed with OpenAI's **o3-mini**, **o3**, and **o4-mini**, as well as Anthropic's **Claude Sonnet 4**. The ability to oversee their development of tedious or even complex coding tasks is a very high demand skill and I'm a firm believer that it will continue to be for the forseeable future. Now as I step off this small soap box, I'll reiterate that human ingenuity + creativity in combination with artificial intelligence and wrapping frameworks/tooling opens some incredible doors, particularly at this point in time. And I could talk about this for hours so please reach out if you share a similar vested interest or passion.
+There are sizable portions of this codebase that I have co-developed with OpenAI's **o3-mini**, **o3**, and **o4-mini**, as well as Anthropic's **Claude Sonnet 4**. The ability to oversee their development of tedious or even complex coding tasks is a very high demand skill and I'm a firm believer that it will continue to be for the foreseeable future. Now as I step off this small soap box, I'll reiterate that human ingenuity + creativity in combination with artificial intelligence and wrapping frameworks/tooling opens some incredible doors, particularly at this point in time. And I could talk about this for hours so please reach out if you share a similar vested interest or passion.
 
 ## That's A Wrap, Ship It
 
