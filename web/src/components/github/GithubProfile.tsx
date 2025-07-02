@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import githubProfileData from '@/data/github-profile.json';
 import { Chip, Divider } from '@mui/material';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import CodeIcon from '@mui/icons-material/Code';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import MergeTypeIcon from '@mui/icons-material/MergeType';
@@ -11,7 +10,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import StarIcon from '@mui/icons-material/Star';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import { useTheme, alpha } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 
 export interface GithubProfileProps {
     /** GitHub username to display */
@@ -124,8 +123,6 @@ const GithubProfile: React.FC<GithubProfileProps> = () => {
 
     // Month to display status for: active (click) takes precedence over hover
     const displayedMonth = activeMonth !== null ? activeMonth : hoveredMonth;
-
-    const theme = useTheme();
 
     return (
         <Card variant="outlined" sx={{ borderRadius: 3, boxShadow: 1, p: 1, width: '100%', maxWidth: 1200 }}>

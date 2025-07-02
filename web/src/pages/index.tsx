@@ -12,7 +12,6 @@ import ExperienceCard from '@/components/experience/ExperienceCard';
 import postsData from '@/data/posts.json';
 import GithubProfile from '@/components/github/GithubProfile';
 import CustomHead from '@/components/common/Head';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 // Track if intro has played in this SPA session
 let introPlayedInApp = false;
