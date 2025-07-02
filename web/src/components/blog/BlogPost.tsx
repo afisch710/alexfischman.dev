@@ -91,7 +91,16 @@ export default function BlogPost({ post }: BlogPostProps) {
                             />
                         ),
                         a: ({ href, children }) => (
-                            <MuiLink href={href} target="_blank" rel="noopener noreferrer" underline="hover">
+                            <MuiLink 
+                                href={href} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                underline="hover"
+                                sx={{ 
+                                    color: 'primary.main',
+                                    fontWeight: 500
+                                }}
+                            >
                                 {children}
                             </MuiLink>
                         ),

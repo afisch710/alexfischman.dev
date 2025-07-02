@@ -9,7 +9,7 @@ const theme = createTheme({
             'secondary': '#bbb',
         },
         primary: {
-            main: '#fff',
+            main: '#2196F3', // Light blue accent color matching standard hyperlinks
         },
         background: {
             paper: 'rgba(0,0,0,0.25)',
