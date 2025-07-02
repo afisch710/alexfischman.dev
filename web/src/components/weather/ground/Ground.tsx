@@ -230,9 +230,6 @@ export default function Ground({ weather, season }: GroundProps) {
                 newState.grass !== prevState.grass ||
                 newState.accumulation !== prevState.accumulation
             ) {
-                console.log(
-                    `Season: ${season} weather: ${weather} grass: ${newState.grass} accumulation: ${newState.accumulation}`
-                );
                 return newState;
             }
             return prevState;
