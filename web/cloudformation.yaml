@@ -24,7 +24,7 @@ Resources:
             MaxAge: 3000
       WebsiteConfiguration:
         IndexDocument: index.html
-        ErrorDocument: 404.html  # serve the proper 404 page for errors
+        ErrorDocument: 404/index.html  # serve the proper 404 page for errors
 
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
