@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Card, CardActionArea, CardContent, Typography, Box } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography, Box, Button } from "@mui/material";
 import { Post } from "../../types/blog";
 
 interface BlogCardProps {
@@ -42,9 +42,9 @@ export default function BlogCard({ post }: BlogCardProps) {
               ))}
             </Box>
           </Box>
-          <Typography variant="button" sx={{ textTransform: "none", color: "primary.main" }}>
+          <Button variant="outlined" sx={{ textTransform: "none", color: "primary.main" }}>
             Read More →
-          </Typography>
+          </Button>
         </CardContent>
       </CardActionArea>
     </Card>

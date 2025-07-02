@@ -1,14 +1,17 @@
 "use client";
-import React from 'react';
-import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import NextLink from 'next/link';
 import {
     Box,
     Typography,
     Chip,
     Container,
     Button,
-    Paper
+    Paper,
+    Snackbar
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ShareIcon from '@mui/icons-material/Share';
 import Grid from '@mui/material/Grid2';
 import { Experience } from '@/types/experience';
 import LinkPreview from '../common/LinkPreview';
@@ -20,7 +23,16 @@ interface ExperiencePageProps {
 }
 
 export default function ExperiencePage({ experience }: ExperiencePageProps) {
-    const router = useRouter();
+    const [showCopySuccess, setShowCopySuccess] = useState(false);
+
+    const handleShare = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            setShowCopySuccess(true);
+        } catch (err) {
+            console.error('Failed to copy URL:', err);
+        }
+    };
 
     if (!experience) {
         return <Typography variant="h5" color="error">Experience not found</Typography>;
@@ -36,9 +48,20 @@ export default function ExperiencePage({ experience }: ExperiencePageProps) {
                     bgcolor: 'background.paper',
                 }}
             >
-                <Button onClick={() => router.back()} variant="outlined" sx={{ mb: 2 }}>
-                    Back
-                </Button>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+                    <Button component={NextLink} href="/experience" variant="outlined" startIcon={<ArrowBackIcon />} sx={{ textTransform: "none" }}>
+                        All Experience
+                    </Button>
+                    <Button 
+                        onClick={handleShare}
+                        variant="outlined"
+                        startIcon={<ShareIcon />}
+                        aria-label="Share experience"
+                        sx={{ textTransform: "none" }}
+                    >
+                        Share
+                    </Button>
+                </Box>
                 <Typography variant="h4" gutterBottom>
                     {experience.title}
                 </Typography>
@@ -82,6 +105,13 @@ export default function ExperiencePage({ experience }: ExperiencePageProps) {
                     </Box>
                 )}
             </Paper>
+            <Snackbar
+                open={showCopySuccess}
+                autoHideDuration={2000}
+                onClose={() => setShowCopySuccess(false)}
+                message="URL copied to clipboard!"
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            />
         </Container>
     );
 }

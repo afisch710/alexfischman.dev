@@ -69,7 +69,7 @@ function reducer(state: GroundCycleState, action: Action): GroundCycleState {
 
 const WEATHER_TRANSITION_DURATION = '5'; // seconds
 const WEATHER_TRANSITION = `opacity ${WEATHER_TRANSITION_DURATION}s ease-in-out`;
-const WEATHER_DURATION = 20000; // ms
+const WEATHER_DURATION = 45000; // ms
 
 export default function WeatherBackground() {
     const [state, dispatch] = useReducer(reducer, {
