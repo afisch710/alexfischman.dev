@@ -333,7 +333,7 @@
         "priority": 5,
         "description": "My personal portfolio site, alexfischman.dev, is built with Next.js, combining client-side rendering and static generation for a fast, responsive experience. It uses Material UI for styling and a markdown-based personal blog. The site is hosted using AWS S3 + CloudFront for global delivery, with infrastructure defined via CloudFormation. CI/CD is fully automated through GitHub Actions, which triggers deployments on both pull request merges and new blog post commits—ensuring the site stays up to date with zero manual effort. This project showcases not only my front-end development skills but also my ownership of cloud infrastructure and DevOps practices, making it a robust and scalable hub for my engineering work and writing.",
         "artifacts": [
-            "https://alexfischman.dev"
+            "https://www.alexfischman.dev/blog/2025-07-02-how-i-built-my-personal-website/"
         ]
     },
     {

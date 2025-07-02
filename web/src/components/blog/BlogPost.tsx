@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import NextLink from "next/link";
-import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Fab, Snackbar } from "@mui/material";
+import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Fab, Snackbar, Chip } from "@mui/material";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ShareIcon from '@mui/icons-material/Share';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -90,7 +90,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                         </Typography>
                         <Box sx={{ mt: 1, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                             {post.tags.map((tag) => (
-                                <Box key={tag} sx={{ bgcolor: 'grey.100', px: 1.5, py: 0.5, borderRadius: 1, fontSize: '0.85rem', fontWeight: 500, color: 'text.secondary', display: 'inline-block' }}>{tag}</Box>
+                                <Chip key={tag} label={tag} size="small" sx={{ borderRadius: '8px' }} />
                             ))}
                         </Box>
                     </Box>
@@ -186,7 +186,9 @@ function formatPublishTime(dateString: string) {
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    if (diffHours < 24) {
+    if (diffHours < 1) {
+        return "less than one hour ago";
+    } else if (diffHours < 24) {
         return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
     } else {
         return date.toLocaleDateString(undefined, {

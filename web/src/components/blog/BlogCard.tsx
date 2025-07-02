@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Card, CardActionArea, CardContent, Typography, Box, Button } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography, Box, Button, Chip } from "@mui/material";
 import { Post } from "../../types/blog";
 
 interface BlogCardProps {
@@ -32,19 +32,19 @@ export default function BlogCard({ post }: BlogCardProps) {
           <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: 'text.primary', mb: 2 }}>
             {post.description}
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
+          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
+            {post.tags.map((tag) => (
+              <Chip key={tag} label={tag} size="small" sx={{ borderRadius: '8px' }} />
+            ))}
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Button variant="outlined" sx={{ textTransform: "none", color: "primary.main" }}>
+              Read More →
+            </Button>
             <Typography variant="caption" color="text.secondary">
               {formatPublishTime(post.date)}
             </Typography>
-            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-              {post.tags.map((tag) => (
-                <Box key={tag} sx={{ bgcolor: 'grey.100', px: 1.5, py: 0.5, borderRadius: 1, fontSize: '0.85rem', fontWeight: 500, color: 'text.secondary', display: 'inline-block' }}>{tag}</Box>
-              ))}
-            </Box>
           </Box>
-          <Button variant="outlined" sx={{ textTransform: "none", color: "primary.main" }}>
-            Read More →
-          </Button>
         </CardContent>
       </CardActionArea>
     </Card>
@@ -56,7 +56,9 @@ function formatPublishTime(dateString: string) {
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-  if (diffHours < 24) {
+  if (diffHours < 1) {
+    return "less than one hour ago";
+  } else if (diffHours < 24) {
     return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
   } else {
     return date.toLocaleDateString(undefined, {
