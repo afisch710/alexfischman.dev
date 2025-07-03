@@ -93,31 +93,6 @@ export default function Footer() {
                         <CodeIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title="Visit Pourtle">
-                    <IconButton
-                        href="https://pourtle.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Pourtle"
-                        sx={{
-                            color: theme.palette.text.primary,
-                            '&:hover': {
-                                color: theme.palette.primary.main,
-                            },
-                            '& img': {
-                                width: 24,
-                                height: 24,
-                            },
-                        }}
-                    >
-                        <Image 
-                            src="/pourtle_logo.svg" 
-                            alt="Pourtle" 
-                            width={24}
-                            height={24}
-                        />
-                    </IconButton>
-                </Tooltip>
                 <Tooltip title="Visit Smarter Weather">
                     <IconButton
                         href="https://smarterweather.com"
@@ -138,6 +113,31 @@ export default function Footer() {
                         <Image 
                             src="/smarterweather_light.svg" 
                             alt="Smarter Weather" 
+                            width={24}
+                            height={24}
+                        />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Visit Pourtle">
+                    <IconButton
+                        href="https://pourtle.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Pourtle"
+                        sx={{
+                            color: theme.palette.text.primary,
+                            '&:hover': {
+                                color: theme.palette.primary.main,
+                            },
+                            '& img': {
+                                width: 24,
+                                height: 24,
+                            },
+                        }}
+                    >
+                        <Image 
+                            src="/pourtle_logo.svg" 
+                            alt="Pourtle" 
                             width={24}
                             height={24}
                         />
