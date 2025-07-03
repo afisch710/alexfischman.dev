@@ -1,0 +1,30 @@
+---
+description: Agent development workflow and instructions
+globs: 
+alwaysApply: true
+---
+
+# Agent Development Workflow
+
+**CRITICAL**: All coding agents MUST follow the development workflow and instructions defined in the AGENT.md file.
+
+## Key Requirements
+
+1. **Always review issues first** using GitHub CLI commands
+2. **Use the gci command** to create topic branches for issues
+3. **Follow the 8-step development workflow** exactly as specified
+4. **Use gpa command** (not gp) for creating pull requests unless explicitly instructed otherwise
+5. **Ask clarifying questions** before beginning development
+
+## Workflow Summary
+
+1. Review issue: `gh issue view <issue_number>`
+2. Ask clarifying questions to @afisch710
+3. Create topic branch: `gci <issue_number>`
+4. Make code changes
+5. Stage changes: `git add <files>`
+6. Commit changes: `git commit -m <message>`
+7. Create PR: `gpa`
+8. Provide PR URL to @afisch710
+
+@AGENT.md
