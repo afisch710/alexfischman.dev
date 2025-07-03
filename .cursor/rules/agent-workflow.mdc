@@ -16,9 +16,31 @@ alwaysApply: true
 4. **Use gpa command** (not gp) for creating pull requests unless explicitly instructed otherwise
 5. **Ask clarifying questions** before beginning development
 
+## GitHub CLI Best Practices for Cursor
+
+**Important**: Some `gh` commands have formatting/pager issues in cursor. Use these reliable alternatives:
+
+### ✅ Recommended Commands:
+- `gh issue list | grep <number>` - Find specific issues (works reliably)
+- `gh issue list` - List all issues (works reliably)
+- `gh issue view <number> | cat` - View issue details (add | cat to bypass pager)
+- `gh pr edit <number> --add-label "agent"` - Edit PRs (works reliably)
+
+### ❌ Commands That May Fail:
+- `gh issue view <number>` (without | cat) - Shows "head: |: No such file or directory" errors
+- `gh pr view <number> --json` (without | cat) - Same pager issues
+
+### Quick Fix:
+If any `gh` command shows formatting errors, add `| cat` to bypass the pager:
+```bash
+gh issue view 123 | cat
+gh pr view 123 --json | cat
+```
+
 ## Workflow Summary
 
-1. Review issue: `gh issue view <issue_number>`
+**Development Steps:**
+1. Review issue: `gh issue list | grep <issue_number>` (or `gh issue view <issue_number> | cat`)
 2. Ask clarifying questions to @afisch710
 3. Create topic branch: `gci <issue_number>`
 4. Make code changes
