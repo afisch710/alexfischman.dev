@@ -48,6 +48,7 @@ gpa() {
     --body "$pr_body" \
     --base development \
     --head "$current_branch" \
+    --label "agent" \
   )
 
   if [ $? -ne 0 ]; then
