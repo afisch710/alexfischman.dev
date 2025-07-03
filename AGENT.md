@@ -27,6 +27,46 @@ gh issue view 123 --comments
 gh issue view 123 --json title,body,state,labels,assignees
 ```
 
+### GitHub CLI Best Practices for Agents in Cursor
+
+**Important**: Some `gh` commands may have formatting/pager issues in cursor terminal environments. Use these reliable alternatives:
+
+#### ✅ Recommended Approaches:
+
+1. **Finding Issues**: Use `gh issue list | grep <number>` instead of `gh issue view <number>`
+   ```bash
+   # Instead of: gh issue view 123
+   # Use: 
+   gh issue list | grep 123
+   ```
+
+2. **Bypass Pager Issues**: Add `| cat` to commands that hang or show formatting errors
+   ```bash
+   # If gh issue view 123 fails, try:
+   gh issue view 123 | cat
+   
+   # If gh pr view 123 --json fails, try:
+   gh pr view 123 --json | cat
+   ```
+
+3. **Use JSON Output**: For structured data, prefer JSON format
+   ```bash
+   gh issue view 123 --json title,body,state,labels | cat
+   ```
+
+4. **Issue List Commands**: These work reliably without modification
+   ```bash
+   gh issue list
+   gh issue list --state open
+   gh issue list | head -20
+   ```
+
+#### ❌ Commands That May Fail:
+- `gh issue view <number>` (without `| cat`)
+- `gh pr view <number> --json` (without `| cat`)
+
+These commands may show "head: |: No such file or directory" errors due to pager conflicts.
+
 ## Repo Shell Commands
 
 The below commands are available to you as an agent for creating git branches and creating GitHub pull requests.
