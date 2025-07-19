@@ -33,6 +33,8 @@ jobs:
     - name: Build Next.js Application
       run: yarn build
       working-directory: ./web
+      env:
+        NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
 
     - name: Run Post-Build Script
       run: |

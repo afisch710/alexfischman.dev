@@ -1,5 +1,27 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment Variables
+
+### Local Development
+Copy `.env.example` to `.env` and add your values:
+
+```bash
+# Copy the template
+cp .env.example .env
+
+# Edit .env with your actual values
+# GitHub Personal Access Token (public access only)
+GITHUB_PUBLIC_TOKEN=your_github_token_here
+# Google Analytics Configuration (optional)
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+### Production Deployment
+Production deployments use GitHub repository secrets:
+- Secret name: `NEXT_PUBLIC_GA_ID`
+- Automatically injected during CI/CD build
+- No local environment file needed for production
+
 ## Getting Started
 
 First, run the development server:
