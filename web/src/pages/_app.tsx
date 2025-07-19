@@ -10,6 +10,7 @@ import { VisibilityProvider } from "@/context/VisibilityProvider";
 import theme from "../theme";
 import type { AppProps } from "next/app";
 import { roboto } from "@/lib/fonts";
+import GoogleAnalytics from "@/components/common/GoogleAnalytics";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/af.ico" />
         <link rel="apple-touch-icon" href="/af_large.png" />
       </Head>
+      <GoogleAnalytics />
       <ThemeProvider theme={theme}>
         <VisibilityProvider>
           <PageLayout className={roboto.variable}>
