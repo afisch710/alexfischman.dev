@@ -27,9 +27,9 @@ export default function Footer() {
             <Box sx={{ 
                 display: "flex", 
                 gap: 1,
-                order: { xs: 1, sm: 2 },
-                justifyContent: "center",
-                width: { xs: "100%", sm: "auto" }
+                order: { xs: 1, sm: 3 },
+                justifyContent: { xs: "center", sm: "flex-end" },
+                width: { xs: "100%", sm: "33%" }
             }}>
                 <Tooltip title="View Alex's GitHub">
                     <IconButton
@@ -145,18 +145,83 @@ export default function Footer() {
                 </Tooltip>
             </Box>
             
+            {/* Left Privacy Link - Desktop Only */}
+            <Box sx={{
+                display: { xs: 'none', sm: 'flex' },
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                width: '33%',
+                order: 1
+            }}>
+                <Typography 
+                    variant="body2" 
+                    component="button"
+                    onClick={() => {
+                        const event = new CustomEvent('openPrivacyModal');
+                        window.dispatchEvent(event);
+                    }}
+                    sx={{
+                        fontSize: '0.875rem',
+                        color: 'text.secondary',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        padding: 0,
+                        '&:hover': {
+                            color: 'text.primary',
+                        },
+                    }}
+                >
+                    Privacy
+                </Typography>
+            </Box>
+            
             <Typography 
                 variant="body2" 
                 color="text.secondary"
                 sx={{
                     fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                    order: { xs: 2, sm: 1 },
-                    textAlign: { xs: "center", sm: "left" },
-                    width: { xs: "100%", sm: "auto" }
+                    order: { xs: 2, sm: 2 },
+                    textAlign: "center",
+                    width: { xs: "100%", sm: "33%" },
+                    display: { xs: "block", sm: "block" }
                 }}
             >
                 © {currentYear} Alex Fischman. All rights reserved.
             </Typography>
+            
+            {/* Mobile Privacy Link - Below Copyright */}
+            <Box sx={{
+                display: { xs: 'flex', sm: 'none' },
+                justifyContent: 'center',
+                width: '100%',
+                order: 3,
+                mt: 0.5
+            }}>
+                <Typography 
+                    variant="body2" 
+                    component="button"
+                    onClick={() => {
+                        const event = new CustomEvent('openPrivacyModal');
+                        window.dispatchEvent(event);
+                    }}
+                    sx={{
+                        fontSize: '0.7rem',
+                        color: 'text.secondary',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        padding: 0,
+                        '&:hover': {
+                            color: 'text.primary',
+                        },
+                    }}
+                >
+                    Privacy
+                </Typography>
+            </Box>
         </Box>
     );
 } 

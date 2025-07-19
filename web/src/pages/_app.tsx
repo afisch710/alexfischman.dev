@@ -11,6 +11,7 @@ import theme from "../theme";
 import type { AppProps } from "next/app";
 import { roboto } from "@/lib/fonts";
 import GoogleAnalytics from "@/components/common/GoogleAnalytics";
+import PrivacyModal from "@/components/common/PrivacyModal";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -34,6 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/af_large.png" />
       </Head>
       <GoogleAnalytics />
+      <PrivacyModal />
       <ThemeProvider theme={theme}>
         <VisibilityProvider>
           <PageLayout className={roboto.variable}>
