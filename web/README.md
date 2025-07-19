@@ -2,14 +2,25 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Environment Variables
 
-Create a `.env.local` file in the root directory and add the following:
+### Local Development
+Copy `.env.example` to `.env` and add your values:
 
 ```bash
+# Copy the template
+cp .env.example .env
+
+# Edit .env with your actual values
+# GitHub Personal Access Token (public access only)
+GITHUB_PUBLIC_TOKEN=your_github_token_here
 # Google Analytics Configuration (optional)
-# Get your measurement ID from Google Analytics 4
-# Format: G-XXXXXXXXXX
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 ```
+
+### Production Deployment
+Production deployments use GitHub repository secrets:
+- Secret name: `NEXT_PUBLIC_GA_ID`
+- Automatically injected during CI/CD build
+- No local environment file needed for production
 
 ## Getting Started
 
