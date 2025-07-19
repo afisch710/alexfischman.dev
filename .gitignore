@@ -44,4 +44,7 @@ tsconfig.tsbuildinfo
 # Build outputs
 dist/
 build/
-.aws-sam/ 
+.aws-sam/
+
+# Generated files
+web/public/sitemap.xml 
