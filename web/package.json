@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "ts-node scripts/generate-posts.ts && ts-node scripts/generate-experience.ts && ts-node scripts/copy-about.ts",
+    "prebuild": "ts-node scripts/generate-posts.ts && ts-node scripts/generate-experience.ts && ts-node scripts/copy-about.ts && ts-node scripts/generate-sitemap.ts",
     "dev": "next dev --turbopack",
     "dev:strict": "next dev --turbopack",
     "dev:strict-check": "next lint && next dev --turbopack",

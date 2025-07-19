@@ -12,6 +12,7 @@ import ExperienceCard from '@/components/experience/ExperienceCard';
 import postsData from '@/data/posts.json';
 import GithubProfile from '@/components/github/GithubProfile';
 import CustomHead from '@/components/common/Head';
+import PersonStructuredData from '@/components/common/StructuredData';
 
 // Track if intro has played in this SPA session
 let introPlayedInApp = false;
@@ -129,9 +130,36 @@ export default function Home({
         <>
             <CustomHead
                 title="Alex Fischman | Senior Software Engineer & Founder"
-                description="Blog, experience, and about me."
-                ogImage="af_dark.png"
+                description="Senior software engineer and founder of Smarter Weather. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology."
+                ogImage="/af_dark.png"
                 ogUrl="https://www.alexfischman.dev/"
+                canonical="/"
+                keywords="Alex Fischman, software engineer, senior developer, Microsoft, Smarter Weather, weather technology, full stack development, product development, portfolio"
+            />
+            <PersonStructuredData
+                name="Alex Fischman"
+                jobTitle="Senior Software Engineer & Founder"
+                description="Senior software engineer and founder of Smarter Weather. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology."
+                url="https://www.alexfischman.dev"
+                image="/headshot.JPG"
+                sameAs={[
+                    "https://github.com/afisch710",
+                    "https://linkedin.com/in/afischman710",
+                ]}
+                worksFor={[
+                    {
+                        name: "Smarter Weather",
+                        url: "https://smarterweather.com"
+                    }
+                ]}
+                knowsAbout={[
+                    "Software Engineering",
+                    "Full Stack Development",
+                    "Product Development",
+                    "Weather Technology",
+                    "Microsoft Technologies",
+                    "AI and Machine Learning"
+                ]}
             />
             <Container sx={{ p: 0 }}>
                 {/* Global CSS for animations */}
