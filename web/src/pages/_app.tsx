@@ -24,8 +24,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Alex Fischman | Senior Software Engineer & Founder</title>
-        <meta name="description" content="Senior software engineer and founder of Smarter Weather. 10+ years at Microsoft building products used by millions. Expert in React, TypeScript, and weather technology." />
-        <meta name="keywords" content="Alex Fischman, software engineer, senior developer, Microsoft, Smarter Weather, weather technology, full stack development, React, TypeScript, Next.js" />
+        <meta name="description" content="Senior software engineer and founder of Smarter Weather. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology." />
+        <meta name="keywords" content="Alex Fischman, software engineer, senior developer, Microsoft, Smarter Weather, weather technology, full stack development, product development" />
         <meta name="author" content="Alex Fischman" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.alexfischman.dev" />

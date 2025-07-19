@@ -19,7 +19,7 @@ export default function CustomHead({
     ogUrl = 'https://www.alexfischman.dev', // Default URL
     ogType = 'website', // Default OG type
     canonical,
-    keywords = 'Alex Fischman, software engineer, senior developer, Microsoft, Smarter Weather, weather technology, full stack development, React, TypeScript, Next.js',
+    keywords = 'Alex Fischman, software engineer, senior developer, Microsoft, Smarter Weather, weather technology, full stack development, product development',
     author = 'Alex Fischman',
 }: HeadProps) {
     const fullCanonical = canonical ? `https://www.alexfischman.dev${canonical}` : ogUrl;
