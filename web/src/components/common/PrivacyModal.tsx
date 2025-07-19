@@ -54,7 +54,7 @@ export default function PrivacyModal() {
         </Typography>
         
         <Typography variant="body2" sx={{ mb: 2, color: 'rgba(255, 255, 255, 0.7)' }}>
-          <strong>What I don't collect:</strong>
+          <strong>What I don&apos;t collect:</strong>
           <br />• Personal information (name, email, etc.)
           <br />• Precise location data
           <br />• Any data that identifies you personally
