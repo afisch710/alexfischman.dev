@@ -41,29 +41,37 @@ function generateSitemap() {
     }
   ];
 
-  // Read blog posts from content directory
-  const blogDir = path.join(process.cwd(), '..', 'content', 'blog');
-  if (fs.existsSync(blogDir)) {
-    const blogFiles = fs.readdirSync(blogDir).filter(file => file.endsWith('.md'));
+  // Read blog posts from generated JSON data
+  const postsDataPath = path.join(process.cwd(), 'src', 'data', 'posts.json');
+  if (fs.existsSync(postsDataPath)) {
+    const postsData = JSON.parse(fs.readFileSync(postsDataPath, 'utf-8'));
     
-    blogFiles.forEach(file => {
-      const content = fs.readFileSync(path.join(blogDir, file), 'utf-8');
-      const frontMatter = content.split('---')[1];
-      const dateMatch = frontMatter.match(/date:\s*(\d{4}-\d{2}-\d{2})/);
-      const titleMatch = frontMatter.match(/title:\s*["']([^"']+)["']/);
-      
-      if (dateMatch && titleMatch) {
-        const date = dateMatch[1];
-        const title = titleMatch[1];
-        const slug = file.replace('.md', '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
+    postsData.forEach((post: any) => {
+      if (!post.draft) {
+        const date = new Date(post.date).toISOString().split('T')[0];
         
         staticPages.push({
-          loc: `${baseUrl}/blog/${slug}/`,
+          loc: `${baseUrl}/blog/${post.slug}/`,
           lastmod: date,
           changefreq: 'yearly',
           priority: 0.7
         });
       }
+    });
+  }
+
+  // Read experience pages from generated JSON data
+  const experienceDataPath = path.join(process.cwd(), 'src', 'data', 'experience.json');
+  if (fs.existsSync(experienceDataPath)) {
+    const experienceData = JSON.parse(fs.readFileSync(experienceDataPath, 'utf-8'));
+    
+    experienceData.forEach((exp: any) => {
+      staticPages.push({
+        loc: `${baseUrl}/experience/${exp.slug}/`,
+        lastmod: today,
+        changefreq: 'monthly',
+        priority: 0.6
+      });
     });
   }
 
