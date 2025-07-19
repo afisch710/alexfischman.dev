@@ -23,9 +23,14 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Alex Fischman</title>
-        <meta name="description" content="Software Engineering Portfolio" />
-        {/* <link rel="icon" href="/favicon.ico" /> */}
+        <title>Alex Fischman | Senior Software Engineer & Founder</title>
+        <meta name="description" content="Senior software engineer and founder of Smarter Weather. 10+ years at Microsoft building products used by millions. Expert in React, TypeScript, and weather technology." />
+        <meta name="keywords" content="Alex Fischman, software engineer, senior developer, Microsoft, Smarter Weather, weather technology, full stack development, React, TypeScript, Next.js" />
+        <meta name="author" content="Alex Fischman" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.alexfischman.dev" />
+        <link rel="icon" href="/af.ico" />
+        <link rel="apple-touch-icon" href="/af_large.png" />
       </Head>
       <ThemeProvider theme={theme}>
         <VisibilityProvider>
