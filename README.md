@@ -77,3 +77,29 @@ This repository implements a hybrid architecture that leverages both static site
   Provides a simple, readable format for blog content that can be easily edited in any text editor or IDE.
 
 ---
+
+## Blog Inline Images
+
+The blog system supports inline images with styling control:
+
+### Quick Start
+```markdown
+<!-- Standard markdown (full width) -->
+![Description](/blog/image.jpg)
+
+<!-- HTML with custom sizing -->
+<img src="/blog/image.jpg" alt="Description" width="400" />
+```
+
+### Features
+- **Responsive scaling** and click-to-expand modal
+- **Custom sizing** via HTML attributes or CSS  
+- **Support for all formats** (JPG, PNG, SVG, GIF)
+- **Professional styling** with hover effects
+
+### File Organization
+Place blog images in: `web/public/blog/`
+
+For complete styling examples and best practices, use either standard markdown for full-width images or HTML `<img>` tags with `width`, `height`, or `style` attributes for custom sizing.
+
+---

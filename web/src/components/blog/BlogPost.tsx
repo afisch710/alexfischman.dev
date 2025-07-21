@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import NextLink from "next/link";
-import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Snackbar, Chip } from "@mui/material";
+import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Snackbar, Chip, Modal, IconButton, useTheme, useMediaQuery } from "@mui/material";
 import ShareIcon from '@mui/icons-material/Share';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CloseIcon from '@mui/icons-material/Close';
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import { Post } from "../../types/blog";
 
 interface BlogPostProps {
@@ -14,6 +16,13 @@ interface BlogPostProps {
 
 export default function BlogPost({ post }: BlogPostProps) {
     const [showCopySuccess, setShowCopySuccess] = useState(false);
+    const [imageModal, setImageModal] = useState<{ open: boolean; src: string; alt: string }>({
+        open: false,
+        src: '',
+        alt: ''
+    });
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleShare = async () => {
         try {
@@ -22,6 +31,14 @@ export default function BlogPost({ post }: BlogPostProps) {
         } catch (err) {
             console.error('Failed to copy URL:', err);
         }
+    };
+
+    const handleImageClick = (src: string, alt: string) => {
+        setImageModal({ open: true, src, alt });
+    };
+
+    const closeImageModal = () => {
+        setImageModal({ open: false, src: '', alt: '' });
     };
 
     return (
@@ -99,7 +116,10 @@ export default function BlogPost({ post }: BlogPostProps) {
                 </Box>
                 <Divider sx={{ my: 4 }} />
                 <Box sx={{ "& img": { maxWidth: "100%", height: "auto", borderRadius: 2 }, "& pre": { overflowX: "auto" } }}>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+                    <ReactMarkdown 
+                        remarkPlugins={[remarkGfm]} 
+                        rehypePlugins={[rehypeRaw]}
+                        components={{
                         h2: ({ ...props }) => (
                             <Typography variant="h4" gutterBottom sx={{ mt: 4 }} {...props} />
                         ),
@@ -130,6 +150,57 @@ export default function BlogPost({ post }: BlogPostProps) {
                                 {children}
                             </MuiLink>
                         ),
+                        img: ({ src, alt, style, width, height, ...props }) => {
+                            // Parse custom styling from props
+                            const customStyles: any = {};
+                            let finalMaxWidth = "100%"; // Default
+                            
+                            if (width) {
+                                if (typeof width === 'string' && width.includes('%')) {
+                                    finalMaxWidth = width;
+                                    customStyles.width = width;
+                                } else {
+                                    const pixelWidth = typeof width === 'number' ? `${width}px` : width;
+                                    customStyles.width = pixelWidth;
+                                    finalMaxWidth = pixelWidth;
+                                }
+                            }
+                            
+                            if (height) {
+                                customStyles.height = typeof height === 'number' ? `${height}px` : height;
+                            }
+                            
+                            // Parse inline styles if provided
+                            if (style) {
+                                Object.assign(customStyles, style);
+                            }
+                            
+                            return (
+                                <Box
+                                    component="img"
+                                    src={src}
+                                    alt={alt || "Blog image"}
+                                    onClick={() => handleImageClick(src || '', alt || 'Blog image')}
+                                    sx={{
+                                        maxWidth: finalMaxWidth,
+                                        height: "auto",
+                                        borderRadius: 2,
+                                        cursor: "pointer",
+                                        my: 3,
+                                        display: "block",
+                                        mx: "auto",
+                                        boxShadow: 2,
+                                        transition: "transform 0.3s, box-shadow 0.3s",
+                                        "&:hover": {
+                                            transform: "scale(1.02)",
+                                            boxShadow: 4
+                                        },
+                                        ...customStyles
+                                    }}
+                                    {...props}
+                                />
+                            );
+                        },
                         code: ({ inline, children, ...props }: { inline?: boolean; children?: React.ReactNode; [key: string]: any }) =>
                             // Fallback: treat as inline unless we explicitly detect a block (multiple lines)
                             (inline ?? !String(children).includes('\n')) ? (
@@ -164,6 +235,50 @@ export default function BlogPost({ post }: BlogPostProps) {
                     </ReactMarkdown>
                 </Box>
             </Paper>
+
+            {/* Image Modal */}
+            <Modal open={imageModal.open} onClose={closeImageModal}>
+                <Box
+                    sx={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        bgcolor: 'rgba(0,0,0,0.9)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 1300,
+                    }}
+                >
+                    <IconButton
+                        onClick={closeImageModal}
+                        sx={{
+                            position: 'absolute',
+                            top: 24,
+                            right: 24,
+                            color: '#fff',
+                            zIndex: 1400,
+                        }}
+                        aria-label="Close image"
+                    >
+                        <CloseIcon fontSize="large" />
+                    </IconButton>
+                    <Box
+                        component="img"
+                        src={imageModal.src}
+                        alt={imageModal.alt}
+                        sx={{
+                            maxWidth: isMobile ? '90vw' : '80vw',
+                            maxHeight: isMobile ? '70vh' : '80vh',
+                            objectFit: 'contain',
+                            borderRadius: 2,
+                        }}
+                    />
+                </Box>
+            </Modal>
+
             <Snackbar
                 open={showCopySuccess}
                 autoHideDuration={2000}
