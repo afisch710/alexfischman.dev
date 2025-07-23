@@ -144,6 +144,25 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
         '& .sequenceNumber': {
           fill: '#ffffff !important',
         },
+        // IMPORTANT: Note box text overrides MUST come last to override the above
+        '& .note text': {
+          fill: '#000000 !important',
+        },
+        '& .noteText': {
+          fill: '#000000 !important',
+        },
+        '& g.note text': {
+          fill: '#000000 !important',
+        },
+        '& rect.note + text': {
+          fill: '#000000 !important',
+        },
+        '& g[class*="note"] text': {
+          fill: '#000000 !important',
+        },
+        '& text[class*="note"]': {
+          fill: '#000000 !important',
+        },
       }}
     />
   );
