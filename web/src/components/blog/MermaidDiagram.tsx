@@ -87,6 +87,16 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
           fill: '#ffffff !important',
           stroke: '#ffffff !important',
         },
+        // Make text inside note boxes black for readability
+        '& .note text': {
+          fill: '#000000 !important',
+        },
+        '& .noteText': {
+          fill: '#000000 !important',
+        },
+        '& g.note text': {
+          fill: '#000000 !important',
+        },
         // Make all arrows white
         '& .arrowheadPath': {
           fill: '#ffffff !important',
