@@ -71,17 +71,17 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
         '& .labelText': {
           fill: '#ffffff !important',
         },
-        // Make note boxes white instead of yellow
+        // Make note boxes outline-only (transparent background)
         '& .note': {
-          fill: '#ffffff !important',
+          fill: 'transparent !important',
           stroke: '#ffffff !important',
         },
         '& .noteBox': {
-          fill: '#ffffff !important',
+          fill: 'transparent !important',
           stroke: '#ffffff !important',
         },
         '& rect.note': {
-          fill: '#ffffff !important',
+          fill: 'transparent !important',
           stroke: '#ffffff !important',
         },
         // Make all arrows white
@@ -136,22 +136,22 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
         },
         // IMPORTANT: Note box text overrides MUST come last to override the above
         '& .note text': {
-          fill: '#000000 !important',
+          fill: '#ffffff !important',
         },
         '& .noteText': {
-          fill: '#000000 !important',
+          fill: '#ffffff !important',
         },
         '& g.note text': {
-          fill: '#000000 !important',
+          fill: '#ffffff !important',
         },
         '& rect.note + text': {
-          fill: '#000000 !important',
+          fill: '#ffffff !important',
         },
         '& g[class*="note"] text': {
-          fill: '#000000 !important',
+          fill: '#ffffff !important',
         },
         '& text[class*="note"]': {
-          fill: '#000000 !important',
+          fill: '#ffffff !important',
         },
       }}
     />
