@@ -61,7 +61,7 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
           maxWidth: '100%',
           height: 'auto',
         },
-        // Simple white text override for readability
+        // Force white text for better readability
         '& text': {
           fill: '#ffffff !important',
         },
@@ -73,6 +73,43 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
         },
         '& .labelText': {
           fill: '#ffffff !important',
+        },
+        // Make note boxes white instead of yellow
+        '& .note': {
+          fill: '#ffffff !important',
+          stroke: '#ffffff !important',
+        },
+        '& .noteBox': {
+          fill: '#ffffff !important',
+          stroke: '#ffffff !important',
+        },
+        '& rect.note': {
+          fill: '#ffffff !important',
+          stroke: '#ffffff !important',
+        },
+        // Make all arrows white
+        '& .arrowheadPath': {
+          fill: '#ffffff !important',
+          stroke: '#ffffff !important',
+        },
+        '& .messageLine0, & .messageLine1': {
+          stroke: '#ffffff !important',
+        },
+        '& path': {
+          stroke: '#ffffff !important',
+        },
+        '& marker path': {
+          fill: '#ffffff !important',
+          stroke: '#ffffff !important',
+        },
+        // Actor boxes styling
+        '& .actor': {
+          fill: '#2d2d2d !important',
+          stroke: '#ffffff !important',
+        },
+        '& rect.actor': {
+          fill: '#2d2d2d !important',
+          stroke: '#ffffff !important',
         },
       }}
     />
