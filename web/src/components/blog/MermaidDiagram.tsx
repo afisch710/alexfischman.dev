@@ -111,7 +111,7 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
           fill: '#2d2d2d !important',
           stroke: '#ffffff !important',
         },
-        // Make text inside actor boxes white
+        // Comprehensive actor text overrides
         '& .actor text': {
           fill: '#ffffff !important',
         },
@@ -122,6 +122,19 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
           fill: '#ffffff !important',
         },
         '& g.actor text': {
+          fill: '#ffffff !important',
+        },
+        // More aggressive text overrides
+        '& svg text': {
+          fill: '#ffffff !important',
+        },
+        '& g text': {
+          fill: '#ffffff !important',
+        },
+        '& tspan': {
+          fill: '#ffffff !important',
+        },
+        '& .sequenceNumber': {
           fill: '#ffffff !important',
         },
       }}
