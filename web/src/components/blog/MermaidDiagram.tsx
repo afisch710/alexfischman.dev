@@ -111,6 +111,19 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
           fill: '#2d2d2d !important',
           stroke: '#ffffff !important',
         },
+        // Make text inside actor boxes white
+        '& .actor text': {
+          fill: '#ffffff !important',
+        },
+        '& text.actor': {
+          fill: '#ffffff !important',
+        },
+        '& .actor-label': {
+          fill: '#ffffff !important',
+        },
+        '& g.actor text': {
+          fill: '#ffffff !important',
+        },
       }}
     />
   );
