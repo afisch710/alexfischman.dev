@@ -68,9 +68,6 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
         '& .messageText': {
           fill: '#ffffff !important',
         },
-        '& .noteText': {
-          fill: '#ffffff !important',
-        },
         '& .labelText': {
           fill: '#ffffff !important',
         },
