@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Post } from "../../types/blog";
+import MermaidDiagram from "./MermaidDiagram";
 
 interface BlogPostProps {
     post: Post;
@@ -201,9 +202,17 @@ export default function BlogPost({ post }: BlogPostProps) {
                                 />
                             );
                         },
-                        code: ({ inline, children, ...props }: { inline?: boolean; children?: React.ReactNode; [key: string]: any }) =>
-                            // Fallback: treat as inline unless we explicitly detect a block (multiple lines)
-                            (inline ?? !String(children).includes('\n')) ? (
+                        code: ({ inline, children, className, ...props }: { inline?: boolean; children?: React.ReactNode; className?: string; [key: string]: any }) => {
+                            const match = /language-(\w+)/.exec(className || '');
+                            const language = match ? match[1] : '';
+                            
+                            // Handle Mermaid diagrams
+                            if (language === 'mermaid' && !inline) {
+                                return <MermaidDiagram chart={String(children).replace(/\n$/, '')} />;
+                            }
+                            
+                            // Handle regular code blocks and inline code
+                            return (inline ?? !String(children).includes('\n')) ? (
                                 <Box
                                     component="code"
                                     sx={{ bgcolor: 'action.hover', px: 0.5, borderRadius: 1, fontFamily: 'monospace' }}
@@ -219,7 +228,8 @@ export default function BlogPost({ post }: BlogPostProps) {
                                 >
                                     {children}
                                 </Box>
-                            ),
+                            );
+                        },
                         blockquote: ({ children }) => (
                             <Box sx={{ borderLeft: 4, borderColor: 'divider', pl: 2, my: 3 }}>
                                 <Typography variant="body1" component="blockquote" sx={{ fontStyle: 'italic' }}>
