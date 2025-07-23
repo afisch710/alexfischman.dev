@@ -96,10 +96,20 @@ The blog system supports inline images with styling control:
 - **Custom sizing** via HTML attributes or CSS  
 - **Support for all formats** (JPG, PNG, SVG, GIF)
 - **Professional styling** with hover effects
+- **Mermaid diagrams** in code blocks
 
 ### File Organization
 Place blog images in: `web/public/blog/`
 
 For complete styling examples and best practices, use either standard markdown for full-width images or HTML `<img>` tags with `width`, `height`, or `style` attributes for custom sizing.
+
+### Mermaid Diagrams
+```markdown
+<!-- Render interactive diagrams -->
+```mermaid
+graph TD
+    A[Start] --> B[Process]
+    B --> C[End]
+```
 
 ---
