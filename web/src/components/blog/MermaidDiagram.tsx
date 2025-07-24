@@ -68,23 +68,20 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
         '& .messageText': {
           fill: '#ffffff !important',
         },
-        '& .noteText': {
-          fill: '#ffffff !important',
-        },
         '& .labelText': {
           fill: '#ffffff !important',
         },
-        // Make note boxes white instead of yellow
+        // Make note boxes outline-only (transparent background)
         '& .note': {
-          fill: '#ffffff !important',
+          fill: 'transparent !important',
           stroke: '#ffffff !important',
         },
         '& .noteBox': {
-          fill: '#ffffff !important',
+          fill: 'transparent !important',
           stroke: '#ffffff !important',
         },
         '& rect.note': {
-          fill: '#ffffff !important',
+          fill: '#555 !important',
           stroke: '#ffffff !important',
         },
         // Make all arrows white
@@ -110,6 +107,51 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
         '& rect.actor': {
           fill: '#2d2d2d !important',
           stroke: '#ffffff !important',
+        },
+        // Comprehensive actor text overrides
+        '& .actor text': {
+          fill: '#ffffff !important',
+        },
+        '& text.actor': {
+          fill: '#ffffff !important',
+        },
+        '& .actor-label': {
+          fill: '#ffffff !important',
+        },
+        '& g.actor text': {
+          fill: '#ffffff !important',
+        },
+        // More aggressive text overrides
+        '& svg text': {
+          fill: '#ffffff !important',
+        },
+        '& g text': {
+          fill: '#ffffff !important',
+        },
+        '& tspan': {
+          fill: '#ffffff !important',
+        },
+        '& .sequenceNumber': {
+          fill: '#ffffff !important',
+        },
+        // IMPORTANT: Note box text overrides MUST come last to override the above
+        '& .note text': {
+          fill: '#ffffff !important',
+        },
+        '& .noteText': {
+          fill: '#ffffff !important',
+        },
+        '& g.note text': {
+          fill: '#ffffff !important',
+        },
+        '& rect.note + text': {
+          fill: '#ffffff !important',
+        },
+        '& g[class*="note"] text': {
+          fill: '#ffffff !important',
+        },
+        '& text[class*="note"]': {
+          fill: '#ffffff !important',
         },
       }}
     />
