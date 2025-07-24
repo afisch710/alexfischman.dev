@@ -115,6 +115,31 @@ export default function BlogPost({ post }: BlogPostProps) {
                         ))}
                     </Box>
                 </Box>
+                
+                {/* Hero Image */}
+                {post.ogImage && (
+                    <Box sx={{ my: 4 }}>
+                        <Box
+                            component="img"
+                            src={post.ogImage}
+                            alt={`${post.title} hero image`}
+                            onClick={() => handleImageClick(post.ogImage || '', `${post.title} hero image`)}
+                            sx={{
+                                width: "100%",
+                                height: "auto",
+                                borderRadius: 2,
+                                cursor: "pointer",
+                                boxShadow: 2,
+                                transition: "transform 0.3s, box-shadow 0.3s",
+                                "&:hover": {
+                                    transform: "scale(1.02)",
+                                    boxShadow: 4
+                                }
+                            }}
+                        />
+                    </Box>
+                )}
+                
                 <Divider sx={{ my: 4 }} />
                 <Box sx={{ "& img": { maxWidth: "100%", height: "auto", borderRadius: 2 }, "& pre": { overflowX: "auto" } }}>
                     <ReactMarkdown 
@@ -137,20 +162,41 @@ export default function BlogPost({ post }: BlogPostProps) {
                                 {...props}
                             />
                         ),
-                        a: ({ href, children }) => (
-                            <MuiLink 
-                                href={href} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                underline="hover"
-                                sx={{ 
-                                    color: 'secondary.main',
-                                    fontWeight: 500
-                                }}
-                            >
-                                {children}
-                            </MuiLink>
-                        ),
+                        a: ({ href, children, style, ...props }) => {
+                            // Check if this is an HTML link with inline styles
+                            const hasInlineStyles = style && Object.keys(style).length > 0;
+                            
+                            if (hasInlineStyles) {
+                                // For HTML links with inline styles, render as regular anchor
+                                return (
+                                    <a 
+                                        href={href} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        style={style}
+                                        {...props}
+                                    >
+                                        {children}
+                                    </a>
+                                );
+                            }
+                            
+                            // For regular markdown links, use MuiLink
+                            return (
+                                <MuiLink 
+                                    href={href} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    underline="hover"
+                                    sx={{ 
+                                        color: 'secondary.main',
+                                        fontWeight: 500
+                                    }}
+                                >
+                                    {children}
+                                </MuiLink>
+                            );
+                        },
                         img: ({ src, alt, style, width, height, ...props }) => {
                             // Parse custom styling from props
                             const customStyles: any = {};
