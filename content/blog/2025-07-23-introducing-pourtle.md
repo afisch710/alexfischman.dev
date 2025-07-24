@@ -20,7 +20,7 @@ All that, and **I still struggle to move my digital content between my devices**
 
 This isn't unchartered territory though. Apple demonstrates masterclass in this problem space, as long as you use Apple products. A number of cloud services with names containing "Box" or "Drive" exist for this as well. My last project at Microsoft even aimed to solve this.
 
-There's always a catch though. Some quid pro quo. Whether that's monetary, advertisement mind share, data collection, etc. You're valuable and solutions take a little bit of your value in exchange for their value. There's nothing wrong with that, it's the basis of business. But in my experience, that requirement has always surfaced through an elongated user experience to accomplish the goal of moving content.
+There's always a catch though. Some quid pro quo. Whether that's monetary, advertisement mind share, data collection, etc. You're valuable and companies take a little bit of your value in exchange for the value they provide. There's nothing wrong with that, it's the basis of business. But in my experience, that requirement has always surfaced through an elongated user experience to accomplish the goal of moving content.
 
 _Sign-in's, downloads, installs, uploads, sign-ups, syncs, etc. etc._
 
