@@ -80,7 +80,7 @@ export default function ExperiencePage({
             <CustomHead
                 title="Experience | Alex Fischman – Senior Software Engineer & Founder"
                 description="Explore projects and professional experiences by Alex Fischman."
-                ogImage="af_dark.png"
+                ogImage="/af_dark.png"
                 ogUrl="https://www.alexfischman.dev/experience"
             />
             <Box sx={{ width: '100%', p: 0 }}>

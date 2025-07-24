@@ -16,7 +16,7 @@ export default function ExperienceSlugPage({ experience }: ExperienceSlugPagePro
       <CustomHead
         title={`${experience.title} | Alex Fischman`}
         description={experience.description}
-        ogImage={experience.ogImage || 'af_dark.png'}
+        ogImage={experience.ogImage || '/af_dark.png'}
         ogUrl={`https://www.alexfischman.dev/experience/${experience.slug}`}
       />
       <Container sx={{ p: 0 }}>
