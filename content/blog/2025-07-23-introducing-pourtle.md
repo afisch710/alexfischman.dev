@@ -1,6 +1,6 @@
 ---
 title: "Introducing Pourtle"
-date: "2025-07-23T19:00:00Z"
+date: "2025-07-24T20:00:00Z"
 description: "Moving your content between your devices"
 tags: ["web-development", "react", "webrtc", "aws", "serverless", "p2p", "personal-project", "product-design"]
 draft: true
@@ -127,7 +127,7 @@ First, let's establish roles. Every Pourtle session consists of two devices. One
 
 Admittedly I'm cheap when it comes to projects like these. Why pay Amazon for a server to run 24/7 that I use <10 times per month when I could instead pay them for Prime and HBO Max (with ads)? **AWS Lambda + API Gateway WebSockets** means I only pay when someone's actually connecting devices. Widely known as a serverless architecture.
 
-There's a stateful piece to this to. This state lives in **DynamoDB**:
+There's a stateful piece to this too. This state lives in **DynamoDB**:
 - Creator starts session → store `{sessionCode: "123456", creatorId: "abc"}`  
 - Joiner enters code → update to `{sessionCode: "123456", creatorId: "abc", joinerId: "xyz"}`
 - Now when "abc" sends a message, the backend can relay it to "xyz".
