@@ -1,0 +1,159 @@
+{
+    "project": {
+        "name": "alexfischman.dev",
+        "purpose": "Personal portfolio and blog",
+        "top_level_dirs": [
+            "content/",
+            "web/",
+            "cert.yaml",
+            "dns-zone.yaml",
+            "dns-records.yaml"
+        ]
+    },
+    "tech_stack": {
+        "framework": "Next.js 15.2 (Pages Router)",
+        "runtime": "React 19",
+        "language": "TypeScript 5.x",
+        "styling": "Material-UI v6 (emotion)",
+        "animation": "framer-motion 12",
+        "markdown": "gray-matter + react-markdown",
+        "build_tools": [
+            "ts-node for pre-build scripts",
+            "shell post-build script"
+        ],
+        "package_manager": "Yarn (lockfile in repo)"
+    },
+    "rendering_strategy": {
+        "output_mode": "Static export (next export → web/out)",
+        "patterns": {
+            "ssg": [
+                "/               (getStaticProps)",
+                "/blog           (getStaticProps)",
+                "/blog/[slug]    (getStaticPaths + getStaticProps)",
+                "/experience     (getStaticProps)",
+                "/experience/[slug] (getStaticPaths + getStaticProps)"
+            ],
+            "csr_hydration": "All pages include 'use client' or client components for interactivity",
+            "no_runtime_ssr": true
+        },
+        "post_build_adjustment": {
+            "script": "web/post-build.sh",
+            "purpose": "Convert each standalone *.html into a folder/<file>/index.html to support trailingSlash URLs and SPA-style refresh on S3"
+        }
+    },
+    "content_workflow": {
+        "authoring_source": "content/",
+        "assets": [
+            "about.json",
+            "experience.json",
+            "blog/*.md"
+        ],
+        "prebuild_scripts": {
+            "generate-posts.ts": "Parses markdown with gray-matter → src/data/posts.json",
+            "generate-experience.ts": "Adds link previews + slugs → src/data/experience.json",
+            "copy-about.ts": "Copies about.json → src/data/about.json"
+        },
+        "npm_script": "yarn prebuild (run automatically before yarn build)"
+    },
+    "directory_layout_web": {
+        "src/components": "UI building blocks (blog, experience, common, layout, weather visualizer, etc.)",
+        "src/pages": "Pages Router entry points",
+        "public/": "Static assets (images, icons, OG pictures)",
+        "scripts/": "Node/TS utilities run during CI",
+        "out/": "Generated static site after build/export"
+    },
+    "infrastructure": {
+        "iac": "AWS CloudFormation (YAML)",
+        "stacks": {
+            "acm_certificate": "cert.yaml",
+            "route53_hosted_zone": "dns-zone.yaml",
+            "route53_records": "dns-records.yaml",
+            "static_site": "web/cloudformation.yaml"
+        },
+        "resources": {
+            "s3_bucket": {
+                "purpose": "Static hosting origin",
+                "encryption": "SSE-S3 (AES-256)",
+                "cors": "GET, HEAD from any origin",
+                "website_index": "index.html",
+                "website_error": "index.html"
+            },
+            "cloudfront_distribution": {
+                "origin": "S3 website endpoint",
+                "viewer_protocol_policy": "redirect-to-https",
+                "cache_policy": "CachingOptimized",
+                "cors_request_policy": "CORS-S3Origin",
+                "aliases": [
+                    "alexfischman.dev",
+                    "www.alexfischman.dev"
+                ],
+                "certificate": "ACM cert exported from cert.yaml",
+                "price_class": "PriceClass_100"
+            },
+            "route53": {
+                "apex_A_record": "Alias → CloudFront",
+                "www_A_record": "Alias → CloudFront"
+            }
+        }
+    },
+    "deployment_pipeline": {
+        "local_build_steps": [
+            "yarn install",
+            "yarn prebuild (content generation)",
+            "yarn build (next build)",
+            "next export (auto via output:'export')",
+            "bash post-build.sh (folderize pages)"
+        ],
+        "artifact_directory": "web/out/",
+        "publish_to_s3": "Sync out/ → S3 bucket (e.g., aws s3 sync --delete)",
+        "cdn_invalidation": "aws cloudfront create-invalidation --distribution-id ... --paths '/*'",
+        "ci_cd": "Not committed; any CI (GitHub Actions, CodeBuild, etc.) can run the above commands"
+    },
+    "security": {
+        "transport": "TLS 1.2 via ACM + CloudFront",
+        "data_access": "S3 bucket policy allows only public read (GetObject)",
+        "origin_encryption": "SSE-S3 at rest",
+        "viewer_https_enforced": true
+    },
+    "cost_optimization": {
+        "compute": "None (pure static), so $0 Lambda/EC2/Fargate",
+        "storage": "S3 standard infrequent writes, pennies per GB",
+        "transfer": "CloudFront PriceClass_100 (US/EU edge locations)",
+        "build": "Runs on CI runner only when content changes"
+    },
+    "extensibility_notes": {
+        "future_server_side_features": "Could add API routes via AWS Lambda + API Gateway behind the same CloudFront; not required today",
+        "nextjs_upgrade_path": "Can migrate to App Router (app/) gradually; static export still supported with next-static-exporter",
+        "edge_functions": "If needed, add Lambda@Edge for auth, A/B tests, etc."
+    },
+    "dependencies_snapshot": {
+        "dependencies": {
+            "next": "15.2.0",
+            "react": "19.0.0",
+            "react-dom": "19.0.0",
+            "@mui/material": "6.4.6",
+            "@emotion/react": "11.14.0",
+            "framer-motion": "12.4.10",
+            "gray-matter": "4.0.3",
+            "react-markdown": "10.1.0",
+            "remark": "15.0.1",
+            "remark-gfm": "4.0.1"
+        },
+        "devDependencies": {
+            "typescript": "5.x",
+            "ts-node": "10.9.2",
+            "eslint": "9.x",
+            "eslint-config-next": "15.2.0",
+            "link-preview-js": "3.0.14"
+        }
+    },
+    "open_questions": [
+        "CI/CD implementation details (currently unspecified)",
+        "Automated CloudFront invalidation strategy",
+        "Monitoring/alerting for S3 or CDN errors"
+    ],
+    "appendix": {
+        "first_blog_post_file": "content/blog/2025-03-12-my-first-post.md",
+        "current_git_branch": "development"
+    }
+}
