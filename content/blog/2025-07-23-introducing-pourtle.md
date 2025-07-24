@@ -16,7 +16,7 @@ Why is portal relevant though? What is this?
 
 I consider myself technologically savvy. Growing up, my dad brought internet to our house in 1997. I've had Facebook since 2007. Smart phones since 2009 (shout out Palm Pre). Dropbox since 2010. And a software engineering - related degree since 2015. The diploma says Electrical Engineering but there was a lot of coding within that curriculum.
 
-All that, and **I still struggle to move my digital content between my devices**. I can't tell you the amount of times I've sent myself a photo on Facebook Messenger to get a picture from my iPhone onto my PC. Or a blob of text that I needed to copy/paste. OR A URL! Just enthusiastically remembered that use case and it's a constant a pain point. Facebook Messenger for whatever reason has been the lightest weight mechanism I use to do this which is now a habit.
+All that, and **I still struggle to move my digital content between my devices**. I can't tell you the amount of times I've sent myself a photo on Facebook Messenger to get a picture from my iPhone onto my PC. Or a blob of text that I needed to copy/paste. OR A URL! Just enthusiastically remembered that use case and it's a constant pain point. Facebook Messenger for whatever reason has been the lightest weight mechanism I use to do this which is now a habit.
 
 This isn't unchartered territory though. Apple demonstrates masterclass in this problem space, as long as you use Apple products. A number of cloud services with names containing "Box" or "Drive" exist for this as well. My last project at Microsoft even aimed to solve this.
 
