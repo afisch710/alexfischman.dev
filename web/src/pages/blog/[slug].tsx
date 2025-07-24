@@ -16,7 +16,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
       <CustomHead
         title={`${post.title} | Alex Fischman`}
         description={post.description}
-        ogImage={post.ogImage || 'af_dark.png'}
+        ogImage={post.ogImage || '/af_dark.png'}
         ogUrl={`https://www.alexfischman.dev/blog/${post.slug}`}
       />
       <Container sx={{ p: 0 }}>

@@ -13,7 +13,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
             <CustomHead
                 title="Blog | Alex Fischman"
                 description="Read the latest blog posts by Alex Fischman on software engineering, AI, technology, weather, and more."
-                ogImage="af_dark.png"
+                ogImage="/af_dark.png"
                 ogUrl="https://www.alexfischman.dev/blog"
             />
             <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
