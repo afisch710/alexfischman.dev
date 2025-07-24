@@ -118,23 +118,17 @@ export default function BlogPost({ post }: BlogPostProps) {
                 
                 {/* Hero Image */}
                 {post.ogImage && (
-                    <Box sx={{ my: 4 }}>
+                    <Box sx={{ my: 2, display: 'flex', justifyContent: 'center' }}>
                         <Box
                             component="img"
                             src={post.ogImage}
                             alt={`${post.title} hero image`}
-                            onClick={() => handleImageClick(post.ogImage || '', `${post.title} hero image`)}
                             sx={{
-                                width: "100%",
+                                maxWidth: "200px",
+                                maxHeight: "200px",
                                 height: "auto",
                                 borderRadius: 2,
-                                cursor: "pointer",
-                                boxShadow: 2,
-                                transition: "transform 0.3s, box-shadow 0.3s",
-                                "&:hover": {
-                                    transform: "scale(1.02)",
-                                    boxShadow: 4
-                                }
+                                display: "block"
                             }}
                         />
                     </Box>

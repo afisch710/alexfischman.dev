@@ -81,7 +81,7 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
           stroke: '#ffffff !important',
         },
         '& rect.note': {
-          fill: 'transparent !important',
+          fill: '#555 !important',
           stroke: '#ffffff !important',
         },
         // Make all arrows white

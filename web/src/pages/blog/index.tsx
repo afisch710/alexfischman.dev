@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { GetStaticProps } from 'next';
 import type { Post } from '../../types/blog';
 import postsData from '../../data/posts.json';
@@ -17,13 +17,27 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                 ogUrl="https://www.alexfischman.dev/blog"
             />
             <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
-                <>
+                <Grid container spacing={3} sx={{ p: { xs: 1, sm: 2, md: 3 }, alignItems: 'stretch' }}>
                     {posts
                         .filter(post => !post.draft)
                         .map(post => (
-                            <BlogCard key={post.slug} post={post} />
+                            <Grid 
+                                item 
+                                xs={12} 
+                                sm={12} 
+                                md={6} 
+                                lg={4} 
+                                xl={4}
+                                key={post.slug}
+                                sx={{ 
+                                    display: 'flex', 
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <BlogCard post={post} fullWidth />
+                            </Grid>
                         ))}
-                </>
+                </Grid>
             </Box>
         </>
     );
