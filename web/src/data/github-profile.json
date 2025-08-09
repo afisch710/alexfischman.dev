@@ -1,5 +1,5 @@
 {
-  "totalContributions": 3914,
+  "totalContributions": 3950,
   "monthlyContributions": {
     "2024-08": 124,
     "2024-09": 360,
@@ -13,24 +13,24 @@
     "2025-05": 221,
     "2025-06": 518,
     "2025-07": 553,
-    "2025-08": 128
+    "2025-08": 164
   },
-  "commitContributions": 1978,
-  "issueContributions": 921,
-  "prContributions": 1008,
+  "commitContributions": 1998,
+  "issueContributions": 929,
+  "prContributions": 1016,
   "prReviewContributions": 3,
   "followersCount": 4,
   "followingCount": 0,
   "starredCount": 8,
   "reposContributedToCount": 4,
   "languageCount": {
-    "JavaScript": 1037068,
+    "JavaScript": 1063599,
     "CSS": 119553,
     "HTML": 28018,
     "TypeScript": 285570,
     "Shell": 174766,
     "Swift": 826569,
-    "Java": 1806313,
+    "Java": 1806334,
     "PowerShell": 357,
     "Ruby": 138907,
     "Python": 953704,
@@ -46,8 +46,8 @@
     "C": 12450
   },
   "workflows": {
-    "total": 6280,
-    "success": 3400,
-    "failure": 414
+    "total": 6317,
+    "success": 3426,
+    "failure": 415
   }
 }
