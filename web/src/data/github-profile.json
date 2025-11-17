@@ -1,5 +1,5 @@
 {
-  "totalContributions": 3412,
+  "totalContributions": 3211,
   "monthlyContributions": {
     "2024-11": 74,
     "2024-12": 46,
@@ -13,11 +13,11 @@
     "2025-08": 774,
     "2025-09": 159,
     "2025-10": 96,
-    "2025-11": 45
+    "2025-11": 47
   },
-  "commitContributions": 1624,
-  "issueContributions": 814,
-  "prContributions": 970,
+  "commitContributions": 1530,
+  "issueContributions": 760,
+  "prContributions": 917,
   "prReviewContributions": 1,
   "followersCount": 4,
   "followingCount": 0,
@@ -46,8 +46,8 @@
     "C": 12450
   },
   "workflows": {
-    "total": 5321,
-    "success": 3176,
+    "total": 5283,
+    "success": 3157,
     "failure": 455
   }
 }
