@@ -11,10 +11,11 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
     return (
         <>
             <CustomHead
-                title="Blog | Alex Fischman"
+                title="Blog | Alex Fischman – Founder & Senior Software Engineer"
                 description="Read the latest blog posts by Alex Fischman on software engineering, AI, technology, weather, and more."
                 ogImage="/af_dark.png"
                 ogUrl="https://www.alexfischman.dev/blog"
+                keywords="Alex Fischman, blog, software engineering, AI, weather technology, web development"
             />
             <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Grid container spacing={3} sx={{ p: { xs: 1, sm: 2, md: 3 }, alignItems: 'stretch' }}>

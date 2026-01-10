@@ -78,10 +78,11 @@ export default function ExperiencePage({
     return (
         <>
             <CustomHead
-                title="Experience | Alex Fischman – Senior Software Engineer & Founder"
-                description="Explore projects and professional experiences by Alex Fischman."
+                title="Experience | Alex Fischman – Founder & Senior Software Engineer"
+                description="Explore projects and professional experiences by Alex Fischman, including work at Microsoft, iOS development, Bluetooth protocols, and Smarter Weather."
                 ogImage="/af_dark.png"
                 ogUrl="https://www.alexfischman.dev/experience"
+                keywords="Alex Fischman, experience, Microsoft, iOS, Bluetooth, cross-device, Smarter Weather"
             />
             <Box sx={{ width: '100%', p: 0 }}>
                 {/* Header with title and filter toggle icon */}

@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import MenuIcon from "@mui/icons-material/Menu";
 import Footer from "./Footer";
 import { customMaxWidth } from '../../theme';
+import Image from 'next/image';
 
 const tabRoutes = ["", "blog", "experience", "about"];
 const tabNames = ["", "Blog", "Experience", "About Me"];
@@ -82,6 +83,26 @@ export default function PageLayout({
                 overflowY: "hidden",
             }}
         >
+            {/* Skip to main content link for accessibility */}
+            <Box
+                component="a"
+                href="#main-content"
+                sx={{
+                    position: 'absolute',
+                    top: -1000,
+                    left: 0,
+                    zIndex: 9999,
+                    backgroundColor: 'primary.main',
+                    color: 'white',
+                    padding: '8px 16px',
+                    textDecoration: 'none',
+                    '&:focus': {
+                        top: 0,
+                    },
+                }}
+            >
+                Skip to main content
+            </Box>
             <WeatherBackground />
             <Box
                 sx={{
@@ -105,6 +126,8 @@ export default function PageLayout({
             >
                 {/* Header with logo at left and Tabs at right */}
                 <Box
+                    component="header"
+                    role="banner"
                     sx={{
                         position: "sticky",
                         top: 0,
@@ -120,12 +143,21 @@ export default function PageLayout({
                     <Box
                         sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
                         onClick={() => router.push('/')}
+                        role="button"
+                        tabIndex={0}
+                        aria-label="Go to homepage"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                router.push('/');
+                            }
+                        }}
                     >
-                        <Box
-                            component="img"
+                        <Image
                             src="/af.svg"
                             alt="Logo"
-                            sx={{ height: 40 }}
+                            width={40}
+                            height={40}
                         />
                     </Box>
                     {isMobile && (
@@ -159,6 +191,8 @@ export default function PageLayout({
                         <IconButton
                             color="inherit"
                             onClick={() => setMobileNavOpen(true)}
+                            aria-label="Open navigation menu"
+                            aria-expanded={mobileNavOpen}
                             sx={{ color: 'white' }}
                         >
                             <MenuIcon />
@@ -172,6 +206,7 @@ export default function PageLayout({
                                 allowScrollButtonsMobile
                                 textColor="primary"
                                 indicatorColor="primary"
+                                aria-label="Main navigation"
                                 sx={{
                                     borderRadius: 4,
                                     "& .MuiTabs-flexContainer": {
@@ -183,6 +218,7 @@ export default function PageLayout({
                                     <Tab
                                         key={route}
                                         label={route === "" ? "Home" : route.charAt(0).toUpperCase() + route.slice(1)}
+                                        aria-label={`Navigate to ${route === "" ? "Home" : route}`}
                                         sx={{
                                             borderRadius: 4,
                                             pl: { xs: 0, sm: 2 },
@@ -201,6 +237,9 @@ export default function PageLayout({
                 </Box>
                 {/* Scrollable content area */}
                 <Box
+                    component="main"
+                    id="main-content"
+                    role="main"
                     sx={{
                         flex: 1,
                         overscrollBehaviorY: 'none',

@@ -5,13 +5,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import PageLayout from "@/components/layout/PageLayout";
 import { ThemeProvider } from "@mui/material/styles";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import { VisibilityProvider } from "@/context/VisibilityProvider";
 import theme from "../theme";
 import type { AppProps } from "next/app";
 import { roboto } from "@/lib/fonts";
 import GoogleAnalytics from "@/components/common/GoogleAnalytics";
-import PrivacyModal from "@/components/common/PrivacyModal";
+
+// Lazy load PrivacyModal since it's only shown on user interaction
+const PrivacyModal = dynamic(() => import("@/components/common/PrivacyModal"), {
+  ssr: false
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -25,8 +30,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Alex Fischman | Senior Software Engineer & Founder</title>
-        <meta name="description" content="Senior software engineer and founder of Smarter Weather. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology." />
+        <title>Alex Fischman | Founder & Senior Software Engineer</title>
+        <meta name="description" content="Founder of Smarter Weather and senior software engineer. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology." />
         <meta name="keywords" content="Alex Fischman, software engineer, senior developer, Microsoft, Smarter Weather, weather technology, full stack development, product development" />
         <meta name="author" content="Alex Fischman" />
         <meta name="robots" content="index, follow" />

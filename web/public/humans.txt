@@ -1,0 +1,14 @@
+/* TEAM */
+Developer & Designer: Alex Fischman
+Site: https://www.alexfischman.dev
+Location: United States
+
+/* THANKS */
+Framework: Next.js
+Hosting: AWS CloudFront & S3
+
+/* SITE */
+Last update: 2026/01/10
+Standards: HTML5, CSS3, JavaScript (ES6+)
+Components: React, TypeScript, Material-UI
+Software: Next.js 15, Framer Motion, React Markdown

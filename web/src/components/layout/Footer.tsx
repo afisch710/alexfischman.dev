@@ -185,7 +185,8 @@ export default function Footer() {
                     order: { xs: 2, sm: 2 },
                     textAlign: "center",
                     width: { xs: "100%", sm: "33%" },
-                    display: { xs: "block", sm: "block" }
+                    display: { xs: "block", sm: "block" },
+                    whiteSpace: 'nowrap'
                 }}
             >
                 © {currentYear} Alex Fischman. All rights reserved.

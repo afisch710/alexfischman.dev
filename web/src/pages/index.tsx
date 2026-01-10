@@ -4,15 +4,22 @@ import { Box, Typography, Container, Button, Fade, Zoom, TypographyProps, SxProp
 import Grid from '@mui/material/Grid2';
 import NextLink from 'next/link';
 import { GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import type { Post } from "../types/blog";
 import BlogCard from "../components/blog/BlogCard";
 import type { Experience } from '@/types/experience';
 import experiencesData from '@/data/experience.json';
 import ExperienceCard from '@/components/experience/ExperienceCard';
 import postsData from '@/data/posts.json';
-import GithubProfile from '@/components/github/GithubProfile';
 import CustomHead from '@/components/common/Head';
 import PersonStructuredData from '@/components/common/StructuredData';
+import WebsiteStructuredData from '@/components/common/WebsiteStructuredData';
+
+// Lazy load GitHub profile since it's at the bottom
+const GithubProfile = dynamic(() => import('@/components/github/GithubProfile'), {
+    loading: () => <Box sx={{ minHeight: 400 }} />,
+    ssr: true
+});
 
 // Track if intro has played in this SPA session
 let introPlayedInApp = false;
@@ -90,7 +97,7 @@ export default function Home({
     const [githubVisible, setGithubVisible] = useState(false);
     const [skipped, setSkipped] = useState(false);
 
-    const firstText = "Hi, I'm Alex Fischman.\nA senior software engineer and founder of Smarter Weather.";
+    const firstText = "Hi, I'm Alex Fischman.\nFounder of Smarter Weather and senior software engineer.";
 
     // Memoize onComplete handlers so they don't change identity each render
     const handleFirstDone = useCallback(() => {
@@ -129,8 +136,8 @@ export default function Home({
     return (
         <>
             <CustomHead
-                title="Alex Fischman | Senior Software Engineer & Founder"
-                description="Senior software engineer and founder of Smarter Weather. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology."
+                title="Alex Fischman | Founder & Senior Software Engineer"
+                description="Founder of Smarter Weather and senior software engineer. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology."
                 ogImage="/af_dark.png"
                 ogUrl="https://www.alexfischman.dev/"
                 canonical="/"
@@ -138,8 +145,8 @@ export default function Home({
             />
             <PersonStructuredData
                 name="Alex Fischman"
-                jobTitle="Senior Software Engineer & Founder"
-                description="Senior software engineer and founder of Smarter Weather. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology."
+                jobTitle="Founder & Senior Software Engineer"
+                description="Founder of Smarter Weather and senior software engineer. 10+ years at Microsoft building products used by millions. Expert in full stack, product development, and weather technology."
                 url="https://www.alexfischman.dev"
                 image="/headshot.JPG"
                 sameAs={[
@@ -160,6 +167,12 @@ export default function Home({
                     "Microsoft Technologies",
                     "AI and Machine Learning"
                 ]}
+            />
+            <WebsiteStructuredData
+                name="Alex Fischman - Portfolio"
+                description="Professional portfolio of Alex Fischman, founder of Smarter Weather and senior software engineer"
+                url="https://www.alexfischman.dev"
+                includeSearchAction={true}
             />
             <Container sx={{ p: 0 }}>
                 {/* Global CSS for animations */}
