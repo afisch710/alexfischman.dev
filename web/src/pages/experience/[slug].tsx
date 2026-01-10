@@ -5,6 +5,7 @@ import ExperiencePage from '@/components/experience/ExperiencePage';
 import type { Experience } from '../../types/experience';
 import experiencesData from '../../data/experience.json';
 import CustomHead from '@/components/common/Head';
+import BreadcrumbStructuredData from '@/components/common/BreadcrumbStructuredData';
 
 interface ExperienceSlugPageProps {
   experience: Experience;
@@ -14,10 +15,18 @@ export default function ExperienceSlugPage({ experience }: ExperienceSlugPagePro
   return (
     <>
       <CustomHead
-        title={`${experience.title} | Alex Fischman`}
+        title={`${experience.title} | Alex Fischman – Founder & Senior Software Engineer`}
         description={experience.description}
         ogImage={experience.ogImage || '/af_dark.png'}
         ogUrl={`https://www.alexfischman.dev/experience/${experience.slug}`}
+        keywords={`Alex Fischman, experience, ${experience.tags?.join(', ')}`}
+      />
+      <BreadcrumbStructuredData
+        items={[
+          { name: "Home", url: "https://www.alexfischman.dev/" },
+          { name: "Experience", url: "https://www.alexfischman.dev/experience" },
+          { name: experience.title, url: `https://www.alexfischman.dev/experience/${experience.slug}` }
+        ]}
       />
       <Container sx={{ p: 0 }}>
         <ExperiencePage experience={experience} />

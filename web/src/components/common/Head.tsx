@@ -69,6 +69,9 @@ export default function CustomHead({
             {/* Preconnect to external domains for performance */}
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+            
+            {/* RSS Feed */}
+            <link rel="alternate" type="application/rss+xml" title="Alex Fischman Blog" href="/rss.xml" />
         </Head>
     );
 } 

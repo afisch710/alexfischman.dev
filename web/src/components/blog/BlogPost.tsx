@@ -5,11 +5,13 @@ import { Box, Typography, Container, Divider, Button, Link as MuiLink, Paper, Sn
 import ShareIcon from '@mui/icons-material/Share';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Post } from "../../types/blog";
 import MermaidDiagram from "./MermaidDiagram";
+import { calculateReadingTime, formatReadingTime } from "@/lib/readingTime";
 
 interface BlogPostProps {
     post: Post;
@@ -24,6 +26,7 @@ export default function BlogPost({ post }: BlogPostProps) {
     });
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const readingTime = calculateReadingTime(post.body);
 
     const handleShare = async () => {
         try {
@@ -67,20 +70,20 @@ export default function BlogPost({ post }: BlogPostProps) {
                 </Typography>
                 {/* Author Section */}
                 <Box sx={{ mt: 2, mb: 4 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
                         {/* Author headshot now links to the About page */}
                         <Box
                             component={NextLink}
                             href="/about/"
-                            sx={{ display: 'inline-block', mr: 2 }}
+                            sx={{ display: 'inline-block', mr: 2.5 }}
                         >
                             <Box
                                 component="img"
                                 src="/headshot.JPG"
                                 alt="Author headshot"
                                 sx={{
-                                    width: 56,
-                                    height: 56,
+                                    width: { xs: 80, sm: 90 },
+                                    height: { xs: 80, sm: 90 },
                                     borderRadius: '50%',
                                     border: '2px solid',
                                     borderColor: 'divider',
@@ -88,8 +91,8 @@ export default function BlogPost({ post }: BlogPostProps) {
                                 }}
                             />
                         </Box>
-                        <Box>
-                            {/* Author name now links to the About page */}
+                        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                            {/* Author name */}
                             <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
                                 <MuiLink
                                     component={NextLink}
@@ -103,9 +106,30 @@ export default function BlogPost({ post }: BlogPostProps) {
                                     Alex Fischman
                                 </MuiLink>
                             </Typography>
+                            {/* Published date */}
                             <Typography variant="caption" color="text.secondary">
                                 {`published ${formatPublishTime(post.date)}`}
                             </Typography>
+                            {/* Reading time chip */}
+                            <Box>
+                                <Chip
+                                    icon={<AccessTimeIcon color="primary" sx={{ fontSize: '0.875rem' }} />}
+                                    label={formatReadingTime(readingTime)}
+                                    size="small"
+                                    variant="outlined"
+                                    sx={{ 
+                                        height: 'auto',
+                                        py: 0.5,
+                                        '& .MuiChip-label': { 
+                                            px: 1,
+                                            fontSize: '0.75rem'
+                                        },
+                                        '& .MuiChip-icon': {
+                                            marginLeft: '4px'
+                                        }
+                                    }}
+                                />
+                            </Box>
                         </Box>
                     </Box>
                     {/* Tags shown as separate row for all screen sizes */}

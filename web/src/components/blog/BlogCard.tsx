@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Card, CardActionArea, CardContent, Typography, Box, Button } from "@mui/material";
 import { Post } from "../../types/blog";
 import TagClamp from "../common/TagClamp";
+import { calculateReadingTime, formatReadingTime } from "@/lib/readingTime";
 
 interface BlogCardProps {
   post: Post;
@@ -10,6 +11,8 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ post, fullWidth = false }: BlogCardProps) {
+  const readingTime = calculateReadingTime(post.body);
+
   return (
     <Card
       sx={{
@@ -32,19 +35,19 @@ export default function BlogCard({ post, fullWidth = false }: BlogCardProps) {
         })
       }}
     >
-      <CardActionArea 
-        component={Link} 
-        href={`/blog/${post.slug}`} 
-        sx={fullWidth ? { 
-          height: '100%', 
-          display: 'flex', 
-          flexDirection: 'column' 
+      <CardActionArea
+        component={Link}
+        href={`/blog/${post.slug}`}
+        sx={fullWidth ? {
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column'
         } : {}}
       >
-        <CardContent sx={fullWidth ? { 
-          p: 3, 
-          height: '100%', 
-          display: 'flex', 
+        <CardContent sx={fullWidth ? {
+          p: 3,
+          height: '100%',
+          display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between'
         } : { p: 3 }}>
@@ -74,8 +77,15 @@ export default function BlogCard({ post, fullWidth = false }: BlogCardProps) {
             </>
           )}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: fullWidth ? 'auto' : 0 }}>
-            <Button variant="outlined" sx={{ textTransform: "none", color: "primary.main" }}>
-              Read More →
+            <Button 
+              variant="outlined" 
+              sx={{ 
+                textTransform: "none", 
+                color: "primary.main",
+                fontWeight: 600
+              }}
+            >
+              {formatReadingTime(readingTime)} →
             </Button>
             <Typography variant="caption" color="text.secondary">
               {formatPublishTime(post.date)}

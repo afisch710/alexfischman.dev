@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid2';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import Image from 'next/image';
 import aboutData from '@/data/about.json';
 import CustomHead from '@/components/common/Head';
 // Keep the import but don't use it for now
@@ -39,6 +40,7 @@ export default function About() {
                 description={aboutData.description}
                 ogImage={aboutData.ogImage}
                 ogUrl="https://www.alexfischman.dev/about"
+                keywords="Alex Fischman, about, software engineer, Microsoft, Smarter Weather, University of Iowa"
             />
             <Container maxWidth="lg" sx={{ p: 0 }}>
                 <Paper
@@ -55,20 +57,27 @@ export default function About() {
                         <Stack direction="column" spacing={2} alignItems="flex-start" sx={{ mb: 2 }}>
                             <Stack direction="row" spacing={2} alignItems="center">
                                 <Box
-                                    component="img"
-                                    src="/headshot.JPG"
-                                    alt="Alex Fischman"
                                     sx={{
                                         width: 140,
                                         height: 140,
                                         borderRadius: '50%',
-                                        objectFit: 'cover',
+                                        overflow: 'hidden',
+                                        position: 'relative'
                                     }}
-                                />
+                                >
+                                    <Image
+                                        src="/headshot.JPG"
+                                        alt="Alex Fischman"
+                                        fill
+                                        style={{ objectFit: 'cover' }}
+                                        sizes="140px"
+                                        priority
+                                    />
+                                </Box>
                                 <Stack direction="column" spacing={1}>
                                     <Typography variant="h5" sx={{ pl: 1 }}>Alex Fischman</Typography>
-                                    <Chip label="Senior Software Engineer" color="primary" variant="outlined" size="small" />
                                     <Chip label="Founder, Smarter Weather LLC" color="primary" variant="outlined" size="small" />
+                                    <Chip label="Senior Software Engineer" color="primary" variant="outlined" size="small" />
                                     <Zoom in={showContacts} timeout={500} style={{ transitionDelay: '200ms' }}>
                                       <Stack direction="row" justifyContent="flex-start" gap={4} sx={{ width: '100%', pl: 1 }}>
                                           <Link
@@ -102,24 +111,31 @@ export default function About() {
                         // Desktop layout
                         <Stack direction="row" spacing={2} alignItems="flex-start" sx={{ mb: 4 }}>
                             <Box
-                                component="img"
-                                src="/headshot.JPG"
-                                alt="Alex Fischman"
                                 sx={{
                                     width: 120,
                                     height: 120,
                                     borderRadius: '50%',
-                                    objectFit: 'cover',
-                                    aspectRatio: '1',
+                                    overflow: 'hidden',
+                                    position: 'relative',
+                                    aspectRatio: '1'
                                 }}
-                            />
+                            >
+                                <Image
+                                    src="/headshot.JPG"
+                                    alt="Alex Fischman"
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                    sizes="120px"
+                                    priority
+                                />
+                            </Box>
                             <Stack direction="column" spacing={2} sx={{ flex: 1 }}>
                                 <Typography variant="h4" component="h1">
                                     Alex Fischman
                                 </Typography>
                                 <Stack direction="row" spacing={1} alignItems="center">
-                                    <Chip label="Senior Software Engineer" color="primary" variant="outlined" />
                                     <Chip label="Founder, Smarter Weather LLC" color="primary" variant="outlined" />
+                                    <Chip label="Senior Software Engineer" color="primary" variant="outlined" />
                                 </Stack>
                                 <Zoom in={showContacts} timeout={500} style={{ transitionDelay: '200ms' }}>
                                   <Stack direction="row" spacing={2}>
