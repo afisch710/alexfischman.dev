@@ -337,6 +337,29 @@
         ]
     },
     {
+        "slug": "nwws-reader",
+        "title": "Real-Time Severe Weather Alert Ingestion via NOAA NWWS",
+        "company": "SmarterWeather",
+        "team": "",
+        "tags": [
+            "Java",
+            "Spring Boot",
+            "XMPP",
+            "AWS",
+            "SNS",
+            "ECS Fargate",
+            "Docker",
+            "CAP Alerts",
+            "GeoJSON",
+            "Maven"
+        ],
+        "priority": 1,
+        "description": "Built a Spring Boot microservice that maintains a persistent XMPP connection to NOAA's National Weather Wire Service, delivering severe weather alerts to end users with minimal latency — seconds after NWS issues them, before they appear on most public services. The service implements an event-driven pipeline that parses raw WMO/AWIPS messages, transforms CAP v1.2 alert XML into GeoJSON, and publishes to AWS SNS for downstream fan-out. Multi-info CAP messages (e.g., a single advisory spanning zones with different VTEC actions) are split into discrete GeoJSON features, preserving data fidelity for downstream consumers. Deployed as an always-on ECS Fargate task with chaos-tested XMPP fault tolerance and automatic reconnection.",
+        "artifacts": [
+            "/experience/artifacts/images/nwws_reader.png"
+        ]
+    },
+    {
         "title": "Spatial Weather",
         "company": "Smarter Weather",
         "team": "",
