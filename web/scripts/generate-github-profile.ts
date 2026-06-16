@@ -96,6 +96,23 @@ async function generateGitHubProfile(username: string, outputFile: string): Prom
   });
 
   const graphqlData = await graphqlResponse.json();
+
+  if (!graphqlResponse.ok) {
+    throw new Error(
+      `GitHub GraphQL request failed with HTTP ${graphqlResponse.status} ${graphqlResponse.statusText}. ` +
+      `Verify GITHUB_TOKEN is valid and not expired.`
+    );
+  }
+  if (graphqlData.errors) {
+    throw new Error(`GitHub GraphQL returned errors: ${JSON.stringify(graphqlData.errors)}`);
+  }
+  if (!graphqlData.data || !graphqlData.data.user) {
+    throw new Error(
+      `GitHub GraphQL returned no data for user "${username}". ` +
+      `Check the username and that the token has the read:user scope.`
+    );
+  }
+
   console.log('GraphQL Response:', JSON.stringify(graphqlData, null, 2));
 
   // Extract total contributions

@@ -67,11 +67,31 @@ The `generate-github-profile.ts` script fetches GitHub profile data including:
 
 ### Creating a GitHub Token
 
-1. Go to GitHub Settings > Developer settings > Personal access tokens
-2. Generate a new token with the following permissions:
-   - `read:user`
-   - `repo` (for private repositories)
-3. Add the token to your `.env` file as described above
+Use a **classic** personal access token (the scopes below have no equivalent on
+fine-grained tokens, so a fine-grained token would silently return public-only data):
+
+1. Go to GitHub Settings > Developer settings > Personal access tokens > Tokens (classic)
+2. Generate a new token with the following scopes:
+   - `repo` — read private repositories (used for language and workflow-run stats)
+   - `read:user` — **required** so `contributionsCollection` includes your private-repo
+     contribution counts. Without it the contribution totals drop to public-only.
+3. Add the token to your `.env` file as described above.
+
+> Token must belong to the same account whose stats are generated (`afisch710`),
+> otherwise private repos and private contributions are excluded.
+
+### Token expiry and the nightly workflow
+
+The scheduled `Refresh GitHub Profile Data` GitHub Action reads this token from the
+`PROFILE_UPDATE_TOKEN` repository secret. **When the token expires the nightly run
+fails** (checkout can no longer authenticate). To recover, generate a new classic
+token with the scopes above and update the secret:
+
+```bash
+gh secret set PROFILE_UPDATE_TOKEN
+```
+
+Set a long expiration and a calendar reminder to rotate it before it lapses.
 
 ### Output
 
