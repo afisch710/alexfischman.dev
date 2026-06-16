@@ -9,6 +9,20 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
+      - name: Validate PROFILE_UPDATE_TOKEN
+        env:
+          GH_TOKEN: ${{ secrets.PROFILE_UPDATE_TOKEN }}
+        run: |
+          status=$(curl -sS -o /dev/null -w "%{http_code}" \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/user)
+          if [ "$status" != "200" ]; then
+            echo "::error::PROFILE_UPDATE_TOKEN is invalid or expired (GitHub API returned HTTP $status). Regenerate the classic PAT (scopes: repo + read:user) and update the repository secret."
+            exit 1
+          fi
+          echo "PROFILE_UPDATE_TOKEN validated successfully."
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -43,7 +57,9 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git checkout -b "update/github-profile-$(date +%Y%m%d%H%M)"
+          BRANCH_NAME="update/github-profile-$(date +%Y%m%d%H%M%S)"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> "$GITHUB_ENV"
+          git checkout -b "$BRANCH_NAME"
 
       - name: Commit changes
         run: |
@@ -62,7 +78,7 @@ jobs:
       - name: Push changes
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
-          git push origin "update/github-profile-$(date +%Y%m%d%H%M)"
+          git push origin "$BRANCH_NAME"
 
       - name: Create Pull Request
         if: steps.check_changes.outputs.has_changes == 'true'
@@ -74,7 +90,7 @@ jobs:
             --title "chore: update GitHub profile data" \
             --body "Automated update of GitHub profile statistics" \
             --base development \
-            --head "update/github-profile-$(date +%Y%m%d%H%M)")
+            --head "$BRANCH_NAME")
           echo "Pull request created at $PR_URL"
           
           # Extract the PR number from the URL
