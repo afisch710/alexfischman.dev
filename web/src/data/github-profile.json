@@ -1,5 +1,5 @@
 {
-  "totalContributions": 19140,
+  "totalContributions": 19543,
   "monthlyContributions": {
     "2025-08": 418,
     "2025-09": 159,
@@ -13,27 +13,27 @@
     "2026-05": 1178,
     "2026-06": 1886,
     "2026-07": 3732,
-    "2026-08": 2970
+    "2026-08": 3373
   },
-  "commitContributions": 12203,
-  "issueContributions": 3241,
-  "prContributions": 3450,
-  "prReviewContributions": 241,
+  "commitContributions": 12466,
+  "issueContributions": 3306,
+  "prContributions": 3515,
+  "prReviewContributions": 251,
   "followersCount": 4,
   "followingCount": 0,
   "starredCount": 16,
   "reposContributedToCount": 7,
   "languageCount": {
-    "JavaScript": 3270456,
+    "JavaScript": 3293048,
     "CSS": 222228,
     "HTML": 325914,
-    "TypeScript": 13469049,
-    "Shell": 737908,
-    "Swift": 6122314,
+    "TypeScript": 13795121,
+    "Shell": 739008,
+    "Swift": 6153237,
     "Java": 2093269,
     "PowerShell": 357,
-    "Ruby": 4136697,
-    "Python": 8331101,
+    "Ruby": 4144412,
+    "Python": 8450491,
     "Makefile": 39207,
     "Objective-C": 3410675,
     "C++": 6116,
@@ -43,10 +43,10 @@
     "Dockerfile": 41768,
     "CoffeeScript": 1109,
     "C": 1549279,
-    "Go": 3927911,
+    "Go": 3941980,
     "PLpgSQL": 329953,
     "Rust": 271399,
-    "Metal": 107221,
+    "Metal": 107362,
     "Go Template": 21785,
     "Lua": 20727,
     "MDX": 9582,
@@ -54,7 +54,7 @@
   },
   "workflows": {
     "total": 41206,
-    "success": 45284,
-    "failure": 3071
+    "success": 14867,
+    "failure": 3237
   }
 }
