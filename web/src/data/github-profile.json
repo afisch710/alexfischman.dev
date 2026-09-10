@@ -1,5 +1,5 @@
 {
-  "totalContributions": 21696,
+  "totalContributions": 21904,
   "monthlyContributions": {
     "2025-09": 104,
     "2025-10": 96,
@@ -13,33 +13,33 @@
     "2026-06": 1886,
     "2026-07": 3732,
     "2026-08": 5247,
-    "2026-09": 752
+    "2026-09": 960
   },
-  "commitContributions": 13902,
-  "issueContributions": 3637,
-  "prContributions": 3819,
-  "prReviewContributions": 333,
+  "commitContributions": 14043,
+  "issueContributions": 3671,
+  "prContributions": 3847,
+  "prReviewContributions": 338,
   "followersCount": 4,
   "followingCount": 0,
   "starredCount": 16,
   "reposContributedToCount": 7,
   "languageCount": {
-    "JavaScript": 3331111,
+    "JavaScript": 3353175,
     "CSS": 224191,
     "HTML": 328067,
-    "TypeScript": 16840339,
-    "Shell": 778931,
-    "Swift": 6852195,
-    "Java": 2117066,
+    "TypeScript": 17030949,
+    "Shell": 787946,
+    "Swift": 6865590,
+    "Java": 2132892,
     "PowerShell": 357,
-    "Ruby": 4358262,
-    "Python": 8932679,
+    "Ruby": 4393959,
+    "Python": 8951724,
     "Makefile": 39207,
     "Objective-C": 3410675,
-    "C++": 109190,
+    "C++": 122436,
     "Gherkin": 361,
     "Groff": 1,
-    "Kotlin": 2034752,
+    "Kotlin": 2234102,
     "Dockerfile": 41912,
     "CoffeeScript": 1109,
     "C": 1549279,
@@ -50,13 +50,13 @@
     "GLSL": 31284,
     "Go Template": 21785,
     "Lua": 20727,
-    "CMake": 648,
+    "CMake": 928,
     "MDX": 9582,
     "SCSS": 742
   },
   "workflows": {
-    "total": 41157,
-    "success": 61895,
-    "failure": 4520
+    "total": 41160,
+    "success": 62935,
+    "failure": 4610
   }
 }
