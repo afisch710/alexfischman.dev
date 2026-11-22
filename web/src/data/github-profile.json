@@ -1,7 +1,7 @@
 {
-  "totalContributions": 40860,
+  "totalContributions": 40862,
   "monthlyContributions": {
-    "2025-11": 83,
+    "2025-11": 26,
     "2025-12": 757,
     "2026-01": 1429,
     "2026-02": 2230,
@@ -13,11 +13,11 @@
     "2026-08": 5247,
     "2026-09": 4411,
     "2026-10": 8372,
-    "2026-11": 7378
+    "2026-11": 7380
   },
-  "commitContributions": 27304,
+  "commitContributions": 27305,
   "issueContributions": 6738,
-  "prContributions": 5903,
+  "prContributions": 5904,
   "prReviewContributions": 910,
   "followersCount": 4,
   "followingCount": 0,
@@ -26,13 +26,13 @@
   "languageCount": {
     "JavaScript": 10388335,
     "CSS": 518776,
-    "HTML": 762104,
-    "TypeScript": 59392262,
+    "HTML": 762099,
+    "TypeScript": 59536019,
     "Shell": 1349590,
     "Swift": 8354124,
     "Java": 2226225,
     "PowerShell": 357,
-    "Ruby": 10058764,
+    "Ruby": 10192541,
     "Python": 18931185,
     "Makefile": 39207,
     "Objective-C": 3410675,
@@ -40,7 +40,7 @@
     "Gherkin": 361,
     "Groff": 1,
     "Kotlin": 3717228,
-    "Dockerfile": 65230,
+    "Dockerfile": 65880,
     "CoffeeScript": 1109,
     "C": 1551412,
     "Go": 13838549,
@@ -55,8 +55,8 @@
     "SCSS": 742
   },
   "workflows": {
-    "total": 40961,
-    "success": 3419,
+    "total": 40942,
+    "success": 3400,
     "failure": 2542
   }
 }
